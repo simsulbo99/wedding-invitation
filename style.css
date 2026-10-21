@@ -124,3 +124,265 @@ body:not(.opening) .unbox-signature{display:none}
 /* Map spans the entire page rather than squeezing into the right information column. */
 .day-section>.venue-map{max-width:960px;margin:82px auto 0}
 @media(max-width:700px){.day-section>.venue-map{margin-top:55px}}
+
+/* ===========================================================================
+   V5 — Six editorial chapters.  The original Atlas page CSS is kept intact.
+   All selectors here affect only the invitation page unless explicitly noted.
+   =========================================================================== */
+:root {
+  --paper:#f8f7f3;
+  --cream:#f2efe9;
+  --ink:#152b2d;
+  --blue:#81d8d0;
+  --muted:#61716f;
+}
+.invitation-page { background:var(--paper); }
+.invitation-page .section-head { font-size:clamp(10px,1.2vw,12px); letter-spacing:.13em; }
+.invitation-page .section-head span:last-child { text-align:right; }
+.invitation-page .micro { letter-spacing:.13em; }
+
+/* 00 / Larger, more legible cover typography with intentional vertical spacing. */
+.unbox-signature { top:clamp(68px,12vh,150px); gap:0; width:95%; text-shadow:0 2px 20px rgba(248,247,243,.66); }
+.unbox-signature strong { font:500 clamp(29px,7.5vw,42px)/1.12 var(--serif); letter-spacing:-.046em; white-space:nowrap; }
+.unbox-signature em { margin-top:clamp(25px,4.5vh,41px); font:italic 400 clamp(29px,7.5vw,41px)/1.16 var(--serif); letter-spacing:-.035em; }
+.unbox-signature small { margin-top:12px; font:600 clamp(14px,3.8vw,16px)/1.4 var(--sans); letter-spacing:.12em; }
+
+/* 01 / No navigation: the couple's names become the opening masthead. */
+.invitation-page .hero { padding-top:0; padding-bottom:clamp(82px,9vw,132px); overflow:visible; }
+.invitation-page .hero::before { top:150px; right:0; width:24%; height:500px; background:#edf3f0; }
+.hero-masthead { display:flex; align-items:center; justify-content:space-between; gap:28px; padding:30px 0 27px; position:relative; z-index:3; }
+.hero-nameplate { font:500 clamp(35px,4.2vw,64px)/1.05 var(--serif); letter-spacing:-.064em; white-space:nowrap; }
+.hero-nameplate i { font-weight:400; color:#398d86; }
+.hero-masthead-side { text-align:right; line-height:1.7!important; color:var(--muted); }
+.hero-chapter { position:relative; z-index:2; }
+.invitation-page .hero-grid { grid-template-columns:47% 53%; min-height:690px; }
+.invitation-page .hero-copy { padding-top:36px; }
+.invitation-page .hero-intro { margin-bottom:66px; }
+.invitation-page .hero h1 { font-weight:400; font-size:clamp(81px,9.3vw,152px); margin-bottom:53px; }
+.invitation-page .hero h1 i { font-weight:400; margin-left:13%; }
+.invitation-page .hero-foot { max-width:460px; }
+.invitation-page .hero-foot .caption-kr { font-size:clamp(16px,1.5vw,21px); }
+.invitation-page .hero-media { min-height:560px; height:min(62vw,735px); }
+.invitation-page .hero-plate { background:var(--blue); }
+.invitation-page .hero-photo-frame { width:84%; }
+.invitation-page .hero-photo-caption { color:var(--ink); }
+.invitation-page .statement { background:var(--blue); }
+.invitation-page .statement-overline { margin-bottom:12px; }
+.invitation-page .statement-grid { min-height:158px; }
+
+/* 02 / Quote and portrait: a compact editorial spread, not another gallery. */
+.invitation-page .note-section { padding-top:clamp(92px,11vw,150px); padding-bottom:clamp(100px,12vw,170px); }
+.note-editorial { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.76fr); gap:clamp(50px,7vw,130px); align-items:center; margin-top:clamp(60px,8vw,115px); }
+.note-words { min-width:0; }
+.note-kicker { color:#4a7973; }
+.invitation-page .note-words .quote { font:400 clamp(55px,7.6vw,112px)/1.06 var(--serif); letter-spacing:-.075em; margin:38px 0 51px; }
+.invitation-page .note-words .quote i { font-weight:400; }
+.note-translation { font:300 clamp(16px,1.6vw,22px)/2 var(--kr); letter-spacing:-.07em; border-left:2px solid #6dbdb6; padding-left:23px; margin:0; word-break:keep-all; }
+.invitation-page .note-foot { color:var(--muted); display:block; text-align:left; margin:48px 0 0; font-size:10px; line-height:1.9; }
+.note-portrait { margin:0; align-self:center; transform:translateY(24px); }
+.note-portrait-frame { width:100%; aspect-ratio: .77; overflow:hidden; background:#d1ddd8; }
+.note-portrait-frame img { width:100%; height:100%; object-fit:cover; object-position:50% 50%; }
+.note-portrait figcaption { display:flex; justify-content:space-between; gap:12px; padding-top:15px; border-top:1px solid var(--hair); margin-top:14px; font-size:9px; }
+
+/* 03 / Warm paper balances the pale note and dark Atlas. */
+.invitation-page .day-section { background:var(--cream); padding-top:clamp(100px,11vw,155px); padding-bottom:clamp(98px,10vw,148px); }
+.invitation-page .day-grid { margin-top:clamp(57px,7vw,90px); gap:clamp(40px,6vw,90px); }
+.invitation-page .day-section h2 { font-size:clamp(90px,11vw,169px); }
+.invitation-page .day-right { padding-top:45px; }
+.invitation-page .detail-sub { color:#52625f; font-size:13px; }
+.invitation-page .day-section .detail-title.detail-korean { font-weight:400; }
+.invitation-page .day-section .detail-time { font-size:18px; }
+.invitation-page .day-section>.venue-map { max-width:1020px; margin:96px auto 0; }
+.invitation-page .venue-map { padding-top:17px; }
+.invitation-page .venue-map-heading { margin-bottom:18px; }
+.venue-map-crop { overflow:hidden; width:100%; aspect-ratio:716 / 471; position:relative; background:#e4e4e4; }
+.venue-map-crop img { width:100%; height:auto; max-width:none; display:block; }
+.route-links { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px; }
+.route-link { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:62px; padding:0 23px; font:500 clamp(13px,1.5vw,16px) var(--kr); border:1px solid #9bbab5; transition:background .2s,color .2s,border-color .2s; }
+.route-link span:last-child { font:400 28px var(--serif); }
+.route-kakao { background:var(--ink); border-color:var(--ink); color:#fff; }
+.route-kakao:hover { background:#2b5554; }
+.route-tmap { background:#f8f7f3; }
+.route-tmap:hover { background:#d9ebe5; border-color:#387c76; }
+.invitation-page .access-summary { border-top:1px solid var(--hair); margin-top:26px; gap:40px; padding:25px 0 0; border-bottom:0; }
+.invitation-page .access-summary p { font-size:clamp(12px,1.15vw,14px); line-height:2.05; }
+
+/* 04 / The whole photo + large Tiffany-blue ticket is a tap target. */
+.invitation-page .atlas-teaser { background:#192f31; color:#f8f7f3; padding:clamp(90px,9vw,130px) 0 clamp(95px,9vw,130px); }
+.invitation-page .atlas-teaser::before { content:'04'; font-size:420px; right:-48px; bottom:-140px; color:rgba(129,216,208,.044); }
+.invitation-page .atlas-teaser .section-head { border-color:rgba(255,255,255,.35); }
+.invitation-page .atlas-teaser-top { grid-template-columns:1fr 265px; padding-top:clamp(65px,8vw,110px); margin-bottom:clamp(58px,7vw,95px); }
+.invitation-page .atlas-teaser h2 { font-size:clamp(76px,9vw,139px); }
+.invitation-page .atlas-teaser-intro { color:#d5e7e2; font-size:clamp(14px,1.3vw,16px); }
+.atlas-feature { position:relative; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.8fr); min-height:clamp(480px,46vw,655px); isolation:isolate; cursor:pointer; box-shadow:0 20px 55px rgba(0,0,0,.15); }
+.atlas-feature-image { min-width:0; overflow:hidden; background:#304a49; }
+.atlas-feature-image img { width:100%; height:100%; object-fit:cover; object-position:50% 50%; transition:transform .5s ease; }
+.atlas-feature:hover .atlas-feature-image img { transform:scale(1.045); }
+.atlas-feature-ticket { display:flex; flex-direction:column; justify-content:space-between; background:#87dcd3; color:#152b2d; padding:clamp(23px,3.3vw,48px); position:relative; }
+.atlas-feature-ticket::before { content:''; position:absolute; inset:12px; border:1px solid rgba(21,43,45,.22); pointer-events:none; }
+.ticket-edition { line-height:1.6!important; }
+.ticket-middle { display:flex; align-items:center; gap:20px; margin-top:35px; }
+.ticket-number { font:400 clamp(82px,10vw,154px)/.75 var(--serif); letter-spacing:-.085em; white-space:nowrap; }
+.ticket-number .micro { display:block; font-size:10px; margin-top:19px; text-align:center; }
+.ticket-rule { align-self:stretch; width:1px; background:rgba(21,43,45,.35); }
+.ticket-action { display:flex; justify-content:space-between; align-items:end; gap:16px; margin-top:50px; }
+.ticket-intro { display:block; margin-bottom:16px; font:300 clamp(12px,1.2vw,15px)/1.7 var(--kr); }
+.ticket-action strong { display:block; font:400 clamp(44px,5vw,72px)/1.01 var(--serif); letter-spacing:-.063em; }
+.ticket-sub { display:block; margin-top:25px; font-size:10px; }
+.ticket-arrow { display:grid; place-items:center; width:clamp(62px,6vw,83px); height:clamp(62px,6vw,83px); border-radius:50%; background:var(--ink); color:var(--blue); font:400 clamp(35px,3.5vw,53px)/1 var(--serif); flex-shrink:0; transition:transform .25s,background .25s; }
+.atlas-feature:hover .ticket-arrow { transform:translate(3px,-3px); background:#305c5b; }
+.atlas-feature:focus-visible { outline:3px solid #81d8d0; outline-offset:8px; }
+.atlas-after { text-align:right; margin:24px 0 0; font-size:10px; color:#bfd4cf; }
+
+/* 05 / Future RSVP, visually a response card rather than a second occasion. */
+.invitation-page .reply { background:#dbece8; color:var(--ink); padding:clamp(92px,10vw,148px) 0 clamp(100px,11vw,165px); }
+.invitation-page .reply .section-head { border-color:rgba(21,43,45,.3); }
+.rsvp-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.86fr); gap:clamp(45px,7vw,125px); align-items:center; padding-top:clamp(66px,7vw,105px); }
+.rsvp-copy h2 { font:400 clamp(76px,9vw,135px)/.94 var(--serif); letter-spacing:-.08em; margin:0 0 45px; }
+.rsvp-copy h2 i { margin-left:11%; font-weight:400; }
+.rsvp-copy>p { font:300 clamp(14px,1.35vw,17px)/2 var(--kr); margin:0 0 37px; word-break:keep-all; }
+.rsvp-postscript { color:#538078; }
+.rsvp-form-shell { padding:clamp(25px,4vw,55px); background:#f8f7f3; box-shadow:0 22px 60px rgba(35,75,71,.09); border:1px solid rgba(21,43,45,.13); }
+.rsvp-form-heading { display:flex; justify-content:space-between; align-items:start; gap:15px; padding-bottom:50px; border-bottom:1px solid var(--hair); }
+.rsvp-stamp { font:400 43px/1 var(--serif); letter-spacing:-.08em; }
+.rsvp-stamp i { color:#38988d; }
+.rsvp-option-preview { display:flex; flex-wrap:wrap; justify-content:space-between; gap:18px; padding:32px 0; font:400 clamp(13px,1.2vw,16px) var(--kr); }
+.rsvp-option-preview>span { display:flex; align-items:center; gap:12px; white-space:nowrap; }
+.fake-radio { width:18px; height:18px; display:inline-block; border:1px solid #718b87; border-radius:50%; }
+.rsvp-form-line { border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); padding:15px 0 24px; }
+.line-placeholder { display:block; margin-top:12px; color:#7c8886; font:300 13px var(--kr); }
+.rsvp-action { display:flex; justify-content:space-between; align-items:center; width:100%; min-height:70px; padding:0 22px; background:#152b2d; border:1px solid #152b2d; color:#fff; font:400 clamp(15px,1.4vw,18px) var(--kr); margin-top:30px; }
+.rsvp-action span { font:400 27px var(--serif); }
+.invitation-page .rsvp-action:disabled,.invitation-page .guestbook-action:disabled { opacity:.76; cursor:not-allowed; }
+.form-coming { font-size:10px; color:#73847f; margin:14px 0 0; text-align:center; }
+
+/* 06 / The guestbook is an intentionally empty, writable-looking page. */
+.guestbook { padding-top:clamp(98px,11vw,155px); padding-bottom:clamp(100px,12vw,174px); }
+.guestbook-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.88fr); align-items:center; gap:clamp(48px,7vw,125px); padding-top:clamp(72px,9vw,120px); }
+.guestbook-copy h2 { font:400 clamp(77px,9vw,137px)/.95 var(--serif); letter-spacing:-.083em; margin:0 0 45px; }
+.guestbook-copy h2 i { font-weight:400; margin-left:10%; }
+.guestbook-copy p { font:300 clamp(14px,1.35vw,17px)/2 var(--kr); margin:0; word-break:keep-all; }
+.guestbook-paper { padding:clamp(25px,3.7vw,52px); background:#f2efe7; border:1px solid #d5d0c3; box-shadow:12px 12px 0 #e3e9e4; }
+.guestbook-paper-top { display:flex; align-items:center; justify-content:space-between; gap:20px; padding-bottom:35px; border-bottom:1px solid var(--hair); }
+.guestbook-lines { height:236px; display:flex; flex-direction:column; justify-content:end; padding-bottom:10px; }
+.guestbook-lines p { font:300 14px var(--kr); color:#82918b; margin:12px 0 28px; }
+.guestbook-lines span { display:block; height:40px; border-bottom:1px solid #b9c4bd; }
+.guestbook-signature { display:flex; align-items:center; justify-content:space-between; gap:30px; margin-top:26px; }
+.signature-line { width:55%; height:1px; background:#afbab3; }
+.guestbook-action { display:flex; align-items:center; justify-content:space-between; width:100%; background:transparent; color:var(--ink); min-height:66px; border:1px solid var(--ink); font:400 clamp(15px,1.4vw,18px) var(--kr); margin-top:38px; padding:0 22px; }
+.guestbook-action span { font:400 27px var(--serif); }
+.invitation-page .site-footer { background:#192f31; }
+.invitation-page .site-footer .footer-title { margin-bottom:80px; }
+
+@media(max-width:980px) {
+  .invitation-page .hero-grid { min-height:550px; }
+  .invitation-page .hero h1 { font-size:clamp(75px,9vw,100px); }
+  .invitation-page .hero-media { min-height:515px; height:610px; }
+  .note-editorial { gap:40px; }
+  .invitation-page .note-words .quote { font-size:clamp(55px,7vw,85px); }
+  .invitation-page .day-section h2 { font-size:clamp(85px,10vw,115px); }
+  .ticket-middle { margin-top:25px; }
+  .ticket-arrow { width:60px; height:60px; font-size:39px; }
+  .ticket-action strong { font-size:clamp(40px,4.7vw,55px); }
+}
+@media(max-width:700px) {
+  .invitation-page .section-head { font-size:10px; }
+  .hero-masthead { padding:31px 0 22px; gap:15px; }
+  .hero-nameplate { font-size:clamp(33px,9vw,47px); }
+  .hero-masthead-side { font-size:8px; letter-spacing:.06em!important; white-space:nowrap; }
+  .invitation-page .hero { padding-top:0; padding-bottom:84px; }
+  .invitation-page .hero::before { top:210px; width:26%; height:440px; }
+  .invitation-page .hero-grid { display:flex; flex-direction:column; min-height:auto; gap:34px; }
+  .invitation-page .hero-copy { padding-top:0; }
+  .invitation-page .hero-intro { margin:43px 0 43px; }
+  .invitation-page .hero h1 { font-size:clamp(70px,18.5vw,99px); line-height:.96; margin:0 0 39px -4px; }
+  .invitation-page .hero h1 i { margin-left:12%; font-size:.88em; }
+  .invitation-page .hero-foot { grid-template-columns:98px 1fr; }
+  .invitation-page .hero-foot .caption-kr { font-size:16px; }
+  .invitation-page .hero-media { height:auto; min-height:0; aspect-ratio:.8; padding:0; }
+  .invitation-page .hero-photo-frame { width:90%; }
+  .invitation-page .hero-photo-caption { bottom:19px; }
+  .invitation-page .statement-grid { min-height:135px; }
+  .invitation-page .statement h2 { font-size:clamp(23px,6vw,29px); }
+  .invitation-page .note-section { padding-top:90px; padding-bottom:100px; }
+  .note-editorial { display:block; margin-top:60px; }
+  .note-kicker { font-size:9px; }
+  .invitation-page .note-words .quote { font-size:clamp(51px,11.5vw,80px); line-height:1.08; margin:35px 0 42px; }
+  .note-translation { font-size:16px; padding-left:18px; }
+  .invitation-page .note-foot { margin-top:33px; font-size:9px; }
+  .note-portrait { width:77%; margin:65px 0 0 auto; transform:none; }
+  .note-portrait-frame { aspect-ratio:.79; }
+  .note-portrait figcaption { font-size:8px; }
+  .invitation-page .day-section { padding-top:95px; padding-bottom:105px; }
+  .invitation-page .day-grid { display:block; margin-top:62px; }
+  .invitation-page .day-section h2 { font-size:clamp(95px,22vw,145px); }
+  .invitation-page .day-right { padding-top:74px; }
+  .invitation-page .day-section .detail { grid-template-columns:78px minmax(0,1fr); gap:12px; }
+  .invitation-page .day-section .detail-title.detail-korean { font-size:clamp(18px,5.3vw,25px); }
+  .invitation-page .day-section .detail-time { font-size:17px; }
+  .invitation-page .day-section>.venue-map { margin-top:62px; }
+  .venue-map-crop { aspect-ratio:716 / 471; }
+  .route-links { gap:10px; }
+  .route-link { padding:0 14px; min-height:60px; font-size:13px; }
+  .route-link span:last-child { font-size:24px; }
+  .invitation-page .access-summary { display:block; margin-top:23px; }
+  .invitation-page .access-summary>div+div { margin-top:27px; }
+  .invitation-page .atlas-teaser { padding:92px 0 96px; }
+  .invitation-page .atlas-teaser::before { font-size:250px; }
+  .invitation-page .atlas-teaser-top { display:block; padding-top:67px; margin-bottom:56px; }
+  .invitation-page .atlas-teaser h2 { font-size:clamp(69px,13.6vw,104px); }
+  .invitation-page .atlas-teaser-intro { font-size:13px; max-width:270px; margin:30px 0 0 auto; }
+  .atlas-feature { display:flex; flex-direction:column; min-height:0; }
+  .atlas-feature-image { aspect-ratio:1.15; flex:none; }
+  .atlas-feature-ticket { min-height:345px; padding:26px 28px 27px; }
+  .atlas-feature-ticket::before { inset:10px; }
+  .ticket-edition { font-size:9px; }
+  .ticket-middle { margin-top:24px; }
+  .ticket-number { font-size:95px; }
+  .ticket-number .micro { font-size:9px; margin-top:15px; }
+  .ticket-action { margin-top:30px; }
+  .ticket-intro { font-size:12px; margin-bottom:9px; }
+  .ticket-action strong { font-size:clamp(48px,11vw,65px); }
+  .ticket-sub { font-size:9px; margin-top:16px; }
+  .ticket-arrow { width:64px; height:64px; font-size:41px; }
+  .atlas-after { text-align:left; font-size:9px; line-height:1.7; }
+  .invitation-page .reply { padding:93px 0 103px; }
+  .rsvp-grid { display:block; padding-top:70px; }
+  .rsvp-copy h2 { font-size:clamp(79px,18vw,116px); margin-bottom:35px; }
+  .rsvp-copy>p { font-size:15px; margin-bottom:25px; }
+  .rsvp-form-shell { margin-top:57px; padding:29px 23px; }
+  .rsvp-form-heading { padding-bottom:37px; }
+  .rsvp-option-preview { padding:29px 0; font-size:13px; }
+  .rsvp-option-preview>span { gap:8px; }
+  .fake-radio { width:16px; height:16px; }
+  .rsvp-action { min-height:65px; font-size:15px; }
+  .guestbook { padding-top:97px; padding-bottom:111px; }
+  .guestbook-grid { display:block; padding-top:74px; }
+  .guestbook-copy h2 { font-size:clamp(79px,18vw,114px); margin-bottom:35px; }
+  .guestbook-copy p { font-size:15px; }
+  .guestbook-paper { margin-top:65px; padding:30px 23px; }
+  .guestbook-lines { height:220px; }
+  .guestbook-action { font-size:15px; }
+  .invitation-page .footer-title { margin-top:65px; }
+}
+@media(max-width:390px) {
+  .hero-nameplate { font-size:33px; }
+  .hero-masthead-side { font-size:7.2px; }
+  .invitation-page .hero h1 { font-size:clamp(66px,18.2vw,74px); }
+  .invitation-page .note-words .quote { font-size:clamp(47px,11.5vw,58px); }
+  .invitation-page .atlas-teaser h2 { font-size:clamp(62px,13.1vw,72px); }
+  .ticket-action strong { font-size:46px; }
+  .ticket-arrow { width:55px; height:55px; font-size:36px; }
+  .rsvp-option-preview { font-size:12px; gap:10px; }
+}
+/* On mobile, the legacy .hero shorthand removed .wrap's horizontal gutters. */
+@media(max-width:700px) {
+  .invitation-page .hero { padding-left:24px; padding-right:24px; }
+}
+
+/* Replay is available unobtrusively in the footer, not over the couple's photos. */
+.invitation-page .footer-actions { display:flex; gap:24px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+.invitation-page .replay-intro { display:inline-block; position:static; border:0; border-radius:0; background:none; box-shadow:none; color:inherit; padding:0; font:inherit; letter-spacing:inherit; }
+.invitation-page .replay-intro[hidden] { display:none; }
+.invitation-page .footer-actions a:hover,.invitation-page .footer-actions button:hover { color:var(--blue); }
+@media(max-width:700px) { .invitation-page .footer-actions { gap:14px; flex-direction:column; align-items:flex-end; } }
