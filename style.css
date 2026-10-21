@@ -87,3 +87,40 @@ html{scroll-behavior:smooth}body{overflow-x:hidden}body.opening{overflow:hidden}
 body:not(.opening) .unbox-signature{display:none}
 @media(max-width:700px){.statement-grid{min-height:126px}.statement h2{font-size:clamp(23px,6.3vw,30px)}.note-content .quote{font-size:clamp(48px,11vw,78px)}.day-date{font-size:38px}.day-right{padding-top:45px}.hero-foot .caption-kr{font-size:16px}}
 @media(max-width:390px){.statement h2{font-size:22px}.note-content .quote{font-size:46px}}
+
+
+/* V4 — smoother editorial palette / clear venue information */
+.day-section{padding-bottom:clamp(92px,10vw,150px)}
+.day-right{min-width:0}
+.day-section .detail{grid-template-columns:105px minmax(0,1fr);min-height:0;padding:24px 0 28px}
+.day-section .detail-title.detail-korean{font:400 clamp(21px,2.6vw,34px)/1.45 var(--kr);letter-spacing:-.06em;word-break:keep-all}
+.day-section .detail-time{color:var(--ink);font-size:16px;font-weight:500;margin-top:10px}
+.venue-map{margin-top:50px;border-top:1px solid var(--hair);padding-top:16px}
+.venue-map-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px}
+.venue-map-open{border-bottom:1px solid currentColor;padding-bottom:4px;white-space:nowrap}
+.venue-map>a{display:block;background:#f0f0f0;overflow:hidden}
+.venue-map img{display:block;width:100%;height:auto;max-width:100%;object-fit:contain}
+.access-summary{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:25px 0;border-bottom:1px solid var(--hair)}
+.access-summary p{font:300 12px/1.95 var(--kr);margin:9px 0 0;word-break:keep-all}
+.map-credit{font:400 10px/1.6 var(--sans);color:var(--muted);margin:14px 0 0}
+/* Light atlas teaser bridges long ivory information pages and Tiffany-blue farewell. */
+.atlas-teaser{background:#e1efeb;color:var(--ink)}
+.atlas-teaser::before{color:rgba(47,115,110,.06)}
+.atlas-teaser .section-head{border-color:var(--hair)}
+.atlas-teaser-intro{color:#436765}
+.atlas-link{border-color:rgba(21,43,45,.35)}
+.atlas-link a:hover{color:#167b76}
+.atlas-teaser-image .image-window{box-shadow:0 16px 48px rgba(21,43,45,.09)}
+@media(max-width:700px){
+ .day-section .detail{grid-template-columns:80px minmax(0,1fr);gap:12px}
+ .day-section .detail-title.detail-korean{font-size:clamp(19px,5.1vw,24px)}
+ .venue-map{margin-top:35px}
+ .access-summary{display:block;padding:20px 0}
+ .access-summary>div+div{margin-top:24px}
+ .access-summary p{font-size:12px}
+ .venue-map-heading .micro{font-size:9px}
+}
+
+/* Map spans the entire page rather than squeezing into the right information column. */
+.day-section>.venue-map{max-width:960px;margin:82px auto 0}
+@media(max-width:700px){.day-section>.venue-map{margin-top:55px}}
