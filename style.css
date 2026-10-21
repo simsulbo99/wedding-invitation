@@ -386,3 +386,8 @@ body:not(.opening) .unbox-signature{display:none}
 .invitation-page .replay-intro[hidden] { display:none; }
 .invitation-page .footer-actions a:hover,.invitation-page .footer-actions button:hover { color:var(--blue); }
 @media(max-width:700px) { .invitation-page .footer-actions { gap:14px; flex-direction:column; align-items:flex-end; } }
+
+/* KakaoTalk / Android WebView scrolling recovery */
+.unbox-overlay[hidden] { display: none !important; }
+html { overflow-y: auto; }
+body.invitation-page:not(.opening) { overflow-y: auto !important; touch-action: pan-y; }

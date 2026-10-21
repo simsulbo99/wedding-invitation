@@ -17,6 +17,9 @@
     overlay.hidden = true;
     overlay.classList.remove('is-gone');
     document.body.classList.remove('opening');
+    // WebView (including KakaoTalk): explicitly restore vertical scrolling.
+    document.body.style.overflowY = 'auto';
+    document.documentElement.style.overflowY = 'auto';
     replay.hidden = false;
     signature.classList.remove('active');
   }
@@ -33,6 +36,7 @@
     showFrame(0);
     replay.hidden = true;
     document.body.classList.add('opening');
+    document.body.style.overflowY = '';
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (reduce) { wait(complete, 180); return; }
     wait(() => signature.classList.add('active'), 180);
@@ -41,6 +45,11 @@
     wait(() => gradient.classList.add('active'), 1911);
     wait(fadeToLiveCover, 2340);
   }
+
+  // Recover if the in-app browser restores a page from its back/forward cache.
+  window.addEventListener('pageshow', () => {
+    if (!document.body.classList.contains('opening')) complete();
+  });
 
   skip.addEventListener('click', complete);
   replay.addEventListener('click', start);
