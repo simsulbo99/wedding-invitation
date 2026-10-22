@@ -1,37 +1,250 @@
 'use strict';
-// Replace the photo URLs below as your album grows. No backend or API key is required.
-const PHOTO_BASE = './images/';
+
+// The order is the order shown in the Index and the map marker numbers.
+// Map positions are deliberately adjusted for small screens (especially Karuizawa).
+// Photos are relative to atlas.html at the repository root.
 const records = [
-  {name:'Manado',country:'INDONESIA',lon:124.84,lat:1.49,story:'바다의 낯선 색을 처음 함께 기억한 곳.',photos:[]},
-  {name:'Sapa',country:'VIETNAM',lon:103.84,lat:22.34,story:'산등성이를 따라 이어지는 길과 느리게 흘러간 시간.',photos:[]},
-  {name:'Tokyo',country:'JAPAN',lon:139.69,lat:35.68,story:'도시의 밤과 불빛 속에 남긴 한 장.',photos:['main-5.webp']},
-  {name:'Seoul',country:'KOREA',lon:126.98,lat:37.57,story:'가장 익숙한 도시에서 가장 특별한 모습으로.',photos:['main-1.webp','main-2.webp','main-3.webp']},
-  {name:'Bohol',country:'PHILIPPINES',lon:123.85,lat:9.65,story:'햇빛과 바다가 나란히 놓였던 날들.',photos:[]},
-  {name:'Karuizawa',country:'JAPAN',lon:138.59,lat:36.35,story:'숲이 가까운 작은 도시에서.',photos:[]},
-  {name:'Kusatsu',country:'JAPAN',lon:138.60,lat:36.63,story:'따뜻한 물과 차가운 공기 사이에서.',photos:[]},
-  {name:'Nha Trang',country:'VIETNAM',lon:109.20,lat:12.24,story:'여름의 바다를 함께 건너온 기록.',photos:[]},
-  {name:'Pattaya',country:'THAILAND',lon:100.88,lat:12.93,story:'같이 걷고 같은 방향을 바라본 풍경.',photos:[]},
-  {name:'Everland',country:'KOREA',lon:127.20,lat:37.29,story:'조금은 들뜬 마음도 함께 모아둔 곳.',photos:[]},
-  {name:'Gangneung',country:'KOREA',lon:128.88,lat:37.75,story:'동쪽으로 향하는 길에 남긴 하루.',photos:[]},
-  {name:'Sokcho',country:'KOREA',lon:128.59,lat:38.20,story:'산과 바다가 이어지는 곳.',photos:[]},
-  {name:'Yeongju',country:'KOREA',lon:128.63,lat:36.81,story:'아직 더 많은 사진을 기다리는 도시.',photos:[]},
-  {name:'Inwangsan',country:'KOREA',lon:126.96,lat:37.59,story:'멀리 떠나지 않아도 좋았던 순간.',photos:[]}
+  {
+    name: 'Tokyo', country: 'JAPAN', x: 82.8, y: 18.1,
+    story: '도시의 밤과 불빛 속에 남긴 한 장.',
+    photos: Array.from({ length: 10 }, (_, i) =>
+      `./images/tokyo/tokyo-${String(i + 1).padStart(2, '0')}.jpg`)
+  },
+  {
+    name: 'Sapa', country: 'VIETNAM', x: 16.4, y: 41.5,
+    story: '산등성이를 따라 이어지는 길과 느리게 흘러간 시간.', photos: []
+  },
+  {
+    name: 'Seoul', country: 'KOREA', x: 59.2, y: 14.8,
+    story: '가장 익숙한 도시에서 가장 특별한 모습으로.',
+    photos: ['./images/main-1.webp', './images/main-2.webp', './images/main-3.webp']
+  },
+  {
+    name: 'Manado', country: 'INDONESIA', x: 55.3, y: 78.1,
+    story: '바다의 낯선 색을 처음 함께 기억한 곳.', photos: []
+  },
+  {
+    name: 'Karuizawa', country: 'JAPAN', x: 69.5, y: 5.4,
+    story: '숲이 가까운 작은 도시에서.', photos: []
+  },
+  {
+    name: 'Nha Trang', country: 'VIETNAM', x: 26.3, y: 59.2,
+    story: '여름의 바다를 함께 건너온 기록.', photos: []
+  },
+  {
+    name: 'Pattaya', country: 'THAILAND', x: 10.9, y: 58.0,
+    story: '같이 걷고 같은 방향을 바라본 풍경.', photos: []
+  },
+  {
+    name: 'Bohol', country: 'PHILIPPINES', x: 53.4, y: 63.8,
+    story: '햇빛과 바다가 나란히 놓였던 날들.', photos: []
+  }
 ];
-const $ = (id)=>document.getElementById(id);
-let chosen=0, imageNo=0;
-function svgPos(place){return {x:((place.lon-94)/54)*1000,y:((44-place.lat)/56)*900};}
-function updateRoute(){const a=svgPos(records[3]),b=svgPos(records[chosen]);const p=$('mapRoute');if(chosen===3){p.setAttribute('d','');return;}const midx=(a.x+b.x)/2,midy=(a.y+b.y)/2 - Math.min(75,Math.abs(a.x-b.x)*.15+25);p.setAttribute('d',`M ${a.x.toFixed(1)} ${a.y.toFixed(1)} Q ${midx.toFixed(1)} ${midy.toFixed(1)} ${b.x.toFixed(1)} ${b.y.toFixed(1)}`)}
-function renderImage(){const p=records[chosen],holder=$('memory-photo');holder.replaceChildren();const count=p.photos.length;
-if(!count){const placeholder=document.createElement('div');placeholder.className='no-image';const circle=document.createElement('span');circle.className='outline';circle.textContent=p.name.slice(0,1)+'.';const note=document.createElement('p');note.textContent='YOUR PHOTOGRAPHS WILL LIVE HERE';placeholder.append(circle,note);holder.append(placeholder);}
-else{const img=document.createElement('img');img.src=PHOTO_BASE+p.photos[imageNo];img.alt=`${p.name}에서 촬영한 사진 ${imageNo+1}`;img.loading='lazy';img.addEventListener('click',()=>{ $('lightbox-image').src=img.src;$('lightbox-image').alt=img.alt;$('photo-lightbox').classList.add('active');document.body.style.overflow='hidden'; });holder.append(img);}
-$('memory-count').textContent=`PHOTO ARCHIVE / ${String(imageNo+1).padStart(2,'0')} OF ${String(count).padStart(2,'0')}`.replace('01 OF 00','00 OF 00');$('prev-photo').disabled=count<=1;$('next-photo').disabled=count<=1;}
-function pick(i,move=false){chosen=i;imageNo=0;const p=records[i];$('place-number').textContent='/ '+String(i+1).padStart(2,'0');$('place-country').textContent=p.country;$('place-title').textContent=p.name+'.';$('memory-story').textContent=p.story;renderImage();updateRoute();document.querySelectorAll('[data-place]').forEach(b=>{const isSelected=Number(b.dataset.place)===i;b.classList.toggle('is-selected',isSelected);b.classList.toggle('selected',isSelected);b.setAttribute('aria-pressed',String(isSelected))});if(move&&window.matchMedia('(max-width:700px)').matches)document.querySelector('.memory-card').scrollIntoView({behavior:'smooth',block:'start'});}
-function build(){const dots=$('map-dots'),index=$('index-view');records.forEach((p,i)=>{const dot=document.createElement('button');dot.type='button';dot.className='map-pin'+(p.photos.length?' featured':'');dot.style.left=((p.lon-94)/54*100)+'%';dot.style.top=((44-p.lat)/56*100)+'%';dot.dataset.place=i;dot.setAttribute('aria-label',`${p.name}, ${p.country}`);dot.title=p.name;const tip=document.createElement('span');tip.className='tooltip';tip.textContent=p.name;dot.append(tip);dot.addEventListener('click',()=>pick(i,true));dots.append(dot);
-const row=document.createElement('button');row.type='button';row.className='index-btn';row.dataset.place=i;const number=document.createElement('span');number.className='num';number.textContent=String(i+1).padStart(2,'0');const title=document.createElement('span');title.className='place-name';title.textContent=p.name;const country=document.createElement('span');country.className='place-country';country.textContent=p.country;title.append(country);const arr=document.createElement('span');arr.textContent='↗';row.append(number,title,arr);row.addEventListener('click',()=>pick(i,true));index.append(row);});pick(2);}
-function setTab(next){const isMap=next==='map';$('map-view').classList.toggle('hidden',!isMap);$('index-view').classList.toggle('hidden',isMap);$('tab-map').classList.toggle('active',isMap);$('tab-index').classList.toggle('active',!isMap);$('tab-map').setAttribute('aria-selected',String(isMap));$('tab-index').setAttribute('aria-selected',String(!isMap));}
-$('tab-map').addEventListener('click',()=>setTab('map'));$('tab-index').addEventListener('click',()=>setTab('index'));
-$('prev-photo').addEventListener('click',()=>{const n=records[chosen].photos.length;if(n){imageNo=(imageNo-1+n)%n;renderImage()}});
-$('next-photo').addEventListener('click',()=>{const n=records[chosen].photos.length;if(n){imageNo=(imageNo+1)%n;renderImage()}});
-function closeLightbox(){$('photo-lightbox').classList.remove('active');document.body.style.overflow='';}
-$('close-lightbox').addEventListener('click',closeLightbox);$('photo-lightbox').addEventListener('click',e=>{if(e.target.id==='photo-lightbox')closeLightbox()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
-build();
+
+const $ = id => document.getElementById(id);
+const num = value => String(value).padStart(2, '0');
+let selected = 0;
+let photoIndex = 0;
+let lastFocused = null;
+let touchStart = null;
+
+function photoCount() { return records[selected].photos.length; }
+
+function paintRoute() {
+  const from = records[2]; // Seoul is the reference point.
+  const to = records[selected];
+  const path = $('map-route-line');
+  if (selected === 2) { path.setAttribute('d', ''); return; }
+  const x1 = from.x * 10, y1 = from.y * 8.5;
+  const x2 = to.x * 10, y2 = to.y * 8.5;
+  const midX = (x1 + x2) / 2;
+  const midY = (y1 + y2) / 2 - Math.min(65, Math.abs(x1 - x2) * .10 + 22);
+  path.setAttribute('d', `M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${midX.toFixed(1)} ${midY.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`);
+}
+
+function makeMapAndIndex() {
+  const pins = $('map-dots');
+  const index = $('index-view');
+  records.forEach((place, i) => {
+    const pin = document.createElement('button');
+    pin.type = 'button';
+    pin.className = `atlas-pin${place.y < 12 ? ' is-high' : ''}`;
+    pin.style.left = `${place.x}%`;
+    pin.style.top = `${place.y}%`;
+    pin.dataset.city = String(i);
+    pin.setAttribute('aria-label', `${place.name} 사진 보기`);
+    pin.setAttribute('aria-pressed', 'false');
+    const number = document.createElement('span');
+    number.textContent = num(i + 1);
+    const label = document.createElement('span');
+    label.className = 'atlas-pin-label';
+    label.textContent = place.name;
+    label.setAttribute('aria-hidden', 'true');
+    pin.append(number, label);
+    pin.addEventListener('click', () => choosePlace(i));
+    pins.append(pin);
+
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = 'atlas-index-item';
+    row.dataset.city = String(i);
+    row.setAttribute('aria-pressed', 'false');
+    const n = document.createElement('span');
+    n.className = 'atlas-index-no';
+    n.textContent = num(i + 1);
+    const name = document.createElement('span');
+    name.className = 'atlas-index-title';
+    name.textContent = place.name;
+    const country = document.createElement('small');
+    country.className = 'atlas-index-country';
+    country.textContent = place.country;
+    name.append(country);
+    const arrow = document.createElement('span');
+    arrow.className = 'atlas-index-arr';
+    arrow.textContent = '↗';
+    arrow.setAttribute('aria-hidden', 'true');
+    row.append(n, name, arrow);
+    row.addEventListener('click', () => choosePlace(i, true));
+    index.append(row);
+  });
+}
+
+function choosePlace(i, indexClicked = false) {
+  selected = i;
+  photoIndex = 0;
+  const p = records[i];
+  $('place-number').textContent = `${num(i + 1)} / ${num(records.length)}`;
+  $('place-country').textContent = p.country;
+  $('place-title').textContent = `${p.name}.`;
+  $('place-title').classList.toggle('is-long', p.name.length > 8);
+  $('memory-story').textContent = p.story;
+  document.querySelectorAll('[data-city]').forEach(el => {
+    const active = Number(el.dataset.city) === i;
+    el.classList.toggle('is-selected', active);
+    el.setAttribute('aria-pressed', String(active));
+  });
+  paintRoute();
+  paintPhoto();
+  // Mobile: selecting a city in Index should reveal its photo, not leave it offscreen.
+  if (indexClicked && window.matchMedia('(max-width:700px)').matches) {
+    $('place-title').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  }
+}
+
+function placeholder() {
+  const div = document.createElement('div');
+  div.className = 'atlas-photo-placeholder';
+  div.textContent = '사진을 준비하고 있습니다.';
+  return div;
+}
+
+function paintPhoto() {
+  const p = records[selected];
+  const stage = $('memory-photo');
+  stage.replaceChildren();
+  const total = p.photos.length;
+  $('memory-count').textContent = total ? `${num(photoIndex + 1)} / ${num(total)}` : '00 / 00';
+  $('prev-photo').disabled = total < 2;
+  $('next-photo').disabled = total < 2;
+  if (!total) { stage.append(placeholder()); return; }
+  const img = document.createElement('img');
+  img.alt = `${p.name} 여행 사진 ${photoIndex + 1} / ${total}`;
+  img.loading = 'eager';
+  img.decoding = 'async';
+  img.src = p.photos[photoIndex];
+  // If the file hasn't been uploaded yet, keep a clean placeholder rather than a broken icon.
+  img.addEventListener('error', () => {
+    if (stage.contains(img)) stage.replaceChildren(placeholder());
+  }, { once: true });
+  img.addEventListener('click', openLightbox);
+  stage.append(img);
+  if (total > 1) {
+    const preload = new Image();
+    preload.src = p.photos[(photoIndex + 1) % total];
+  }
+}
+
+function movePhoto(delta) {
+  const total = photoCount();
+  if (total < 2) return;
+  photoIndex = (photoIndex + delta + total) % total;
+  paintPhoto();
+  if ($('photo-lightbox').classList.contains('is-open')) updateLightbox();
+}
+
+function updateLightbox() {
+  const p = records[selected];
+  const total = p.photos.length;
+  if (!total) return;
+  $('lightbox-image').src = p.photos[photoIndex];
+  $('lightbox-image').alt = `${p.name} 여행 사진 ${photoIndex + 1} / ${total}`;
+  $('lightbox-count').textContent = `${num(photoIndex + 1)} / ${num(total)}`;
+  $('lightbox-prev').hidden = total < 2;
+  $('lightbox-next').hidden = total < 2;
+}
+
+function openLightbox() {
+  if (!photoCount()) return;
+  lastFocused = document.activeElement;
+  updateLightbox();
+  $('photo-lightbox').classList.add('is-open');
+  $('photo-lightbox').setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  $('close-lightbox').focus();
+}
+
+function closeLightbox() {
+  $('photo-lightbox').classList.remove('is-open');
+  $('photo-lightbox').setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (lastFocused?.isConnected) lastFocused.focus();
+}
+
+function showTab(next) {
+  const map = next === 'map';
+  $('map-view').hidden = !map;
+  $('index-view').hidden = map;
+  $('index-view').classList.toggle('is-hidden', map);
+  $('tab-map').classList.toggle('is-active', map);
+  $('tab-index').classList.toggle('is-active', !map);
+  $('tab-map').setAttribute('aria-selected', String(map));
+  $('tab-index').setAttribute('aria-selected', String(!map));
+}
+
+function trackSwipe(element) {
+  element.addEventListener('touchstart', ev => {
+    const p = ev.touches[0];
+    if (p) touchStart = { x: p.clientX, y: p.clientY };
+  }, { passive: true });
+  element.addEventListener('touchend', ev => {
+    if (!touchStart) return;
+    const p = ev.changedTouches[0];
+    const dx = p.clientX - touchStart.x;
+    const dy = p.clientY - touchStart.y;
+    touchStart = null;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      movePhoto(dx < 0 ? 1 : -1);
+    }
+  }, { passive: true });
+}
+
+makeMapAndIndex();
+choosePlace(0);
+$('tab-map').addEventListener('click', () => showTab('map'));
+$('tab-index').addEventListener('click', () => showTab('index'));
+$('prev-photo').addEventListener('click', () => movePhoto(-1));
+$('next-photo').addEventListener('click', () => movePhoto(1));
+$('lightbox-prev').addEventListener('click', () => movePhoto(-1));
+$('lightbox-next').addEventListener('click', () => movePhoto(1));
+$('close-lightbox').addEventListener('click', closeLightbox);
+$('photo-lightbox').addEventListener('click', event => {
+  if (event.target === $('photo-lightbox')) closeLightbox();
+});
+document.addEventListener('keydown', event => {
+  if (!$('photo-lightbox').classList.contains('is-open')) return;
+  if (event.key === 'Escape') closeLightbox();
+  if (event.key === 'ArrowLeft') movePhoto(-1);
+  if (event.key === 'ArrowRight') movePhoto(1);
+});
+trackSwipe($('memory-photo'));
+trackSwipe($('photo-lightbox'));
