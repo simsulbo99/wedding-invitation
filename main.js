@@ -35,7 +35,6 @@
     replay.hidden = true;
     document.body.classList.add('opening');
     window.scrollTo(0, 0);
-    if (reduce) { wait(complete, 180); return; }
     wait(() => signature.classList.add('active'), 180);
     wait(() => showFrame(1), 728);
     wait(() => showFrame(2), 1612);
