@@ -4,14 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f8f7f3">
-  <meta name="description" content="정우와 서하의 결혼식에 초대합니다. 2027년 1월 30일 오후 6시, 페어몬트 앰배서더 서울.">
-  <title>Jungwoo &amp; Seoha — The Wedding</title>
+  <meta name="description" content="2027. 1. 30. SAT 18:00 페어몬트 앰버서더 서울">
+  <title>정우 · 서하 | Wedding Invitation</title>
+  <!-- KakaoTalk and other social sharing previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://simsulbo99.github.io/wedding-invitation/">
+  <meta property="og:title" content="정우 · 서하 | Wedding Invitation">
+  <meta property="og:description" content="2027. 1. 30. SAT 18:00 페어몬트 앰버서더 서울">
+  <meta property="og:image" content="https://simsulbo99.github.io/wedding-invitation/images/wedding-thumbnail-1.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+  <meta property="og:image:type" content="image/webp">
+  <meta property="og:image:alt" content="정우와 서하의 결혼 초대장">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preload" as="image" href="./images/unbox-01-sealed.webp">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=6-scroll-root">
+  <link rel="stylesheet" href="./simplify.css?v=7-editorial">
 </head>
 <body class="opening invitation-page">
-  <!-- The original unboxing sequence is preserved. All its text remains real HTML. -->
+  <!-- Existing unboxing sequence retained without changing the scroll logic. -->
   <div class="unbox-overlay" id="unboxing" aria-label="웨딩 초대장 오프닝 애니메이션">
     <img class="unbox-frame active" src="./images/unbox-01-sealed.webp" alt="티파니 블루 리본 선물상자" fetchpriority="high">
     <img class="unbox-frame" src="./images/unbox-02-loosened.webp" alt="리본이 느슨해진 선물상자">
@@ -24,84 +36,62 @@
       <small>January 30, 2027</small>
     </div>
   </div>
-
   <main id="invitation">
-    <!-- 01 / An editorial masthead replaces the former navigation header. -->
+    <!-- 01 / Introduction -->
     <section class="hero wrap" aria-labelledby="hero-title" id="intro">
-      <div class="hero-masthead">
-        <div class="hero-nameplate">Jungwoo <i>&amp;</i> Seoha</div>
-        <div class="hero-masthead-side micro">A PRIVATE WEDDING<br>EDITION / Nº 001</div>
-      </div>
-      <div class="section-head micro hero-chapter">
-        <span>01 / THE INTRODUCTION</span>
-        <span>AN INVITATION, PERSONALLY</span>
-      </div>
+      <div class="section-head micro hero-chapter"><span>01 / THE INTRODUCTION</span></div>
       <div class="hero-grid">
         <div class="hero-copy">
-          <div class="micro hero-intro">A NEW CHAPTER / SEOUL</div>
           <h1 id="hero-title">The<br><i>wedding.</i></h1>
-          <div class="hero-foot">
-            <span class="micro">A STORY<br>OF TWO</span>
-            <span class="caption-kr">저희, 결혼합니다.</span>
-          </div>
+          <div class="hero-foot"><span class="caption-kr">정우와 서하, 결혼합니다.</span></div>
         </div>
         <div class="hero-media">
-          <span class="hero-plate" aria-hidden="true"><span>J/S</span></span>
+          <span class="hero-plate" aria-hidden="true"></span>
           <div class="hero-photo-frame">
             <img src="./images/main-1.webp" alt="정우와 서하가 함께한 서울의 웨딩 사진" fetchpriority="high">
           </div>
-          <span class="vertical-label hero-side">J/S — PRIVATE PORTRAIT</span>
-          <div class="hero-photo-caption micro">PORTRAIT Nº 001 / SEOUL</div>
         </div>
       </div>
     </section>
-
     <div class="statement" aria-label="우리의 한 문장">
       <div class="wrap statement-grid">
-        <div>
-          <div class="micro statement-overline">SOMETHING BLUE / WITH LOVE</div>
-          <h2>All the ordinary days, together.</h2>
-        </div>
-        <div class="seal" aria-hidden="true"><span class="seal-symbol">∞</span><span class="micro">THE DAYS<br>STILL TO COME</span></div>
+        <h2>All the ordinary days, together.</h2>
+        <div class="seal" aria-hidden="true"><span class="seal-symbol">∞</span></div>
       </div>
     </div>
-
-    <!-- 02 / One wedding portrait makes the Shakespeare quotation personal. -->
+    <!-- 02 / Note -->
     <section class="note-section wrap" aria-labelledby="note-title" id="our-note">
-      <div class="section-head micro"><span>02 / THE NOTE</span><span>AN EPIGRAPH / FOR US</span></div>
+      <div class="section-head micro"><span>02 / THE NOTE</span></div>
       <div class="note-editorial">
         <div class="note-words">
-          <div class="micro note-kicker">ON FINDING EACH OTHER</div>
           <h2 class="quote" id="note-title">Journeys end<br>in <i>lovers<br>meeting.</i></h2>
           <p class="note-translation">사랑하는 이를 만나면,<br>모든 방황은 끝이 난다.</p>
           <p class="note-foot micro">— WILLIAM SHAKESPEARE<br>TWELFTH NIGHT · ACT II, SCENE III</p>
         </div>
         <figure class="note-portrait">
           <div class="note-portrait-frame"><img src="./images/main-2.webp" loading="lazy" alt="정우와 서하의 웨딩 포트레이트"></div>
-          <figcaption class="micro"><span>FIG. 02 — A PORTRAIT OF US</span><span>J / S</span></figcaption>
+          <figcaption class="micro"><span>FIG. 02 — A PORTRAIT OF US</span></figcaption>
         </figure>
       </div>
     </section>
-
-    <!-- 03 / Practical information, with no duplicated time. -->
+    <!-- 03 / Day -->
     <section class="day-section wrap" aria-labelledby="day-title" id="the-day">
-      <div class="section-head micro"><span>03 / THE DAY</span><span>THE CEREMONY / SEOUL</span></div>
+      <div class="section-head micro"><span>03 / THE DAY</span></div>
       <div class="day-grid">
         <h2 id="day-title">The<br><i>day.</i></h2>
         <div class="day-right">
           <div class="detail">
-            <span class="micro">WHEN / 01</span>
+            <span class="micro">WHEN</span>
             <div><div class="detail-title detail-korean">2027년 1월 30일 토요일</div><div class="detail-sub detail-time">오후 6시</div></div>
           </div>
           <div class="detail">
-            <span class="micro">WHERE / 02</span>
+            <span class="micro">WHERE</span>
             <div><div class="detail-title detail-korean">페어몬트 앰배서더 서울</div><div class="detail-sub">서울특별시 영등포구 여의대로 108</div></div>
           </div>
         </div>
       </div>
       <div class="venue-map">
-        <div class="venue-map-heading"><span class="micro">LOCATION / FIND YOUR WAY</span><span class="micro micro-muted">YEOUIDO · SEOUL</span></div>
-        <!-- Original map-1.jpg includes a large text footer. The viewport below crops only its top map area. -->
+        <div class="venue-map-heading"><span class="micro">LOCATION</span></div>
         <div class="venue-map-crop" role="img" aria-label="페어몬트 앰배서더 서울의 위치를 표시한 약도. 여의도역과 여의나루역 사이, 더현대 서울 옆">
           <img src="./images/map-1.jpg" loading="lazy" decoding="async" alt="" aria-hidden="true">
         </div>
@@ -110,40 +100,33 @@
           <a class="route-link route-tmap" href="tmap://route?goalname=%ED%8E%98%EC%96%B4%EB%AA%AC%ED%8A%B8%20%EC%95%B0%EB%B0%B0%EC%84%9C%EB%8D%94%20%EC%84%9C%EC%9A%B8&amp;goalx=126.929134&amp;goaly=37.525269" aria-label="티맵 앱에서 페어몬트 앰배서더 서울로 길찾기 (티맵 앱 설치 필요)"><span>티맵 길찾기</span><span aria-hidden="true">↗</span></a>
         </div>
         <div class="access-summary">
-          <div><span class="micro">SUBWAY / 지하철</span><p>여의나루역 5호선 1번 출구 · 도보 약 7분<br>여의도역 5·9호선 5번 출구 · 도보 약 9분</p></div>
-          <div><span class="micro">PARKING / 주차</span><p>호텔 주차장 4시간 무료 등록 가능<br>축의금 접수대에서 차량번호 기재</p></div>
+          <div><span class="micro">SUBWAY</span><p>여의나루역 5호선 1번 출구 · 도보 약 7분<br>여의도역 5·9호선 5번 출구 · 도보 약 9분</p></div>
+          <div><span class="micro">PARKING</span><p>호텔 주차장 4시간 무료 등록 가능<br>축의금 접수대에서 차량번호 기재</p></div>
         </div>
       </div>
     </section>
-
-    <!-- 04 / Entire picture-and-ticket composition is one unmistakable link. -->
+    <!-- 04 / A large photograph followed by a small, unmistakable CTA. -->
     <section class="atlas-teaser" id="atlas-entry" aria-labelledby="atlas-title">
       <div class="wrap">
-        <div class="section-head micro"><span>04 / THE PRIVATE ATLAS</span><span>14 PLACES / COUNTLESS STORIES</span></div>
+        <div class="section-head micro"><span>04 / THE PRIVATE ATLAS</span></div>
         <div class="atlas-teaser-top">
           <h2 id="atlas-title">The places<br><i>we keep.</i></h2>
           <p class="atlas-teaser-intro">우리가 함께 지나온 곳들.<br>지도 위에 남겨둔 작은 이야기들.</p>
         </div>
-        <a class="atlas-feature" href="./atlas.html" aria-label="우리의 여행 사진과 지도를 담은 The Private Atlas 열기">
-          <div class="atlas-feature-image"><img src="./images/main-5.webp" loading="lazy" alt="도쿄의 여행 사진"></div>
-          <div class="atlas-feature-ticket">
-            <span class="micro ticket-edition">J / S — PERSONAL ARCHIVE · VOL. 001</span>
-            <div class="ticket-middle"><span class="ticket-number">14<span class="micro">PLACES</span></span><span class="ticket-rule" aria-hidden="true"></span></div>
-            <div class="ticket-action"><span><span class="ticket-intro">사진과 지도에 담은 우리의 여정</span><strong>Explore<br>our atlas.</strong><span class="micro ticket-sub">TAP TO OPEN THE ATLAS</span></span><span class="ticket-arrow" aria-hidden="true">↗</span></div>
-          </div>
+        <a class="atlas-feature" href="./atlas.html" aria-label="여행 사진과 지도가 담긴 The Private Atlas 열기">
+          <div class="atlas-feature-image"><img src="./images/main-5.webp" loading="lazy" alt="도쿄에서 함께한 여행 사진"></div>
+          <div class="atlas-entry-cta"><span>Explore the atlas.</span><span class="atlas-entry-arrow" aria-hidden="true">↗</span></div>
         </a>
-        <p class="atlas-after micro">AN ARCHIVE OF ELSEWHERE — CLICK ANYWHERE ABOVE TO EXPLORE <span aria-hidden="true">↗</span></p>
       </div>
     </section>
-
-    <!-- 05 / A destination for the future RSVP form. No false submission. -->
+    <!-- 05 / RSVP remains a clearly disabled preview until connected. -->
     <section class="reply" id="rsvp" aria-labelledby="rsvp-title">
       <div class="wrap">
-        <div class="section-head micro"><span>05 / YOUR REPLY</span><span>RSVP / ATTENDANCE</span></div>
+        <div class="section-head micro"><span>05 / RSVP</span></div>
         <div class="rsvp-grid">
-          <div class="rsvp-copy"><h2 id="rsvp-title">Your<br><i>reply.</i></h2><p>그날 함께하실 수 있을지<br>미리 알려주시면 감사하겠습니다.</p><span class="micro rsvp-postscript">WITH LOVE, JUNGWOO &amp; SEOHA</span></div>
+          <div class="rsvp-copy"><h2 id="rsvp-title">Your<br><i>reply.</i></h2><p>그날 함께하실 수 있을지<br>미리 알려주시면 감사하겠습니다.</p></div>
           <div class="rsvp-form-shell" aria-label="RSVP 입력 화면 예정 영역">
-            <div class="rsvp-form-heading"><span class="micro">YOUR RESPONSE</span><span class="rsvp-stamp" aria-hidden="true">J <i>&amp;</i> S.</span></div>
+            <div class="rsvp-form-heading"><span class="micro">YOUR RESPONSE</span></div>
             <div class="rsvp-option-preview" aria-hidden="true"><span><span class="fake-radio"></span> 참석합니다</span><span><span class="fake-radio"></span> 참석이 어렵습니다</span></div>
             <div class="rsvp-form-line"><span class="micro">NAME / 성함</span><span class="line-placeholder">이름을 입력할 공간</span></div>
             <button class="rsvp-action" type="button" disabled>참석 여부 전달하기 <span aria-hidden="true">↗</span></button>
@@ -152,28 +135,35 @@
         </div>
       </div>
     </section>
-
-    <!-- 06 / Guestbook UI only; messages are not claimed to exist or saved. -->
+    <!-- 06 / Actual upload/save needs an independent backend. Local image preview works. -->
     <section class="guestbook wrap" id="guestbook" aria-labelledby="guestbook-title">
-      <div class="section-head micro"><span>06 / THE GUESTBOOK</span><span>WORDS TO KEEP</span></div>
+      <div class="section-head micro"><span>06 / THE GUESTBOOK</span></div>
       <div class="guestbook-grid">
-        <div class="guestbook-copy"><h2 id="guestbook-title">Leave<br><i>a note.</i></h2><p>저희에게 남기고 싶은 한마디가 있다면,<br>오래도록 소중히 간직하겠습니다.</p></div>
-        <div class="guestbook-paper" aria-label="방명록 작성 화면 예정 영역">
-          <div class="guestbook-paper-top micro"><span>TO / JUNGWOO &amp; SEOHA</span><span>Nº 001</span></div>
-          <div class="guestbook-lines" aria-hidden="true"><p>축하의 마음을 남겨주세요.</p><span></span><span></span><span></span></div>
-          <div class="guestbook-signature"><span class="micro">FROM / 이름</span><span class="signature-line" aria-hidden="true"></span></div>
+        <div class="guestbook-copy"><h2 id="guestbook-title">Leave<br><i>a note.</i></h2><p>축하의 한마디와 함께,<br>사진 한 장도 남겨주세요.</p></div>
+        <form class="guestbook-paper" id="guestbook-form" aria-label="방명록 입력 미리보기">
+          <div class="guestbook-paper-top micro"><span>TO / JUNGWOO &amp; SEOHA</span></div>
+          <label class="guestbook-field-label" for="guestbook-message">MESSAGE</label>
+          <textarea class="guestbook-message" id="guestbook-message" name="message" rows="4" maxlength="500" placeholder="축하의 마음을 남겨주세요."></textarea>
+          <div class="guestbook-signature">
+            <label class="guestbook-field-label" for="guestbook-name">FROM / 이름</label>
+            <input class="guestbook-name" id="guestbook-name" name="name" type="text" maxlength="40" placeholder="성함">
+          </div>
+          <label class="guestbook-upload" for="guestbook-photo"><span class="guestbook-upload-icon" aria-hidden="true">＋</span><span>사진 첨부 <small>선택 사항 · 최대 10MB</small></span><span class="guestbook-upload-arrow" aria-hidden="true">↗</span></label>
+          <input class="guestbook-photo-input" id="guestbook-photo" name="photo" type="file" accept="image/*" aria-describedby="guestbook-upload-hint">
+          <p class="guestbook-photo-hint" id="guestbook-upload-hint">사진 선택 시 미리보기만 가능합니다. 등록 기능은 준비 중입니다.</p>
+          <figure class="guestbook-preview" id="guestbook-preview" hidden><img id="guestbook-preview-image" alt="선택한 사진 미리보기"><figcaption id="guestbook-preview-caption"></figcaption></figure>
+          <p class="guestbook-photo-error" id="guestbook-photo-error" role="status" hidden></p>
           <button type="button" class="guestbook-action" disabled>방명록 남기기 <span aria-hidden="true">↗</span></button>
           <p class="form-coming micro">GUESTBOOK / 추후 연결 예정</p>
-        </div>
+        </form>
       </div>
     </section>
   </main>
-
   <footer class="site-footer"><div class="wrap">
-    <div class="micro">JUNGWOO &amp; SEOHA / THE WEDDING EDITION</div>
     <div class="footer-title">J <i>&amp;</i> S.</div>
-    <div class="footer-bottom micro"><span>A STORY IN CHAPTERS · 2027</span><div class="footer-actions"><a href="./atlas.html">OUR ATLAS ↗</a><button class="replay-intro" id="replay-opening" type="button" hidden>REPLAY INTRO ↺</button></div></div>
+    <div class="footer-bottom micro"><div class="footer-actions"><a href="./atlas.html">OUR ATLAS ↗</a><button class="replay-intro" id="replay-opening" type="button" hidden>REPLAY INTRO ↺</button></div></div>
   </div></footer>
-  <script src="./main.js" defer></script>
+  <script src="./main.js?v=6-scroll-root" defer></script>
+  <script src="./guestbook-preview.js?v=7-editorial" defer></script>
 </body>
 </html>

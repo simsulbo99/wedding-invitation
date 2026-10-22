@@ -17,6 +17,7 @@
     overlay.hidden = true;
     overlay.classList.remove('is-gone');
     document.body.classList.remove('opening');
+    // Do not set overflow on either scrolling root; CSS keeps it native.
     replay.hidden = false;
     signature.classList.remove('active');
   }
@@ -33,14 +34,18 @@
     showFrame(0);
     replay.hidden = true;
     document.body.classList.add('opening');
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    if (reduce) { wait(complete, 180); return; }
+    window.scrollTo(0, 0);
     wait(() => signature.classList.add('active'), 180);
     wait(() => showFrame(1), 728);
     wait(() => showFrame(2), 1612);
     wait(() => gradient.classList.add('active'), 1911);
     wait(fadeToLiveCover, 2340);
   }
+
+  // Recover if the in-app browser restores a page from its back/forward cache.
+  window.addEventListener('pageshow', () => {
+    if (!document.body.classList.contains('opening')) complete();
+  });
 
   skip.addEventListener('click', complete);
   replay.addEventListener('click', start);
