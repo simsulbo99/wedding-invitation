@@ -17,9 +17,7 @@
     overlay.hidden = true;
     overlay.classList.remove('is-gone');
     document.body.classList.remove('opening');
-    // WebView (including KakaoTalk): explicitly restore vertical scrolling.
-    document.body.style.overflowY = 'auto';
-    document.documentElement.style.overflowY = 'auto';
+    // Do not set overflow on either scrolling root; CSS keeps it native.
     replay.hidden = false;
     signature.classList.remove('active');
   }
@@ -36,8 +34,7 @@
     showFrame(0);
     replay.hidden = true;
     document.body.classList.add('opening');
-    document.body.style.overflowY = '';
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo(0, 0);
     if (reduce) { wait(complete, 180); return; }
     wait(() => signature.classList.add('active'), 180);
     wait(() => showFrame(1), 728);
