@@ -7,12 +7,11 @@ const records = [
   {
     name: 'Tokyo', country: 'JAPAN', x: 82.8, y: 18.1,
     story: '도시의 밤과 불빛 속에 남긴 한 장.',
-    photos: Array.from({ length: 10 }, (_, i) =>
-      `./images/tokyo/tokyo-${String(i + 1).padStart(2, '0')}.jpg`)
+    photos: ['./images/Tokyo/tokyo-01.jpg', './images/Tokyo/tokyo-02.jpg', './images/Tokyo/tokyo-03.jpg', './images/Tokyo/tokyo-04.jpg', './images/Tokyo/tokyo-05.jpg', './images/Tokyo/tokyo-06.jpg', './images/Tokyo/tokyo-07.jpg', './images/Tokyo/tokyo-08.jpg', './images/Tokyo/tokyo-09.jpg', './images/Tokyo/tokyo-10.jpg', './images/Tokyo/tokyo-11.jpg', './images/Tokyo/tokyo-12.jpg', './images/Tokyo/tokyo-13.jpg', './images/Tokyo/tokyo-14.jpg', './images/Tokyo/tokyo-15.jpg', './images/Tokyo/tokyo-16.jpg', './images/Tokyo/tokyo-17.jpg', './images/Tokyo/tokyo-18.jpg', './images/Tokyo/tokyo-19.jpg', './images/Tokyo/tokyo-20.jpg']
   },
   {
     name: 'Sapa', country: 'VIETNAM', x: 16.4, y: 41.5,
-    story: '산등성이를 따라 이어지는 길과 느리게 흘러간 시간.', photos: []
+    story: '산등성이를 따라 이어지는 길과 느리게 흘러간 시간.', photos: ['./images/sapa/sapa-01.jpg', './images/sapa/sapa-02.jpg', './images/sapa/sapa-03.jpg', './images/sapa/sapa-04.jpg', './images/sapa/sapa-05.jpg', './images/sapa/sapa-06.jpg', './images/sapa/sapa-07.jpg', './images/sapa/sapa-08.jpg', './images/sapa/sapa-09.jpg', './images/sapa/sapa-10.jpg', './images/sapa/sapa-11.webp', './images/sapa/sapa-12.webp', './images/sapa/sapa-13.webp', './images/sapa/sapa-14.webp', './images/sapa/sapa-15.webp']
   },
   {
     name: 'Seoul', country: 'KOREA', x: 59.2, y: 14.8,
@@ -21,15 +20,15 @@ const records = [
   },
   {
     name: 'Manado', country: 'INDONESIA', x: 55.3, y: 78.1,
-    story: '바다의 낯선 색을 처음 함께 기억한 곳.', photos: []
+    story: '바다의 낯선 색을 처음 함께 기억한 곳.', photos: ['./images/manado/manado-01.jpg', './images/manado/manado-02.jpg', './images/manado/manado-03.jpg', './images/manado/manado-04.jpg', './images/manado/manado-05.jpg', './images/manado/manado-06.jpg', './images/manado/manado-07.jpg', './images/manado/manado-08.jpg', './images/manado/manado-09.jpg', './images/manado/manado-10.jpg', './images/manado/manado-11.jpg', './images/manado/manado-12.jpg', './images/manado/manado-13.jpg', './images/manado/manado-14.jpg']
   },
   {
     name: 'Karuizawa', country: 'JAPAN', x: 69.5, y: 5.4,
-    story: '숲이 가까운 작은 도시에서.', photos: []
+    story: '숲이 가까운 작은 도시에서.', photos: ['./images/karuizawa/karuizawa-01.jpg', './images/karuizawa/karuizawa-02.jpg', './images/karuizawa/karuizawa-03.jpg', './images/karuizawa/karuizawa-04.jpg', './images/karuizawa/karuizawa-05.jpg', './images/karuizawa/karuizawa-06.jpg', './images/karuizawa/karuizawa-07.jpg', './images/karuizawa/karuizawa-08.jpg', './images/karuizawa/karuizawa-09.jpg', './images/karuizawa/karuizawa-10.jpg']
   },
   {
     name: 'Nha Trang', country: 'VIETNAM', x: 26.3, y: 59.2,
-    story: '여름의 바다를 함께 건너온 기록.', photos: []
+    story: '여름의 바다를 함께 건너온 기록.', photos: ['./images/nhatrang/nhatrang-01.webp', './images/nhatrang/nhatrang-02.webp', './images/nhatrang/nhatrang-03.webp', './images/nhatrang/nhatrang-04.webp', './images/nhatrang/nhatrang-05.webp']
   },
   {
     name: 'Pattaya', country: 'THAILAND', x: 10.9, y: 58.0,
