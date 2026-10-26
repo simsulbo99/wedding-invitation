@@ -4,6 +4,8 @@
   const frames = [...overlay.querySelectorAll('.unbox-frame')];
   const gradient = overlay.querySelector('.unbox-gradient');
   const signature = document.getElementById('unbox-signature');
+  const inside = document.getElementById('unbox-inside');
+  const doors = [...overlay.querySelectorAll('.unbox-door')];
   const skip = document.getElementById('skip-opening');
   const replay = document.getElementById('replay-opening');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -12,6 +14,18 @@
   function wait(fn, ms) { timers.push(window.setTimeout(fn, ms)); }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
   function showFrame(i) { frames.forEach((frame, j) => frame.classList.toggle('active', i === j)); }
+  // Fade the next frame in over the current one, so the ivory backdrop never shows mid-dissolve.
+  function stackFrame(i) {
+    frames[i].classList.add('active');
+    wait(() => frames[i - 1].classList.remove('active'), 1100);
+  }
+  // Swap the closed-lid frame for its two halves, then hinge them open onto the rings.
+  function openDoors() {
+    inside.classList.add('on');
+    doors.forEach(door => door.classList.add('on'));
+    frames[3].classList.remove('active');
+    requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('doors-open')));
+  }
   function complete() {
     clearTimers();
     overlay.hidden = true;
@@ -28,7 +42,9 @@
   function start() {
     clearTimers();
     overlay.hidden = false;
-    overlay.classList.remove('is-gone', 'ivory-mode');
+    overlay.classList.remove('is-gone', 'ivory-mode', 'doors-open');
+    inside.classList.remove('on');
+    doors.forEach(door => door.classList.remove('on'));
     gradient.classList.remove('active');
     signature.classList.remove('active');
     showFrame(0);
@@ -36,10 +52,12 @@
     document.body.classList.add('opening');
     window.scrollTo(0, 0);
     wait(() => signature.classList.add('active'), 180);
-    wait(() => showFrame(1), 728);
-    wait(() => showFrame(2), 1612);
-    wait(() => gradient.classList.add('active'), 1911);
-    wait(fadeToLiveCover, 2340);
+    wait(() => stackFrame(1), 900);
+    wait(() => stackFrame(2), 1900);
+    wait(() => stackFrame(3), 3000);
+    wait(openDoors, 4400);
+    wait(() => overlay.classList.add('ivory-mode'), 5600);
+    wait(fadeToLiveCover, 7300);
   }
 
   // Recover if the in-app browser restores a page from its back/forward cache.

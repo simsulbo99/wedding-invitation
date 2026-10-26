@@ -21,13 +21,18 @@
   <link rel="preload" as="image" href="./images/unbox-01-sealed.webp">
   <link rel="stylesheet" href="./style.css?v=6-scroll-root">
   <link rel="stylesheet" href="./simplify.css?v=7-editorial">
+  <link rel="stylesheet" href="./opening.css?v=1">
 </head>
 <body class="opening invitation-page">
   <!-- Existing unboxing sequence retained without changing the scroll logic. -->
   <div class="unbox-overlay" id="unboxing" aria-label="웨딩 초대장 오프닝 애니메이션">
+    <div class="unbox-inside" id="unbox-inside"><img src="./images/unbox-05-rings.webp" alt="상자 안의 두 결혼반지"></div>
     <img class="unbox-frame active" src="./images/unbox-01-sealed.webp" alt="티파니 블루 리본 선물상자" fetchpriority="high">
     <img class="unbox-frame" src="./images/unbox-02-loosened.webp" alt="리본이 느슨해진 선물상자">
     <img class="unbox-frame" src="./images/unbox-03-unwrapped.webp" alt="리본이 풀린 선물상자">
+    <img class="unbox-frame" src="./images/unbox-04-seam.webp" alt="가운데가 열리기 시작한 상자 뚜껑">
+    <div class="unbox-door left" aria-hidden="true"><img src="./images/unbox-04-seam.webp" alt=""></div>
+    <div class="unbox-door right" aria-hidden="true"><img src="./images/unbox-04-seam.webp" alt=""></div>
     <div class="unbox-gradient" aria-hidden="true"></div>
     <button type="button" class="unbox-skip" id="skip-opening">SKIP INTRO ↗</button>
     <div class="unbox-signature" id="unbox-signature" aria-hidden="true">
@@ -163,7 +168,7 @@
     <div class="footer-title">J <i>&amp;</i> S.</div>
     <div class="footer-bottom micro"><div class="footer-actions"><a href="./atlas.html">OUR ATLAS ↗</a><button class="replay-intro" id="replay-opening" type="button" hidden>REPLAY INTRO ↺</button></div></div>
   </div></footer>
-  <script src="./main.js?v=6-scroll-root" defer></script>
+  <script src="./main.js?v=7-doors" defer></script>
   <script src="./guestbook-preview.js?v=7-editorial" defer></script>
 </body>
 </html>
