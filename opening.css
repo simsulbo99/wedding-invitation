@@ -7,7 +7,7 @@
 .unbox-door { position:absolute; top:0; bottom:0; width:50%; overflow:hidden; opacity:0; }
 .unbox-door.on { opacity:1; }
 /* Each half shows the same full-screen cover crop as the closed-lid frame. */
-.unbox-door img { position:absolute; top:0; height:100%; width:200%; object-fit:cover; object-position:center; }
+.unbox-door img { position:absolute; top:0; height:100%; width:200%; max-width:none; object-fit:cover; object-position:center; }
 .unbox-door.left { left:0; transform-origin:left center; }
 .unbox-door.left img { left:0; }
 .unbox-door.right { right:0; transform-origin:right center; }
