@@ -158,3 +158,7 @@
 @media (max-width: 700px) {
   .atlas-memory h3.is-long { font-size: clamp(45px, 11vw, 60px); }
 }
+
+/* V8 / Most trip photos are 3:4 portraits: frame them at 3:4 so they are no longer cropped. */
+.atlas-photo-stage { height: auto; aspect-ratio: 3 / 4; max-height: min(80vh, 720px); }
+.atlas-photo-stage > img.is-wide { object-fit: contain; }

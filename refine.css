@@ -1,0 +1,36 @@
+/* V8 / Refinements. Loads last; only overrides what is listed here. */
+
+/* Display face for the large English headings. The font file is served from
+   this repository, so visitors see it without installing anything. */
+@font-face {
+  font-family: 'Relationship of Melodrame';
+  src: url('./fonts/relationship-of-melodrame.woff2') format('woff2'),
+       url('./fonts/relationship-of-melodrame.otf') format('opentype'),
+       url('./fonts/relationship-of-melodrame.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+:root { --display: 'Relationship of Melodrame', var(--serif); }
+.invitation-page .hero h1,
+.invitation-page .note-words .quote,
+.invitation-page .day-section h2,
+.invitation-page .atlas-teaser h2,
+.invitation-page .rsvp-copy h2,
+.invitation-page .guestbook-copy h2,
+.invitation-page .site-footer .footer-title {
+  font-family: var(--display); font-weight: 400; letter-spacing: -.02em; font-synthesis: none;
+}
+/* The face has a single upright style: keep each <i> line's indent, never a faux slant. */
+.invitation-page :is(.hero h1, .note-words .quote, .day-section h2, .atlas-teaser h2, .rsvp-copy h2, .guestbook-copy h2, .site-footer .footer-title) i {
+  font-style: normal; letter-spacing: inherit;
+}
+
+/* 03 / Three map apps side by side. */
+.route-links { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.route-link span:first-child { white-space: nowrap; }
+.route-naver { background: #f8f7f3; }
+.route-naver:hover { background: #d9ebe5; border-color: #387c76; }
+@media (max-width: 700px) {
+  .route-links { gap: 8px; }
+  .route-link { gap: 4px; padding: 0 11px; }
+  .route-link span:last-child { font-size: 20px; }
+}

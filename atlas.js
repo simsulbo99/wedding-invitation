@@ -156,6 +156,8 @@ function paintPhoto() {
     if (stage.contains(img)) stage.replaceChildren(placeholder());
   }, { once: true });
   img.addEventListener('click', openLightbox);
+  // Landscape shots are shown whole inside the portrait frame instead of being cropped.
+  img.addEventListener('load', () => img.classList.toggle('is-wide', img.naturalWidth > img.naturalHeight), { once: true });
   stage.append(img);
   if (total > 1) {
     const preload = new Image();
