@@ -5,8 +5,7 @@
 @font-face {
   font-family: 'Relationship of Melodrame';
   src: url('./fonts/relationship-of-melodrame.woff2') format('woff2'),
-       url('./fonts/relationship-of-melodrame.otf') format('opentype'),
-       url('./fonts/relationship-of-melodrame.ttf') format('truetype');
+       url('./fonts/Relationship-of-melodrame.ttf') format('truetype');
   font-weight: 400; font-style: normal; font-display: swap;
 }
 :root { --display: 'Relationship of Melodrame', var(--serif); }
@@ -34,3 +33,25 @@
   .route-link { gap: 4px; padding: 0 11px; }
   .route-link span:last-child { font-size: 20px; }
 }
+
+/* V8.1 / Size the display face to its own proportions. It is narrower and lighter
+   than Bodoni, so the old sizes left each heading filling only about half its column. */
+.invitation-page :is(.hero h1, .note-words .quote, .day-section h2, .atlas-teaser h2, .rsvp-copy h2, .guestbook-copy h2, .site-footer .footer-title) { word-spacing: -.06em; }
+.invitation-page .hero h1 { font-size: clamp(100px, 12.2vw, 196px); }
+.invitation-page .note-words .quote { font-size: clamp(72px, 9.6vw, 146px); line-height: 1.02; }
+.invitation-page .day-section h2 { font-size: clamp(118px, 14.4vw, 220px); }
+.invitation-page .atlas-teaser h2 { font-size: clamp(96px, 11.6vw, 180px); }
+.invitation-page .rsvp-copy h2,
+.invitation-page .guestbook-copy h2 { font-size: clamp(100px, 11.6vw, 176px); }
+.invitation-page .site-footer .footer-title { font-size: clamp(120px, 22vw, 320px); }
+@media (max-width: 700px) {
+  .invitation-page .hero h1 { font-size: clamp(82px, 25vw, 104px); }
+  .invitation-page .note-words .quote { font-size: clamp(60px, 18vw, 76px); }
+  .invitation-page .day-section h2 { font-size: clamp(104px, 33vw, 136px); }
+  .invitation-page .atlas-teaser h2 { font-size: clamp(70px, 21.5vw, 90px); }
+  .invitation-page .rsvp-copy h2,
+  .invitation-page .guestbook-copy h2 { font-size: clamp(92px, 29vw, 120px); }
+  .invitation-page .site-footer .footer-title { font-size: clamp(110px, 34vw, 142px); }
+}
+/* The J's swash reaches left of its box: give it room so it isn't clipped at the screen edge. */
+.invitation-page .site-footer .footer-title { padding-left: .12em; }
