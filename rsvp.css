@@ -32,3 +32,60 @@
 .rsvp-more-guests { margin-top:18px; }
 .rsvp-more-guests[hidden] { display:none!important; }
 .rsvp-more-label { display:block; font:400 13px/1.7 var(--kr,serif); margin-bottom:8px; }
+
+
+/* Final editorial polish — The Day / RSVP / Album */
+/* The WHERE row already has a top rule: don't frame it with another bottom rule. */
+.invitation-page .day-section .detail:last-of-type {
+  border-bottom: 0;
+  padding-bottom: 12px;
+}
+/* Reduce the unused gap between venue information and the location map. */
+.invitation-page .day-section > .venue-map { margin-top: clamp(44px, 5vw, 66px); }
+
+/* One separator only, under YOUR RESPONSE. Use spacing, not horizontal rules,
+   to organize the field groups. */
+.invitation-page .rsvp-form-shell .rsvp-form-heading {
+  border-bottom: 1px solid rgba(21,43,45,.25);
+  padding-bottom: 24px;
+}
+.invitation-page .rsvp-form-shell .rsvp-field {
+  border: 0;
+  border-bottom: 0;
+  padding-top: 21px;
+  padding-bottom: 8px;
+}
+.invitation-page .rsvp-form-shell .rsvp-name,
+.invitation-page .rsvp-form-shell .rsvp-guests {
+  border: 0;
+  border-bottom: 0;
+  background: rgba(219,236,232,.47);
+  padding: 9px 12px;
+  min-height: 46px;
+}
+.invitation-page .rsvp-form-shell .rsvp-name:focus-visible,
+.invitation-page .rsvp-form-shell .rsvp-guests:focus-visible {
+  outline: 2px solid #287e75;
+  outline-offset: 2px;
+  border: 0;
+}
+
+/* A deliberate editorial title rather than a thin floating label. */
+.invitation-page .atlas-entry-cta > span:first-child {
+  font-family: var(--serif, Georgia, serif);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(27px, 3.45vw, 45px);
+  line-height: 1.12;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+@media (max-width:700px) {
+  .invitation-page .day-section > .venue-map { margin-top: 43px; }
+  .invitation-page .day-section .detail:last-of-type { padding-bottom: 6px; }
+  .invitation-page .atlas-entry-cta > span:first-child {
+    font-size: clamp(23px, 6.9vw, 32px);
+    letter-spacing: .015em;
+  }
+  .invitation-page .rsvp-form-shell .rsvp-field { padding-top: 19px; padding-bottom: 7px; }
+}
