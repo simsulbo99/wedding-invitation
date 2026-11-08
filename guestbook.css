@@ -1,0 +1,25 @@
+/* Public guestbook extends the existing ivory, Tiffany blue editorial system. */
+.guestbook-paper .guestbook-action:disabled { opacity:.6; cursor:wait; }
+.guestbook-public-consent { display:flex; align-items:flex-start; gap:9px; margin-top:20px; font:400 12px/1.7 var(--kr,serif); color:#53625f; cursor:pointer; }
+.guestbook-public-consent input { margin-top:3px; accent-color:#287e75; flex:none; }
+.guestbook-submit-status { min-height:22px; margin:13px 0 0; font:400 12px/1.8 var(--kr,serif); color:#276b62; }
+.guestbook-submit-status.is-error { color:#aa413b; }
+.guestbook-website { position:absolute!important; width:1px!important; height:1px!important; overflow:hidden!important; left:-9999px!important; }
+.guestbook-gallery { margin-top:clamp(72px,9vw,130px); }
+.guestbook-gallery-head { display:flex; justify-content:space-between; align-items:baseline; gap:20px; padding:19px 0 22px; border-top:1px solid var(--hair); }
+.guestbook-gallery-title { font:400 clamp(35px,5.5vw,65px)/1 var(--serif); letter-spacing:-.06em; margin:0; }
+.guestbook-gallery-sub { color:var(--muted); font:400 11px/1.6 var(--kr,serif); }
+.guestbook-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:17px; }
+.guestbook-entry { min-width:0; display:flex; flex-direction:column; background:#f8f7f3; border:1px solid rgba(21,43,45,.13); }
+.guestbook-entry-photo { display:block; width:100%; aspect-ratio:4/3; overflow:hidden; background:#dbece8; }
+.guestbook-entry-photo img { width:100%; height:100%; object-fit:cover; display:block; }
+.guestbook-entry-body { display:flex; flex:1; flex-direction:column; gap:27px; padding:23px 23px 19px; }
+.guestbook-entry-message { margin:0; color:var(--ink); font:400 14px/1.95 var(--kr,serif); overflow-wrap:anywhere; white-space:pre-wrap; }
+.guestbook-entry-foot { display:flex; justify-content:space-between; gap:10px; margin-top:auto; color:#63736e; font:500 10px/1.5 var(--sans,Arial,sans-serif); letter-spacing:.035em; }
+.guestbook-entry-foot time { flex:none; }
+.guestbook-gallery-status,.guestbook-empty { margin:23px 0 0; font:400 13px/1.8 var(--kr,serif); color:var(--muted); }
+.guestbook-more { display:block; width:100%; max-width:280px; margin:36px auto 0; background:transparent; border:1px solid #8da7a0; padding:15px 20px; color:var(--ink); font:500 13px var(--kr,serif); cursor:pointer; }
+.guestbook-more:hover { background:#dbece8; }
+.guestbook-more[hidden],.guestbook-empty[hidden] { display:none!important; }
+@media(max-width:900px){ .guestbook-list { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:650px){ .guestbook-list { grid-template-columns:1fr; gap:13px; } .guestbook-gallery-head { display:block; } .guestbook-gallery-sub { display:block; margin-top:10px; } .guestbook-entry-body { padding:20px; } }
