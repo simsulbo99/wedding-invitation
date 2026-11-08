@@ -1,0 +1,21 @@
+/* Loaded after refine.css to retain the original editorial styling. */
+.invitation-page .rsvp-form-shell { display:block; }
+.rsvp-form-shell .rsvp-form-heading { padding-bottom:25px; }
+.rsvp-field { border:0; padding:22px 0; margin:0; border-bottom:1px solid rgba(21,43,45,.22); min-width:0; }
+.rsvp-legend { display:block; width:100%; margin-bottom:16px; font:600 10px/1.6 var(--sans,Arial,sans-serif); letter-spacing:.12em; color:#536d68; }
+.rsvp-choices { display:flex; flex-wrap:wrap; gap:12px 22px; }
+.rsvp-choice { display:inline-flex; align-items:center; gap:9px; cursor:pointer; font:400 14px/1.8 var(--kr,serif); }
+.rsvp-choice input { width:17px; height:17px; margin:0; accent-color:#216e68; }
+.rsvp-name,.rsvp-guests { display:block; width:100%; min-height:43px; background:transparent; border:0; border-bottom:1px solid #506e68; border-radius:0; color:#152b2d; font:400 17px/1.6 var(--kr,serif); padding:7px 2px; }
+.rsvp-name:focus,.rsvp-guests:focus { outline:0; border-bottom:2px solid #287e75; }
+.rsvp-guests { max-width:110px; }
+.rsvp-form-shell .rsvp-action:disabled { opacity:.5; cursor:wait; }
+.rsvp-status { margin:14px 0 0; color:#23665f; font:400 12px/1.8 var(--kr,serif); min-height:21px; word-break:keep-all; }
+.rsvp-status.is-error { color:#a63e36; }
+.rsvp-edit-hint { font:400 12px/1.8 var(--kr,serif); color:#4a706a; padding:12px 0 0; }
+.rsvp-success { border-top:1px solid rgba(21,43,45,.22); padding-top:17px; margin-top:17px; }
+.rsvp-success p { font:400 12px/1.8 var(--kr,serif); margin:0 0 9px; }
+.rsvp-success a { color:#1e635d; font:500 13px/1.8 var(--kr,serif); overflow-wrap:anywhere; }
+.rsvp-copy-link { margin-top:10px; padding:9px 12px; background:transparent; color:#143f3c; border:1px solid #5c827c; font:400 12px var(--kr,serif); cursor:pointer; }
+.rsvp-field[hidden],.rsvp-success[hidden],.rsvp-edit-hint[hidden] { display:none!important; }
+@media(max-width:700px) { .rsvp-field { padding:19px 0; } .rsvp-choices { gap:9px 14px; } .rsvp-choice { font-size:13px; } }

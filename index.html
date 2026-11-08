@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="./simplify.css?v=7-editorial">
   <link rel="stylesheet" href="./opening.css?v=2">
   <link rel="stylesheet" href="./refine.css?v=8.1">
+  <link rel="stylesheet" href="./rsvp.css?v=2">
 </head>
 <body class="opening invitation-page">
   <!-- Existing unboxing sequence retained without changing the scroll logic. -->
@@ -125,19 +126,45 @@
         </a>
       </div>
     </section>
-    <!-- 05 / RSVP remains a clearly disabled preview until connected. -->
+    <!-- 05 / RSVP: Google Sheets-backed form. -->
     <section class="reply" id="rsvp" aria-labelledby="rsvp-title">
       <div class="wrap">
         <div class="section-head micro"><span>05 / RSVP</span></div>
         <div class="rsvp-grid">
           <div class="rsvp-copy"><h2 id="rsvp-title">Your<br><i>reply.</i></h2><p>그날 함께하실 수 있을지<br>미리 알려주시면 감사하겠습니다.</p></div>
-          <div class="rsvp-form-shell" aria-label="RSVP 입력 화면 예정 영역">
+          <form class="rsvp-form-shell" id="rsvp-form" aria-label="참석 여부 응답">
             <div class="rsvp-form-heading"><span class="micro">YOUR RESPONSE</span></div>
-            <div class="rsvp-option-preview" aria-hidden="true"><span><span class="fake-radio"></span> 참석합니다</span><span><span class="fake-radio"></span> 참석이 어렵습니다</span></div>
-            <div class="rsvp-form-line"><span class="micro">NAME / 성함</span><span class="line-placeholder">이름을 입력할 공간</span></div>
-            <button class="rsvp-action" type="button" disabled>참석 여부 전달하기 <span aria-hidden="true">↗</span></button>
-            <p class="form-coming micro">RSVP FORM / 추후 연결 예정</p>
-          </div>
+            <p id="rsvp-edit-hint" class="rsvp-edit-hint" hidden></p>
+            <fieldset class="rsvp-field">
+              <legend class="rsvp-legend">ATTENDANCE / 참석 여부</legend>
+              <div class="rsvp-choices">
+                <label class="rsvp-choice"><input type="radio" name="attendance" value="yes" checked required> 참석합니다</label>
+                <label class="rsvp-choice"><input type="radio" name="attendance" value="no" required> 참석이 어렵습니다</label>
+              </div>
+            </fieldset>
+            <div class="rsvp-field">
+              <label for="rsvp-guest-name" class="rsvp-legend">NAME / 성함</label>
+              <input class="rsvp-name" id="rsvp-guest-name" name="guestName" type="text" maxlength="40" autocomplete="name" placeholder="성함을 입력해주세요" required>
+            </div>
+            <fieldset class="rsvp-field">
+              <legend class="rsvp-legend">GUEST OF / 초대 구분</legend>
+              <div class="rsvp-choices">
+                <label class="rsvp-choice"><input type="radio" name="side" value="groom" checked required> 신랑 측</label>
+                <label class="rsvp-choice"><input type="radio" name="side" value="bride" required> 신부 측</label>
+              </div>
+            </fieldset>
+            <div class="rsvp-field" id="rsvp-count-wrap">
+              <label for="rsvp-guests" class="rsvp-legend">GUESTS / 총 참석 인원 (본인 포함)</label>
+              <input class="rsvp-guests" id="rsvp-guests" name="guests" type="number" inputmode="numeric" min="1" max="10" step="1" value="1" required>
+            </div>
+            <button class="rsvp-action" type="submit" id="rsvp-submit">참석 여부 전달하기 <span aria-hidden="true">↗</span></button>
+            <p class="rsvp-status" id="rsvp-status" role="status" aria-live="polite"></p>
+            <div class="rsvp-success" id="rsvp-success" hidden>
+              <p>응답이 저장되었습니다. 다시 수정하려면 아래 링크를 보관해주세요. 같은 브라우저에서는 자동으로 이어집니다.</p>
+              <a id="rsvp-edit-link" href="#rsvp">내 응답 수정 링크</a>
+              <div><button class="rsvp-copy-link" id="rsvp-copy-link" type="button">수정 링크 복사</button></div>
+            </div>
+          </form>
         </div>
       </div>
     </section>
@@ -171,5 +198,6 @@
   </div></footer>
   <script src="./main.js?v=7-doors" defer></script>
   <script src="./guestbook-preview.js?v=7-editorial" defer></script>
+  <script src="./rsvp.js?v=2" defer></script>
 </body>
 </html>
