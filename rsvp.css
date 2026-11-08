@@ -89,3 +89,25 @@
   }
   .invitation-page .rsvp-form-shell .rsvp-field { padding-top: 19px; padding-bottom: 7px; }
 }
+
+/* V5: Day detail and RSVP editorial spacing */
+.invitation-page .day-section .dress-code-detail { border-top:1px solid var(--hair); padding-top:26px; padding-bottom:8px; }
+.invitation-page .day-section .dress-code-copy { font:400 clamp(13px,1.3vw,16px)/1.95 var(--kr,serif); color:var(--ink); word-break:keep-all; }
+.invitation-page .day-section .detail:last-of-type { border-bottom:0; }
+.invitation-page .rsvp-form-shell .rsvp-field { padding-top:26px; padding-bottom:17px; }
+.invitation-page .rsvp-form-shell .rsvp-field + .rsvp-field { margin-top:8px; }
+.invitation-page .rsvp-form-shell .rsvp-legend { margin-bottom:13px; }
+.invitation-page .rsvp-form-shell .rsvp-form-heading + .rsvp-field { margin-top:8px; }
+/* Album CTA uses the invitation's own display face and italic, not bold UI lettering. */
+.invitation-page .atlas-entry-cta > .album-cta-type {
+  font-family:var(--display,var(--serif,Georgia,serif));
+  font-style:normal; font-weight:400; text-transform:none; letter-spacing:-.045em;
+  font-size:clamp(30px,3.8vw,49px);
+}
+.invitation-page .atlas-entry-cta > .album-cta-type i {font-family:inherit; font-style:italic; font-weight:400;}
+@media(max-width:700px){
+ .invitation-page .rsvp-form-shell .rsvp-field {padding-top:24px;padding-bottom:15px;}
+ .invitation-page .rsvp-form-shell .rsvp-field + .rsvp-field {margin-top:6px;}
+ .invitation-page .atlas-entry-cta > .album-cta-type {font-size:clamp(30px,8vw,39px);}
+ .invitation-page .day-section .dress-code-detail {padding-top:23px;}
+}

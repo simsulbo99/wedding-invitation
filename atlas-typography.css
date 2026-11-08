@@ -1,0 +1,15 @@
+/* Align Atlas English editorial headings with the invitation's display face.
+   Existing font assets remain in /fonts. Navigation and body text stay legible. */
+@font-face {
+  font-family:'Relationship of Melodrame';
+  src:url('./fonts/relationship-of-melodrame.woff2') format('woff2'),
+      url('./fonts/Relationship-of-melodrame.ttf') format('truetype');
+  font-weight:400;font-style:normal;font-display:swap;
+}
+.atlas-page {--display:'Relationship of Melodrame',var(--serif,Georgia,serif);}
+.atlas-page .atlas-hero h1,
+.atlas-page .atlas-toolbar h2,
+.atlas-page .atlas-memory h3,
+.atlas-page .atlas-index-title {font-family:var(--display);font-weight:400;letter-spacing:-.02em;}
+.atlas-page .atlas-hero h1 em {font-style:normal;}
+.atlas-page .atlas-index-title {letter-spacing:-.025em;}

@@ -7,6 +7,7 @@
   <title>The Atlas — Jungwoo &amp; Seoha</title>
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./atlas.css?v=20261027-frame">
+  <link rel="stylesheet" href="./atlas-typography.css?v=1">
 </head>
 <body class="atlas-page">
   <header class="atlas-header">
@@ -17,7 +18,6 @@
       </a>
     </div>
   </header>
-
   <main>
     <section class="atlas-hero" aria-labelledby="atlas-title">
       <div class="wrap atlas-hero-layout">
@@ -28,7 +28,6 @@
         </div>
       </div>
     </section>
-
     <section class="atlas-workspace wrap" aria-label="함께 여행한 도시와 사진">
       <div class="atlas-toolbar">
         <h2>Choose a place.</h2>
@@ -37,32 +36,22 @@
           <button id="tab-index" type="button" role="tab" aria-selected="false" aria-controls="index-view">Index</button>
         </div>
       </div>
-
       <div class="atlas-columns">
         <div class="atlas-locator">
           <div id="map-view" class="map-view" role="tabpanel" aria-labelledby="tab-map">
             <div id="map-holder" class="atlas-map">
-              <!-- An independent map asset avoids fragile large inline SVGs and external map APIs. -->
               <img class="atlas-map-art" src="./images/atlas-map.svg?v=20261023-1" alt="동아시아와 동남아시아 해안선 지도" draggable="false">
-              <svg class="atlas-map-route" viewBox="0 0 1000 850" preserveAspectRatio="none" aria-hidden="true">
-                <path id="map-route-line" d=""></path>
-              </svg>
+              <svg class="atlas-map-route" viewBox="0 0 1000 850" preserveAspectRatio="none" aria-hidden="true"><path id="map-route-line" d=""></path></svg>
               <div id="map-dots" class="atlas-map-pins" aria-label="여행 도시를 선택하세요"></div>
             </div>
             <p class="atlas-map-guide">지도 위의 위치를 선택해 사진을 살펴보세요.</p>
           </div>
           <div id="index-view" class="atlas-index is-hidden" role="tabpanel" aria-labelledby="tab-index" hidden></div>
         </div>
-
         <article class="atlas-memory" aria-label="선택한 도시의 사진 앨범" aria-live="polite">
-          <div class="atlas-memory-top">
-            <span id="place-number">01 / 08</span>
-            <span id="place-country">JAPAN</span>
-          </div>
+          <div class="atlas-memory-top"><span id="place-number">01 / 08</span><span id="place-country">JAPAN</span></div>
           <h3 id="place-title">Tokyo.</h3>
-          <div id="memory-photo" class="atlas-photo-stage">
-            <div class="atlas-photo-placeholder">사진을 준비하고 있습니다.</div>
-          </div>
+          <div id="memory-photo" class="atlas-photo-stage"><div class="atlas-photo-placeholder">사진을 준비하고 있습니다.</div></div>
           <div class="atlas-photo-toolbar">
             <span id="memory-count" aria-live="polite">01 / 10</span>
             <div class="atlas-photo-arrows">
@@ -75,15 +64,7 @@
       </div>
     </section>
   </main>
-
-  <footer class="atlas-footer">
-    <div class="wrap">
-      <a href="./index.html#atlas-entry" aria-label="청첩장으로 돌아가기">
-        <span aria-hidden="true">←</span><span>Return to invitation</span>
-      </a>
-    </div>
-  </footer>
-
+  <footer class="atlas-footer"><div class="wrap"><a href="./index.html#atlas-entry" aria-label="청첩장으로 돌아가기"><span aria-hidden="true">←</span><span>Return to invitation</span></a></div></footer>
   <div id="photo-lightbox" class="atlas-lightbox" role="dialog" aria-modal="true" aria-label="확대된 여행 사진" aria-hidden="true">
     <button id="close-lightbox" class="atlas-lightbox-close" type="button" aria-label="확대 사진 닫기">×</button>
     <button id="lightbox-prev" class="atlas-lightbox-prev" type="button" aria-label="이전 확대 사진">←</button>

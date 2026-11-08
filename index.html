@@ -23,8 +23,8 @@
   <link rel="stylesheet" href="./simplify.css?v=7-editorial">
   <link rel="stylesheet" href="./opening.css?v=2">
   <link rel="stylesheet" href="./refine.css?v=8.1">
-  <link rel="stylesheet" href="./rsvp.css?v=4">
-  <link rel="stylesheet" href="./guestbook.css?v=1">
+  <link rel="stylesheet" href="./rsvp.css?v=5">
+  <link rel="stylesheet" href="./guestbook.css?v=2">
 </head>
 <body class="opening invitation-page">
   <!-- Existing unboxing sequence retained without changing the scroll logic. -->
@@ -95,6 +95,10 @@
             <span class="micro">WHERE</span>
             <div><div class="detail-title detail-korean">페어몬트 앰배서더 서울<br>그랜드 볼룸</div><div class="detail-sub">서울특별시 영등포구 여의대로 108</div></div>
           </div>
+          <div class="detail dress-code-detail">
+            <span class="micro">DRESS CODE</span>
+            <div class="dress-code-copy">격식보다 함께 웃고 즐기는 시간이 더 소중합니다.<br>편안한 옷차림으로 오세요. 반바지도, 트레이닝복도 환영합니다!</div>
+          </div>
         </div>
       </div>
       <div class="venue-map">
@@ -123,7 +127,7 @@
         </div>
         <a class="atlas-feature" href="./atlas.html" aria-label="여행 사진 앨범 보기">
           <div class="atlas-feature-image"><img src="./images/main-5.webp" loading="lazy" alt="도쿄에서 함께한 여행 사진"></div>
-          <div class="atlas-entry-cta"><span>OUR PHOTO ALBUM</span><span class="atlas-entry-arrow" aria-hidden="true">↗</span></div>
+          <div class="atlas-entry-cta"><span class="album-cta-type">Photo <i>Album.</i></span><span class="atlas-entry-arrow" aria-hidden="true">↗</span></div>
         </a>
       </div>
     </section>
@@ -177,7 +181,7 @@
     <section class="guestbook wrap" id="guestbook" aria-labelledby="guestbook-title">
       <div class="section-head micro"><span>06 / THE GUESTBOOK</span></div>
       <div class="guestbook-grid">
-        <div class="guestbook-copy"><h2 id="guestbook-title">Leave<br><i>a Note.</i></h2><p>축하의 한마디와 함께,<br>사진 한 장도 남겨주세요.</p></div>
+        <div class="guestbook-copy"><h2 id="guestbook-title">Leave<br><i>a Note.</i></h2><p>축하의 한마디와 함께,<br>결혼식의 순간들을 사진으로 나눠주세요.</p><p class="guestbook-prize">올려주신 결혼식 사진 중 한 장을 선정해<br>작은 선물을 드릴게요!</p></div>
         <form class="guestbook-paper" id="guestbook-form" aria-label="공개 방명록 작성">
           <div class="guestbook-paper-top micro"><span>TO / JUNGWOO &amp; SEOHA</span></div>
           <label class="guestbook-field-label" for="guestbook-message">MESSAGE</label>
@@ -186,12 +190,12 @@
             <label class="guestbook-field-label" for="guestbook-name">FROM / 이름</label>
             <input class="guestbook-name" id="guestbook-name" name="name" type="text" maxlength="40" required placeholder="성함">
           </div>
-          <label class="guestbook-upload" for="guestbook-photo"><span class="guestbook-upload-icon" aria-hidden="true">＋</span><span>사진 첨부 <small>선택 사항 · 최대 10MB</small></span><span class="guestbook-upload-arrow" aria-hidden="true">↗</span></label>
-          <input class="guestbook-photo-input" id="guestbook-photo" name="photo" type="file" accept="image/*" aria-describedby="guestbook-upload-hint">
-          <p class="guestbook-photo-hint" id="guestbook-upload-hint">사진은 등록 전 자동 압축되며, 메시지와 함께 공개됩니다.</p>
-          <figure class="guestbook-preview" id="guestbook-preview" hidden><img id="guestbook-preview-image" alt="선택한 사진 미리보기"><figcaption id="guestbook-preview-caption"></figcaption></figure>
+          <label class="guestbook-upload" for="guestbook-photo"><span class="guestbook-upload-icon" aria-hidden="true">＋</span><span>사진 첨부 <small>선택 사항 · 최대 10장 / 합계 100MB</small></span><span class="guestbook-upload-arrow" aria-hidden="true">↗</span></label>
+          <input class="guestbook-photo-input" id="guestbook-photo" name="photo" type="file" accept="image/*,.heic,.heif" multiple aria-describedby="guestbook-upload-hint">
+          <p class="guestbook-photo-hint" id="guestbook-upload-hint">최대 10장, 원본 합계 100MB까지 선택할 수 있습니다. 전송 시 웹용으로 자동 압축됩니다.</p>
+          <div class="guestbook-preview guestbook-preview-grid" id="guestbook-preview" hidden aria-label="선택한 사진 미리보기"></div>
           <p class="guestbook-photo-error" id="guestbook-photo-error" role="status" hidden></p>
-          <label class="guestbook-public-consent"><input type="checkbox" name="publicConsent" required> <span>작성한 이름·메시지·사진이 이 청첩장에서 다른 하객에게 공개되는 데 동의합니다.</span></label>
+          <p class="guestbook-public-note">등록하신 이름·메시지·사진은 청첩장에서 공개됩니다.</p>
           <div class="guestbook-website" aria-hidden="true"><label for="guestbook-website">Website</label><input id="guestbook-website" name="website" tabindex="-1" autocomplete="off"></div>
           <button type="submit" class="guestbook-action" id="guestbook-submit">방명록 남기기 <span aria-hidden="true">↗</span></button>
           <p class="guestbook-submit-status" id="guestbook-status" role="status" aria-live="polite"></p>
@@ -205,7 +209,7 @@
         <div class="guestbook-list" id="guestbook-list" aria-live="polite"></div>
         <p class="guestbook-empty" id="guestbook-empty" hidden>첫 번째 축하 메시지를 남겨주세요.</p>
         <p class="guestbook-gallery-status" id="guestbook-gallery-status" role="status"></p>
-        <button class="guestbook-more" type="button" id="guestbook-more" hidden>메시지 더 보기 ↓</button>
+        <nav class="guestbook-pagination" id="guestbook-pagination" aria-label="방명록 페이지 이동"></nav>
       </div>
     </section>
   </main>
@@ -214,8 +218,8 @@
     <div class="footer-bottom micro"><div class="footer-actions"><a href="./atlas.html">OUR ATLAS ↗</a><button class="replay-intro" id="replay-opening" type="button" hidden>REPLAY INTRO ↺</button></div></div>
   </div></footer>
   <script src="./main.js?v=7-doors" defer></script>
-  <script src="./guestbook-preview.js?v=7-editorial" defer></script>
+  
   <script src="./rsvp.js?v=3" defer></script>
-  <script src="./guestbook.js?v=1" defer></script>
+  <script src="./guestbook.js?v=2" defer></script>
 </body>
 </html>
