@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="./simplify.css?v=7-editorial">
   <link rel="stylesheet" href="./opening.css?v=2">
   <link rel="stylesheet" href="./refine.css?v=8.1">
-  <link rel="stylesheet" href="./rsvp.css?v=2">
+  <link rel="stylesheet" href="./rsvp.css?v=3">
 </head>
 <body class="opening invitation-page">
   <!-- Existing unboxing sequence retained without changing the scroll logic. -->
@@ -49,7 +49,7 @@
       <div class="section-head micro hero-chapter"><span>01 / THE INTRODUCTION</span></div>
       <div class="hero-grid">
         <div class="hero-copy">
-          <h1 id="hero-title">The<br><i>wedding.</i></h1>
+          <h1 id="hero-title">The<br><i>Wedding.</i></h1>
           <div class="hero-foot"><span class="caption-kr">정우와 서하, 결혼합니다.</span></div>
         </div>
         <div class="hero-media">
@@ -71,7 +71,7 @@
       <div class="section-head micro"><span>02 / THE NOTE</span></div>
       <div class="note-editorial">
         <div class="note-words">
-          <h2 class="quote" id="note-title">Journeys end<br>in <i>lovers<br>meeting.</i></h2>
+          <h2 class="quote" id="note-title">Journeys End<br>in <i>Lovers<br>Meeting.</i></h2>
           <p class="note-translation">사랑하는 이를 만나면,<br>모든 방황은 끝이 난다.</p>
           <p class="note-foot micro">— WILLIAM SHAKESPEARE<br>TWELFTH NIGHT · ACT II, SCENE III</p>
         </div>
@@ -84,7 +84,7 @@
     <section class="day-section wrap" aria-labelledby="day-title" id="the-day">
       <div class="section-head micro"><span>03 / THE DAY</span></div>
       <div class="day-grid">
-        <h2 id="day-title">The<br><i>day.</i></h2>
+        <h2 id="day-title">The<br><i>Day.</i></h2>
         <div class="day-right">
           <div class="detail">
             <span class="micro">WHEN</span>
@@ -117,21 +117,21 @@
       <div class="wrap">
         <div class="section-head micro"><span>04 / THE PRIVATE ATLAS</span></div>
         <div class="atlas-teaser-top">
-          <h2 id="atlas-title">The places<br><i>we keep.</i></h2>
+          <h2 id="atlas-title">The Places<br><i>We Keep.</i></h2>
           <p class="atlas-teaser-intro">우리가 함께 지나온 곳들.<br>지도 위에 남겨둔 작은 이야기들.</p>
         </div>
-        <a class="atlas-feature" href="./atlas.html" aria-label="여행 사진과 지도가 담긴 The Private Atlas 열기">
+        <a class="atlas-feature" href="./atlas.html" aria-label="여행 사진 앨범 보기">
           <div class="atlas-feature-image"><img src="./images/main-5.webp" loading="lazy" alt="도쿄에서 함께한 여행 사진"></div>
-          <div class="atlas-entry-cta"><span>Explore the atlas.</span><span class="atlas-entry-arrow" aria-hidden="true">↗</span></div>
+          <div class="atlas-entry-cta"><span>Photo Album</span><span class="atlas-entry-arrow" aria-hidden="true">↗</span></div>
         </a>
       </div>
     </section>
-    <!-- 05 / RSVP: Google Sheets-backed form. -->
+    <!-- 05 / RSVP: Google Sheets-backed form. Browser-local editing only. -->
     <section class="reply" id="rsvp" aria-labelledby="rsvp-title">
       <div class="wrap">
         <div class="section-head micro"><span>05 / RSVP</span></div>
         <div class="rsvp-grid">
-          <div class="rsvp-copy"><h2 id="rsvp-title">Your<br><i>reply.</i></h2><p>그날 함께하실 수 있을지<br>미리 알려주시면 감사하겠습니다.</p></div>
+          <div class="rsvp-copy"><h2 id="rsvp-title">Your<br><i>Reply.</i></h2><p>그날 함께하실 수 있을지<br>미리 알려주시면 감사하겠습니다.</p></div>
           <form class="rsvp-form-shell" id="rsvp-form" aria-label="참석 여부 응답">
             <div class="rsvp-form-heading"><span class="micro">YOUR RESPONSE</span></div>
             <p id="rsvp-edit-hint" class="rsvp-edit-hint" hidden></p>
@@ -147,23 +147,27 @@
               <input class="rsvp-name" id="rsvp-guest-name" name="guestName" type="text" maxlength="40" autocomplete="name" placeholder="성함을 입력해주세요" required>
             </div>
             <fieldset class="rsvp-field">
-              <legend class="rsvp-legend">GUEST OF / 초대 구분</legend>
+              <legend class="rsvp-legend">INVITED BY / 초대 구분</legend>
               <div class="rsvp-choices">
                 <label class="rsvp-choice"><input type="radio" name="side" value="groom" checked required> 신랑 측</label>
                 <label class="rsvp-choice"><input type="radio" name="side" value="bride" required> 신부 측</label>
               </div>
             </fieldset>
-            <div class="rsvp-field" id="rsvp-count-wrap">
-              <label for="rsvp-guests" class="rsvp-legend">GUESTS / 총 참석 인원 (본인 포함)</label>
-              <input class="rsvp-guests" id="rsvp-guests" name="guests" type="number" inputmode="numeric" min="1" max="10" step="1" value="1" required>
-            </div>
+            <fieldset class="rsvp-field" id="rsvp-count-wrap">
+              <legend class="rsvp-legend">GUESTS / 총 참석 인원 (본인 포함)</legend>
+              <div class="rsvp-choices rsvp-count-choices" aria-label="참석 인원 선택 (하나만 선택)">
+                <label class="rsvp-choice"><input type="checkbox" name="guestCountChoice" value="1" checked> 1명</label>
+                <label class="rsvp-choice"><input type="checkbox" name="guestCountChoice" value="2"> 2명</label>
+                <label class="rsvp-choice"><input type="checkbox" name="guestCountChoice" value="3plus"> 3명 이상</label>
+              </div>
+              <div class="rsvp-more-guests" id="rsvp-more-guests" hidden>
+                <label for="rsvp-guests" class="rsvp-more-label">총 몇 분이 참석하시나요?</label>
+                <input class="rsvp-guests" id="rsvp-guests" name="guests" type="number" inputmode="numeric" min="3" max="10" step="1" value="3" disabled>
+              </div>
+            </fieldset>
             <button class="rsvp-action" type="submit" id="rsvp-submit">참석 여부 전달하기 <span aria-hidden="true">↗</span></button>
             <p class="rsvp-status" id="rsvp-status" role="status" aria-live="polite"></p>
-            <div class="rsvp-success" id="rsvp-success" hidden>
-              <p>응답이 저장되었습니다. 다시 수정하려면 아래 링크를 보관해주세요. 같은 브라우저에서는 자동으로 이어집니다.</p>
-              <a id="rsvp-edit-link" href="#rsvp">내 응답 수정 링크</a>
-              <div><button class="rsvp-copy-link" id="rsvp-copy-link" type="button">수정 링크 복사</button></div>
-            </div>
+
           </form>
         </div>
       </div>
@@ -172,7 +176,7 @@
     <section class="guestbook wrap" id="guestbook" aria-labelledby="guestbook-title">
       <div class="section-head micro"><span>06 / THE GUESTBOOK</span></div>
       <div class="guestbook-grid">
-        <div class="guestbook-copy"><h2 id="guestbook-title">Leave<br><i>a note.</i></h2><p>축하의 한마디와 함께,<br>사진 한 장도 남겨주세요.</p></div>
+        <div class="guestbook-copy"><h2 id="guestbook-title">Leave<br><i>a Note.</i></h2><p>축하의 한마디와 함께,<br>사진 한 장도 남겨주세요.</p></div>
         <form class="guestbook-paper" id="guestbook-form" aria-label="방명록 입력 미리보기">
           <div class="guestbook-paper-top micro"><span>TO / JUNGWOO &amp; SEOHA</span></div>
           <label class="guestbook-field-label" for="guestbook-message">MESSAGE</label>
@@ -198,6 +202,6 @@
   </div></footer>
   <script src="./main.js?v=7-doors" defer></script>
   <script src="./guestbook-preview.js?v=7-editorial" defer></script>
-  <script src="./rsvp.js?v=2" defer></script>
+  <script src="./rsvp.js?v=3" defer></script>
 </body>
 </html>

@@ -19,3 +19,16 @@
 .rsvp-copy-link { margin-top:10px; padding:9px 12px; background:transparent; color:#143f3c; border:1px solid #5c827c; font:400 12px var(--kr,serif); cursor:pointer; }
 .rsvp-field[hidden],.rsvp-success[hidden],.rsvp-edit-hint[hidden] { display:none!important; }
 @media(max-width:700px) { .rsvp-field { padding:19px 0; } .rsvp-choices { gap:9px 14px; } .rsvp-choice { font-size:13px; } }
+
+/* Keep the photo-album CTA typography aligned with the editorial headings. */
+.invitation-page .atlas-entry-cta > span:first-child {
+  font-family: var(--display, var(--serif, Georgia, serif));
+  font-weight: 400;
+  letter-spacing: -.035em;
+  text-transform: none;
+}
+/* Single-choice square checkboxes; "3+" reveals exact headcount input. */
+.rsvp-count-choices .rsvp-choice input { accent-color:#216e68; }
+.rsvp-more-guests { margin-top:18px; }
+.rsvp-more-guests[hidden] { display:none!important; }
+.rsvp-more-label { display:block; font:400 13px/1.7 var(--kr,serif); margin-bottom:8px; }
