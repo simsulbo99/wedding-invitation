@@ -2,11 +2,19 @@
 
 // Map, Index, featured photographs and the viewer all use atlas-data.js.
 (() => {
-  const { collections, groups, defaultCollection, routeOrigin } = window.ATLAS_DATA;
+  // Groups listed in ATLAS_DATA.inactiveGroups (currently "details") stay in the data file with their
+  // photos, but are left out of the map, Index, counts and viewer. Remove the id there to restore one.
+  const DATA = window.ATLAS_DATA;
+  const inactive = new Set(DATA.inactiveGroups || []);
+  const collections = DATA.collections.filter(c => !inactive.has(c.group));
+  const groups = DATA.groups.filter(g => !inactive.has(g.id));
+  const { defaultCollection, routeOrigin } = DATA;
   const byId = new Map(collections.map(collection => [collection.id, collection]));
   const groupById = new Map(groups.map(group => [group.id, group]));
   const $ = id => document.getElementById(id);
   const num = value => String(value).padStart(2, '0');
+  // City names are shown in capitals; ids, folders and file names keep their original spelling.
+  const cityLabel = collection => collection.name.toUpperCase();
   const url = path => './' + path.split('/').map(encodeURIComponent).join('/');
   const photoURL = (collection, photo) => url(`${collection.folder}/${photo.file}`);
   const thumbURL = (collection, photo) => url(`images/atlas-thumbs/${collection.id}/${photo.file.replace(/\.[^.]+$/, '.webp')}`);
@@ -71,7 +79,7 @@
       pin.setAttribute('aria-label', `${num(collection.number)} ${collection.name} — ${groupById.get(collection.group).name}, ${collection.photos.length}장`);
       const marker = make('span', 'atlas-pin-symbol');
       marker.append(make('span', '', num(collection.number)));
-      const label = make('span', 'atlas-pin-label', `${collection.name} · ${collection.group === 'wedding' ? 'Wedding' : 'Travel'}`);
+      const label = make('span', 'atlas-pin-label', `${cityLabel(collection)} · ${collection.group === 'wedding' ? 'Wedding' : 'Travel'}`);
       label.setAttribute('aria-hidden', 'true');
       pin.append(marker, label);
       $('map-dots').append(pin);
@@ -85,7 +93,7 @@
       section.append(heading);
       for (const collection of collections.filter(c => c.group === group.id)) {
         const row = bindCollection(make('button', 'atlas-index-item'), collection, 'mobile');
-        const name = make('span', 'atlas-index-title', collection.name);
+        const name = make('span', 'atlas-index-title', cityLabel(collection));
         if (collection.country) name.append(make('small', 'atlas-index-country', collection.country));
         const count = make('span', 'atlas-index-count', `${collection.photos.length} photos`);
         const arrow = make('span', 'atlas-index-arr', '↗');
@@ -96,8 +104,11 @@
       $('index-view').append(section);
     }
     const details = collections.find(c => c.group === 'details');
-    bindCollection($('details-link'), details, 'mobile');
-    $('details-link').replaceChildren(document.createTextNode(`${num(details.number)} / ${details.name}`), make('span', '', '↗'));
+    const detailsLink = $('details-link');
+    if (!detailsLink) return;
+    if (!details) { detailsLink.remove(); return; } // The Details is inactive: no link under the map
+    bindCollection(detailsLink, details, 'mobile');
+    detailsLink.replaceChildren(document.createTextNode(`${num(details.number)} / ${details.name}`), make('span', '', '↗'));
   }
 
   // Use rendered pin centers so fixed 48px pair spacing remains correct on resize.
@@ -139,7 +150,7 @@
     $('place-number').textContent = `${num(selected.number)} / ${num(collections.length)}`;
     $('place-group').textContent = groupById.get(selected.group).name.toUpperCase();
     $('place-country').textContent = selected.country || 'EPILOGUE';
-    $('place-title').textContent = `${selected.name}.`;
+    $('place-title').textContent = `${cityLabel(selected)}.`;
     $('place-title').classList.toggle('is-long', selected.name.length > 8);
     $('memory-story').textContent = selected.story;
     document.querySelectorAll('button[data-collection]').forEach(button => {

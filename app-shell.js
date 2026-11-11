@@ -5,7 +5,9 @@
    - atlas.html is fetched once, its header/main/footer/lightbox are mounted once, and its
      scripts run once. atlas.html itself stays a normal page for direct links and refreshes.
    - The music card and its iframe are never moved, hidden or told to play/pause here.
-   - If anything fails, the link falls back to a normal page load (music then restarts). */
+   - If anything fails, the link falls back to a normal page load (music then restarts).
+   - Each switch is wrapped in the airplane bridge (bridge.js), which calls back at its midpoint;
+     without bridge.js, or with reduced motion, the switch happens at once. */
 (() => {
   const body = document.body;
   const atlasSlot = document.getElementById('atlas-view');
@@ -39,7 +41,9 @@
     window.scrollTo(0, Math.max(0, top || 0));
     root.style.scrollBehavior = previous;
   }
+  let transitioning = false; // during a flight the visible view and the history entry can disagree
   function rememberScroll() {
+    if (transitioning) return;
     try { history.replaceState({ ...(history.state || {}), shell: view, scroll: window.scrollY }, ''); } catch (e) { /* ignore */ }
   }
 
@@ -99,6 +103,20 @@
     return mountPromise;
   }
 
+  // Airplane bridge: swap() runs at the animation's midpoint. Never blocks navigation on failure.
+  function bridge(direction, swap) {
+    const B = window.WeddingBridge;
+    let called = false;
+    const once = () => { if (!called) { called = true; swap(); } };
+    const done = () => { transitioning = false; };
+    transitioning = true;
+    if (B && typeof B.run === 'function') {
+      try { return Promise.resolve(B.run(direction, once)).catch(once).then(once).finally(done); } catch (e) { /* fall through */ }
+    }
+    try { once(); } finally { done(); }
+    return Promise.resolve();
+  }
+
   // ---------- switching views ----------
   function closeLightboxIfOpen() {
     if (!body.classList.contains('atlas-lightbox-open')) return false;
@@ -128,9 +146,12 @@
     body.classList.add('shell-loading');
     rememberScroll();
     try {
-      await mountAtlas();
-      history.pushState({ shell: 'atlas', scroll: 0, from: 'invitation' }, '', ATLAS_URL.href);
-      show('atlas', 0);
+      await mountAtlas(); // a slow first load finishes before the plane takes off
+      body.classList.remove('shell-loading');
+      await bridge('to-atlas', () => {
+        history.pushState({ shell: 'atlas', scroll: 0, from: 'invitation' }, '', ATLAS_URL.href);
+        show('atlas', 0);
+      });
     } catch (error) {
       location.assign(ATLAS_URL.href); // normal page load still works
     } finally {
@@ -145,10 +166,12 @@
       return;
     }
     rememberScroll();
-    history.pushState({ shell: 'invitation', scroll: null }, '', HOME_URL.href);
-    show('invitation');
-    const entry = document.getElementById('atlas-entry');
-    if (entry) jumpTo(window.scrollY + entry.getBoundingClientRect().top);
+    bridge('to-invitation', () => {
+      history.pushState({ shell: 'invitation', scroll: null }, '', HOME_URL.href);
+      show('invitation');
+      const entry = document.getElementById('atlas-entry');
+      if (entry) jumpTo(window.scrollY + entry.getBoundingClientRect().top);
+    });
   }
 
   // ---------- events ----------
@@ -170,11 +193,41 @@
     if (target === 'atlas') { if (view !== 'atlas') openAtlas(); }
     else returnToInvitation();
   });
-  // Start fetching as soon as a finger lands on an Atlas link, so the first open is quicker.
+  // Start mounting as soon as a finger lands on an Atlas link, so the first open is quicker.
   document.addEventListener('pointerdown', event => {
     const link = event.target.closest && event.target.closest('a[href]');
-    if (link && new URL(link.getAttribute('href'), location.href).pathname === ATLAS_URL.pathname) fetchAtlas().catch(() => {});
+    if (link && new URL(link.getAttribute('href'), location.href).pathname === ATLAS_URL.pathname) mountAtlas().catch(() => {});
   }, { passive: true });
+
+  // Warm up in idle time once the unboxing is over: the Atlas page and its files go into the HTTP
+  // cache and the plane image is decoded. Nothing is mounted or run until the guest asks for it.
+  function warmUp() {
+    if (window.WeddingBridge && window.WeddingBridge.preload) window.WeddingBridge.preload();
+    fetchAtlas().then(html => {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const files = [...doc.querySelectorAll('link[rel="stylesheet"][href], script[src]')]
+        .map(el => el.getAttribute('href') || el.getAttribute('src'))
+        .filter(src => !SKIP_SCRIPTS.test(src) && ![...document.querySelectorAll('link[href], script[src]')].some(el => sameFile(el.getAttribute('href') || el.getAttribute('src'), src)));
+      for (const href of files) {
+        const hint = document.createElement('link');
+        hint.rel = 'prefetch';
+        hint.href = href;
+        document.head.appendChild(hint);
+      }
+    }).catch(() => {});
+  }
+  function scheduleWarmUp() {
+    const idle = window.requestIdleCallback || (fn => setTimeout(fn, 1200));
+    idle(warmUp, { timeout: 3000 });
+  }
+  if (body.classList.contains('opening')) {
+    const watch = new MutationObserver(() => {
+      if (!body.classList.contains('opening')) { watch.disconnect(); scheduleWarmUp(); }
+    });
+    watch.observe(body, { attributes: true, attributeFilter: ['class'] });
+  } else {
+    scheduleWarmUp();
+  }
 
   window.addEventListener('popstate', event => {
     const next = viewOf(new URL(location.href));
@@ -184,12 +237,15 @@
       history.pushState({ shell: 'atlas', scroll: window.scrollY, from: 'invitation' }, '', ATLAS_URL.href);
       return;
     }
+    const scroll = typeof state.scroll === 'number' ? state.scroll : undefined;
     if (next === 'atlas' && !mounted) {
       // Forward into the Atlas after a failed or never-made mount: load it as a page.
-      mountAtlas().then(() => show('atlas', state.scroll || 0)).catch(() => location.reload());
+      mountAtlas().then(() => bridge('to-atlas', () => show('atlas', scroll || 0))).catch(() => location.reload());
       return;
     }
-    show(next, typeof state.scroll === 'number' ? state.scroll : undefined);
+    if (next === view) { show(next, scroll); return; }
+    // Back / Forward between the two views: same flight as the links, in the matching direction.
+    bridge(next === 'atlas' ? 'to-atlas' : 'to-invitation', () => show(next, scroll));
   });
 
   history.scrollRestoration = 'manual'; // the shell restores each view's own position

@@ -99,15 +99,18 @@
 .invitation-page .rsvp-form-shell .rsvp-legend { margin-bottom:13px; }
 .invitation-page .rsvp-form-shell .rsvp-form-heading + .rsvp-field { margin-top:8px; }
 /* Album CTA uses the invitation's own display face and italic, not bold UI lettering. */
-.invitation-page .atlas-entry-cta > .album-cta-type {
+/* span.album-cta-type matches the specificity of the older "span:first-child" rules above
+   (uppercase Bodoni 600), and comes later, so the headline face actually applies. */
+.invitation-page .atlas-entry-cta > span.album-cta-type {
   font-family:var(--display,var(--serif,Georgia,serif));
-  font-style:normal; font-weight:400; text-transform:none; letter-spacing:-.045em;
-  font-size:clamp(30px,3.8vw,49px);
+  font-style:normal; font-weight:400; text-transform:none; letter-spacing:-.02em; font-synthesis:none;
+  font-size:clamp(32px,3.9vw,50px); line-height:1.05; white-space:nowrap;
 }
-.invitation-page .atlas-entry-cta > .album-cta-type i {font-family:inherit; font-style:italic; font-weight:400;}
+/* Same treatment as the main headlines (refine.css): Relationship of Melodrame, upright, no faux slant. */
+.invitation-page .atlas-entry-cta > .album-cta-type i {font-family:inherit; font-style:normal; font-weight:400; font-synthesis:none;}
 @media(max-width:700px){
  .invitation-page .rsvp-form-shell .rsvp-field {padding-top:24px;padding-bottom:15px;}
  .invitation-page .rsvp-form-shell .rsvp-field + .rsvp-field {margin-top:6px;}
- .invitation-page .atlas-entry-cta > .album-cta-type {font-size:clamp(30px,8vw,39px);}
+ .invitation-page .atlas-entry-cta > span.album-cta-type {font-size:clamp(31px,8.6vw,40px); line-height:1.08; letter-spacing:-.02em;}
  .invitation-page .day-section .dress-code-detail {padding-top:23px;}
 }

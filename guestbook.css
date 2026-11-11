@@ -31,7 +31,9 @@
   font-size:clamp(36px,5.5vw,68px);
   letter-spacing:-.058em;
 }
-.guestbook-prize { margin-top:18px!important; padding-left:13px; border-left:2px solid #80d8d0; font-size:clamp(12px,1.15vw,14px)!important; line-height:1.95!important; color:#435c58; }
+/* Gift-card notice: its own quiet panel (pale Tiffany on ivory), larger and darker than the body copy. */
+.guestbook-prize { margin-top:24px!important; max-width:360px; padding:15px 18px 16px; border:1px solid rgba(102,201,192,.5); border-left:3px solid #66c9c0;
+  background:#e9f5f2; color:#152b2d; font-size:clamp(15px,1.3vw,16px)!important; font-weight:500!important; line-height:1.75!important; }
 .guestbook-public-note { font:400 11px/1.8 var(--kr,serif); color:#64736f; margin:17px 0 0; }
 .guestbook-preview-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; margin-top:16px; }
 .guestbook-preview-grid[hidden] {display:none!important;}

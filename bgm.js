@@ -272,19 +272,24 @@
     play('gesture'); // called inside the tap so mobile browsers accept it
   });
 
-  // Invitation: the tap that opens the gift box. main.js dispatches this synchronously
-  // inside the same tap, before the unboxing timers start.
-  window.addEventListener('invitation:open', () => {
+  // Invitation: the guest opens the gift box with one of two buttons. main.js dispatches this
+  // synchronously inside the same tap, before the unboxing timers start.
+  //   detail.music === true  -> "음악과 함께 시작하기": save ON and play
+  //   detail.music === false -> "음악 없이 시작하기": save OFF; the BGM button can still turn it on
+  window.addEventListener('invitation:open', event => {
     openedByTap = true;
-    if (readChoice() === 'off') return; // the guest switched music off earlier in this session
+    const music = !(event && event.detail && event.detail.music === false);
+    if (!music) {
+      saveChoice('off');
+      if (status === 'playing' || status === 'pending') stop();
+      return;
+    }
     saveChoice('on');
     play('gesture');
   });
 
   // Invitation: the button appears when the unboxing ends (or is skipped / bypassed by a link).
   if (page === 'invitation') {
-    const tapPrompt = document.getElementById('unbox-tap');
-    if (tapPrompt && readChoice() === 'off') tapPrompt.textContent = 'Tap to open';
     let opening = body.classList.contains('opening');
     new MutationObserver(() => {
       const now = body.classList.contains('opening');

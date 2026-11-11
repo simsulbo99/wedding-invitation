@@ -40,43 +40,62 @@ body.opening .bgm-control { display: none; } /* invitation: appears after the un
 }
 .bgm-hint.is-visible { opacity: 1; visibility: visible; transform: none; transition: opacity .35s ease, transform .35s ease; }
 
-/* ---------- invitation intro prompt ---------- */
-.unbox-tap {
-  position: absolute; z-index: 3; left: 50%; bottom: calc(80px + env(safe-area-inset-bottom, 0px));
-  transform: translateX(-50%); margin: 0; padding: 8px 16px 9px;
-  border: 1px solid rgba(248, 247, 243, .32); border-radius: 999px;
-  background: rgba(15, 41, 42, .26); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  color: #f8f7f3; font: italic 400 14px/1.2 var(--serif, Georgia, serif); letter-spacing: .02em;
-  white-space: nowrap; cursor: pointer;
-  opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s linear .3s;
+/* ---------- invitation intro: two start choices ---------- */
+.unbox-choices {
+  position: absolute; z-index: 3; left: 50%; bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%); width: min(288px, calc(100vw - 56px));
+  display: grid; gap: 10px;
+  opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s linear .25s;
 }
-.unbox-overlay.is-armed .unbox-tap { opacity: .9; visibility: visible; transition: opacity .9s ease .6s, visibility 0s; }
-.unbox-overlay.is-armed { cursor: pointer; }
+.unbox-overlay.is-armed .unbox-choices { opacity: 1; visibility: visible; transition: opacity .7s ease .4s, visibility 0s; }
+.unbox-choice {
+  display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; margin: 0;
+  padding: 0 20px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+  font-family: var(--kr, 'Noto Serif KR', serif); letter-spacing: -.01em; word-break: keep-all;
+  -webkit-tap-highlight-color: transparent; transition: background-color .2s ease, border-color .2s ease;
+}
+/* Primary: ivory, reads first over the Tiffany box and the ivory ribbon. */
+.unbox-choice.is-primary {
+  border: 1px solid rgba(21, 43, 45, .16); background: #f8f7f3; color: #152b2d;
+  font-size: 15px; font-weight: 500; box-shadow: 0 6px 18px rgba(15, 41, 42, .14);
+}
+.unbox-choice.is-primary:active { background: #fffdf8; }
+/* Secondary: the same quiet glass as SKIP INTRO. */
+.unbox-choice.is-secondary {
+  min-height: 46px; border: 1px solid rgba(248, 247, 243, .55); background: rgba(15, 41, 42, .3);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  color: #f8f7f3; font-size: 14px; font-weight: 400;
+}
+.unbox-choice.is-secondary:active { background: rgba(15, 41, 42, .42); }
 
 /* ---------- visible YouTube player card ---------- */
 .bgm-card { margin: 0; display: grid; gap: 14px; }
 .bgm-card-caption { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
-.bgm-card-title { font: 400 17px/1.25 var(--serif, Georgia, serif); letter-spacing: -.02em; }
-.bgm-card-title i { font-style: italic; opacity: .7; margin-left: 4px; }
 /* At least 200 x 200 px, as the YouTube embed policy requires. */
 .bgm-frame { position: relative; width: 100%; max-width: 480px; min-width: 200px;
   aspect-ratio: 16 / 9; min-height: 200px; background: #0f2224; overflow: hidden; }
 .bgm-frame iframe, .bgm-frame > div { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* Shared music card: the top of the dark footer in both views. It stays in place while the
-   invitation and the Atlas swap above it, so the player is never moved or hidden. */
+/* Shared music card. It stays in one place in the DOM while the invitation and the Atlas swap
+   around it, so the player is never moved or hidden.
+   Invitation order: body copy -> J & S. (.site-footer-signature) -> Music (.bgm-dock) -> footer links.
+   Atlas order: Atlas content -> Music -> Atlas footer. */
 .bgm-dock { display: flow-root; background: #192f31; padding-top: 55px; } /* flow-root keeps the card margin inside the dark band */
 .bgm-dock .bgm-card { max-width: 480px; margin-bottom: 52px; color: rgba(248, 247, 243, .9); }
 .bgm-dock .bgm-card .micro { color: rgba(248, 247, 243, .55); }
-.invitation-page .bgm-dock + .site-footer { padding-top: 0; display: flow-root; } /* footer continues the dock */
+.invitation-page .site-footer-signature { display: flow-root; padding-bottom: 0; }
+.invitation-page .site-footer-signature .footer-title { margin-bottom: 40px; }
+.invitation-page .bgm-dock { padding-top: 0; } /* continues straight under J & S. */
+.invitation-page .bgm-dock .bgm-card { margin-bottom: 44px; }
+.invitation-page .bgm-dock + .site-footer { padding-top: 0; display: flow-root; } /* footer links continue the band */
 .atlas-page .bgm-dock { background: #193535; padding-top: 44px; } /* matches the Atlas footer */
 .atlas-page .bgm-dock .bgm-card { margin-bottom: 36px; }
-@media (max-width: 700px) { .bgm-dock { padding-top: 45px; } }
+@media (max-width: 700px) { .atlas-page .bgm-dock { padding-top: 40px; } }
 
 /* App shell: only the active view is displayed (no overflow changes anywhere). */
 [data-shell-view][hidden] { display: none !important; }
 body.shell-loading, body.shell-loading a { cursor: progress; }
 
 @media (prefers-reduced-motion: reduce) {
-  .bgm-hint, .bgm-hint.is-visible, .unbox-tap, .unbox-overlay.is-armed .unbox-tap { transition: none; }
+  .bgm-hint, .bgm-hint.is-visible, .unbox-choices, .unbox-overlay.is-armed .unbox-choices { transition: none; }
 }

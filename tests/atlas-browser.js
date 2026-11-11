@@ -45,8 +45,15 @@ async function run() {
       const current = () => el('photo-viewer').dataset.collection;
       check(current() === 'wedding-seoul' && el('memory-count').textContent === '01 / 12', 'default Wedding Seoul, first photo');
       check(win.scrollY === 0, 'no initial automatic page scroll');
-      check(data.collections.length === 11 && data.collections.reduce((a,c) => a+c.photos.length,0) === 166, '11 collections / 166 photos');
-      check(['wedding','travel','details'].map(g=>data.collections.filter(c=>c.group===g).reduce((a,c)=>a+c.photos.length,0)).join() === '43,120,3', 'group counts 43 / 120 / 3');
+      const inactive = data.inactiveGroups || [];
+      const active = data.collections.filter(c => !inactive.includes(c.group));
+      check(data.collections.length === 11 && data.collections.reduce((a,c) => a+c.photos.length,0) === 166 && inactive.join() === 'details', 'data keeps all 11 collections / 166 photos; The Details parked via inactiveGroups');
+      check(active.length === 10 && active.reduce((a,c) => a+c.photos.length,0) === 163, '10 active collections / 163 photos');
+      check(el('collection-total').textContent === '10' && el('photo-total').textContent === '163 PHOTOS', 'hero shows 10 COLLECTIONS / 163 PHOTOS');
+      check(['wedding','travel'].map(g=>active.filter(c=>c.group===g).reduce((a,c)=>a+c.photos.length,0)).join() === '43,120', 'group counts 43 / 120');
+      check(!el('details-link') && !doc().querySelector('[data-collection="details"]') && doc().querySelectorAll('.atlas-index-group').length === 2, 'The Details removed from map link, Index and viewer');
+      check(doc().querySelector('#atlas-page-title').textContent === 'The Atlas.' && doc().querySelector('.atlas-toolbar h2').textContent === 'Choose a Place', 'titles: The Atlas. / Choose a Place');
+      check(doc().querySelector('.atlas-toolbar-heading .atlas-map-guide')?.textContent === '지도 위 위치를 선택해 사진을 살펴보세요.', 'guide sits under Choose a Place');
       const requests = win.performance.getEntriesByType('resource').map(e=>decodeURI(e.name));
       const originals = requests.filter(name=>/\/images\/(?:1-[123]\.|[2-9]\.)[^/]*\/.*\.jpg$/.test(name));
       check(originals.length <= 2 && originals.every(p=>p.includes('WS_Seoul_0')), `initial original-image requests limited (${originals.length})`);
@@ -54,6 +61,7 @@ async function run() {
       check(doc().documentElement.scrollWidth <= win.innerWidth, 'no page horizontal overflow');
       const pins = [...doc().querySelectorAll('.atlas-pin')];
       check(pins.length === 10 && !pins.some(p=>p.dataset.collection==='details'), '10 map pins; no Details pin');
+      check(pins.every(p=>{ const c = data.collections.find(x=>x.id===p.dataset.collection); return p.querySelector('.atlas-pin-label').textContent.startsWith(c.name.toUpperCase() + ' · '); }), 'map pin labels use capital city names');
       const rects = pins.map(p=>p.getBoundingClientRect());
       check(rects.every(r=>r.width>=44 && r.height>=44), '44×44px marker hit targets');
       const map = el('map-holder').getBoundingClientRect();
@@ -73,9 +81,10 @@ async function run() {
         check(current() === pin.dataset.collection && pin.getAttribute('aria-pressed')==='true' && row.getAttribute('aria-pressed')==='true', `${pin.dataset.collection} independent marker + Index sync`);
       }
       click('tab-index');
-      for (const c of data.collections) {
+      for (const c of active) {
         doc().querySelector(`.atlas-index-item[data-collection="${c.id}"]`).click(); await loaded();
         check(current()===c.id && el('filmstrip').children.length===c.photos.length, `${c.id} Index + full filmstrip`);
+        check(el('place-title').textContent===`${c.name.toUpperCase()}.` && doc().querySelector(`.atlas-index-item[data-collection="${c.id}"] .atlas-index-title`).firstChild.textContent===c.name.toUpperCase(), `${c.id} city name in capitals (title + Index)`);
         el('filmstrip').lastElementChild.click(); await loaded(); await delay(700);
         check(el('memory-count').textContent===`${String(c.photos.length).padStart(2,'0')} / ${String(c.photos.length).padStart(2,'0')}`, `${c.id} last thumbnail selects photo (${current()}, ${el('memory-count').textContent})`);
         const active = el('filmstrip').lastElementChild.getBoundingClientRect(), strip = el('filmstrip').getBoundingClientRect();
@@ -87,11 +96,7 @@ async function run() {
         check(el('memory-count').textContent.startsWith(String(c.photos.length).padStart(2,'0')+' /'), `${c.id} previous wraps to last`);
         check(Math.abs(win.scrollY-scroll)<2, `${c.id} photo navigation preserves page scroll`);
       }
-      check(!el('map-route-line').getAttribute('d'), 'Details clears route');
       click('tab-map');
-      check(doc().querySelectorAll('.atlas-pin.is-selected').length===0, 'Details clears marker selection');
-      click('details-link'); await loaded();
-      check(current()==='details', 'Details discoverable from map');
       doc().querySelector('.atlas-featured-item[data-collection="wedding-sapa"]').click(); await loaded(); await delay(850);
       check(el('memory-image').naturalWidth>el('memory-image').naturalHeight && win.getComputedStyle(el('memory-image')).objectFit==='contain', 'landscape photograph is contained');
       click('next-photo');await loaded();

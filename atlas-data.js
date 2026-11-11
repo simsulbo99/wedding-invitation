@@ -2,6 +2,9 @@
 window.ATLAS_DATA = {
   "defaultCollection": "wedding-seoul",
   "routeOrigin": "travel-seoul",
+  "inactiveGroups": [
+    "details"
+  ],
   "groups": [
     {
       "id": "wedding",

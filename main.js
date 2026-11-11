@@ -8,11 +8,15 @@
   const doors = [...overlay.querySelectorAll('.unbox-door')];
   const skip = document.getElementById('skip-opening');
   const replay = document.getElementById('replay-opening');
-  const tapPrompt = document.getElementById('unbox-tap');
+  const choices = document.getElementById('unbox-choices');
+  const withMusic = document.getElementById('start-with-music');
+  const withoutMusic = document.getElementById('start-without-music');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let timers = [];
+  // Whole unboxing runs 1.5x faster. CSS durations in style.css / opening.css are divided by the same factor.
+  const SPEED = 1.5;
 
-  function wait(fn, ms) { timers.push(window.setTimeout(fn, ms)); }
+  function wait(fn, ms) { timers.push(window.setTimeout(fn, ms / SPEED)); }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
   function showFrame(i) { frames.forEach((frame, j) => frame.classList.toggle('active', i === j)); }
   // Fade the next frame in over the current one, so the ivory backdrop never shows mid-dissolve.
@@ -63,7 +67,7 @@
     wait(fadeToLiveCover, 7300);
   }
 
-  // First screen: the sealed box waits for the guest's tap ("Tap to open with music").
+  // First screen: the sealed box waits for the guest's choice: with music or without.
   function arm() {
     clearTimers();
     overlay.hidden = false;
@@ -73,19 +77,22 @@
     window.scrollTo(0, 0);
     wait(() => signature.classList.add('active'), 180);
     overlay.classList.add('is-armed');
-    overlay.addEventListener('click', onFirstTap);
   }
   function disarm() {
     overlay.classList.remove('is-armed');
-    overlay.removeEventListener('click', onFirstTap);
   }
-  function onFirstTap(event) {
-    if (event.target.closest('#skip-opening')) return;
+  function onChoice(event, music) {
+    // Only the two buttons open the box; nothing reaches the overlay or starts music by accident.
+    event.preventDefault();
+    event.stopPropagation();
+    if (!overlay.classList.contains('is-armed')) return;
     disarm();
     // Music must be requested inside this tap; bgm.js listens. A failure there never stops the unboxing.
-    try { window.dispatchEvent(new CustomEvent('invitation:open')); } catch (e) { /* music is optional */ }
+    try { window.dispatchEvent(new CustomEvent('invitation:open', { detail: { music } })); } catch (e) { /* music is optional */ }
     start(true);
   }
+  if (withMusic) withMusic.addEventListener('click', event => onChoice(event, true));
+  if (withoutMusic) withoutMusic.addEventListener('click', event => onChoice(event, false));
 
   // Recover if the in-app browser restores a page from its back/forward cache.
   window.addEventListener('pageshow', () => {
@@ -101,7 +108,7 @@
   if (targetId && document.getElementById(targetId)) {
     complete();
     requestAnimationFrame(() => document.getElementById(targetId).scrollIntoView());
-  } else if (tapPrompt) {
+  } else if (choices && withMusic && withoutMusic) {
     arm();
   } else {
     start();

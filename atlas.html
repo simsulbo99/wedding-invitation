@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#81d8d0">
   <title>The Atlas — Jungwoo &amp; Seoha</title>
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./atlas.css?v=20261111-v2">
+  <link rel="stylesheet" href="./atlas.css?v=20261111-v3">
   <link rel="stylesheet" href="./atlas-typography.css?v=1">
-  <link rel="stylesheet" href="./bgm.css?v=2">
+  <link rel="stylesheet" href="./bgm.css?v=3">
 </head>
 <body class="atlas-page" data-bgm-page="atlas">
   <header class="atlas-header">
@@ -22,10 +22,10 @@
   <main class="atlas-main">
     <section class="atlas-hero" aria-labelledby="atlas-page-title">
       <div class="wrap atlas-hero-layout">
-        <h1 id="atlas-page-title">The <em>atlas.</em></h1>
+        <h1 id="atlas-page-title">The <em>Atlas.</em></h1>
         <div class="atlas-hero-aside">
           <p>여행은 끝나도 풍경은 남습니다.<br>우리가 함께 지나온 곳들을<br>하나의 지도에 담았습니다.</p>
-          <span class="atlas-place-total"><b id="collection-total">11</b> COLLECTIONS <small id="photo-total">166 PHOTOS</small></span>
+          <span class="atlas-place-total"><b id="collection-total">10</b> COLLECTIONS <small id="photo-total">163 PHOTOS</small></span>
         </div>
       </div>
     </section>
@@ -38,7 +38,10 @@
     </section>
     <section class="atlas-workspace wrap" id="explore" aria-label="웨딩 스냅과 여행 사진 탐색">
       <div class="atlas-toolbar">
-        <h2>Choose a place.</h2>
+        <div class="atlas-toolbar-heading">
+          <h2>Choose a Place</h2>
+          <p class="atlas-map-guide">지도 위 위치를 선택해 사진을 살펴보세요.</p>
+        </div>
         <div class="atlas-tabs" role="tablist" aria-label="도시 탐색 방식">
           <button class="is-active" id="tab-map" type="button" role="tab" aria-selected="true" aria-controls="map-view">Map</button>
           <button id="tab-index" type="button" role="tab" tabindex="-1" aria-selected="false" aria-controls="index-view">Index</button>
@@ -56,14 +59,13 @@
               <span><i class="legend-wedding" aria-hidden="true"></i>The Wedding Edit</span>
               <span><i class="legend-travel" aria-hidden="true"></i>The Travel Journal</span>
             </div>
-            <p class="atlas-map-guide">지도 위의 위치를 선택해 사진을 살펴보세요.</p>
             <button class="atlas-details-link" id="details-link" type="button" aria-pressed="false">11 / The Details <span aria-hidden="true">↗</span></button>
           </div>
           <div id="index-view" class="atlas-index is-hidden" role="tabpanel" aria-labelledby="tab-index" hidden></div>
         </div>
         <article class="atlas-memory" id="photo-viewer" aria-labelledby="place-title" tabindex="-1">
-          <div class="atlas-memory-top"><span><span id="place-number">01 / 11</span><span id="place-group">THE WEDDING EDIT</span></span><span id="place-country">SOUTH KOREA</span></div>
-          <h3 id="place-title">Seoul.</h3>
+          <div class="atlas-memory-top"><span><span id="place-number">01 / 10</span><span id="place-group">THE WEDDING EDIT</span></span><span id="place-country">SOUTH KOREA</span></div>
+          <h3 id="place-title">SEOUL.</h3>
           <button id="memory-photo" class="atlas-photo-stage" type="button" aria-label="선택한 사진 확대" aria-haspopup="dialog">
             <img id="memory-image" alt="" decoding="async" fetchpriority="high" width="1200" height="1800">
             <span id="memory-placeholder" class="atlas-photo-placeholder">사진을 불러오는 중입니다.</span>
@@ -83,8 +85,8 @@
     </section>
   </main>
   <section class="bgm-dock" aria-label="배경음악"><div class="wrap">
-    <figure class="bgm-card" aria-labelledby="bgm-card-title">
-      <figcaption class="bgm-card-caption"><span class="micro">Music</span><span class="bgm-card-title" id="bgm-card-title">L-O-V-E <i>Olivia Ong</i></span></figcaption>
+    <figure class="bgm-card" aria-label="배경음악 플레이어">
+      <figcaption class="bgm-card-caption"><span class="micro">Music</span></figcaption>
       <div class="bgm-frame"><div id="bgm-player"></div></div>
     </figure>
   </div></section>
@@ -96,8 +98,8 @@
     <button id="lightbox-next" class="atlas-lightbox-next" type="button" aria-label="다음 확대 사진">→</button>
     <span id="lightbox-count" class="atlas-lightbox-count"></span>
   </div>
-  <script src="./atlas-data.js?v=20261111-v2" defer></script>
-  <script src="./atlas.js?v=20261111-v2" defer></script>
-  <script src="./bgm.js?v=2" defer></script>
+  <script src="./atlas-data.js?v=20261111-v3" defer></script>
+  <script src="./atlas.js?v=20261111-v3" defer></script>
+  <script src="./bgm.js?v=3" defer></script>
 </body>
 </html>
