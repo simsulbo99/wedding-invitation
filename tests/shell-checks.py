@@ -91,7 +91,7 @@ with sync_playwright() as p:
     st=S(pg); check('B2 ON in Atlas resumes from paused position', st['label']=='BGM ON' and st['t']>=toff and st['t']-toff<1.2, f"{st} toff={toff}")
     # 20 round trips
     for i in range(20):
-        pg.evaluate("window.scrollTo(0,0)"); pg.click('.atlas-back'); pg.wait_for_timeout(2150)  # 2s airplane bridge
+        pg.evaluate("window.scrollTo(0,0)"); pg.click('.atlas-back'); pg.wait_for_timeout(2150)  # 1.5s airplane bridge (plus swap/reveal margin)
         pg.evaluate("document.querySelector('a.atlas-feature').scrollIntoView()"); pg.click('a.atlas-feature'); pg.wait_for_timeout(2150)
     st=S(pg)
     check('C1 20 round trips: one player, same iframe, still playing, atlas.js once', st['players']==1 and st['sameIframe'] and st['yt']==1 and pg.evaluate("document.querySelectorAll('script[src*=\"atlas.js\"]').length")==1 and pg.evaluate("document.querySelectorAll('.atlas-header').length")==1, st)

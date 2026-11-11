@@ -1,5 +1,5 @@
 'use strict';
-/* Airplane bridge between the invitation and the Atlas (two seconds).
+/* Airplane bridge between the invitation and the Atlas (1.5 seconds).
    app-shell.js calls WeddingBridge.run(direction, swap):
      'to-atlas'      the plane flies left -> right
      'to-invitation' the same image, mirrored with scaleX(-1), flies right -> left
@@ -9,8 +9,8 @@
    run() always resolves and calls swap() exactly once. */
 (() => {
   const SRC = './images/airplane-bridge.webp';
-  const DURATION = 2000;
-  const SWAP_AT = 1000;
+  const DURATION = 1500;
+  const SWAP_AT = 750;
   const IMAGE_WAIT = 450; // do not hold the guest back for a slow image: switch without the flight
   const reduceMotion = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 

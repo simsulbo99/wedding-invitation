@@ -226,3 +226,15 @@
   .atlas-filmstrip { gap: 6px; }
   .atlas-thumb { flex-basis: 54px; width: 54px; height: 54px; }
 }
+
+/* Wedding final: single Atlas caption */
+.atlas-page .atlas-title-stack { min-width: 0; }
+.atlas-page .atlas-hero-caption {
+margin: 17px 0 0;
+color: #264b48;
+font: 400 clamp(13px, 1.25vw, 16px)/1.7 var(--kr, Georgia, serif);
+word-break: keep-all;
+}
+@media (max-width: 700px) {
+.atlas-page .atlas-hero-caption { margin-top: 14px; font-size: 13px; }
+}

@@ -64,12 +64,14 @@ with sync_playwright() as p:
 
     # ---------- copy, typography, footer ----------
     check('dress code copy', '흰옷도, 반바지도, 트레이닝복도 환영합니다!' in pg.inner_text('.dress-code-copy') and pg.locator('.dress-code-copy').inner_html().count('<br>') == 1)
-    check('trimmed UI copy', all(pg.locator(s).count() == 0 for s in ['.statement','.rsvp-form-heading','.guestbook-paper-top','.guestbook-photo-hint','.guestbook-public-note','.guestbook-gallery-sub']))
+    stripe = pg.evaluate("(()=>{const e=document.querySelector('.statement--stripe'); if(!e) return null; const r=e.getBoundingClientRect(), c=getComputedStyle(e); return {t:e.textContent.trim(), w:Math.round(r.width), h:r.height, bg:c.backgroundColor}})()")
+    check('blue band restored: full-width Tiffany Blue strip, no caption', stripe is not None and stripe['t'] == '' and stripe['bg'] == 'rgb(129, 216, 208)' and stripe['w'] >= 380 and 80 <= stripe['h'] <= 120, stripe)
+    check('trimmed UI copy', all(pg.locator(s).count() == 0 for s in ['.statement:not(.statement--stripe)','.rsvp-form-heading','.guestbook-paper-top','.guestbook-photo-hint','.guestbook-public-note','.guestbook-gallery-sub']))
     check('RSVP three choice groups still have controls', pg.locator('.rsvp-field--choice').count() == 3 and pg.locator('#rsvp-count-wrap').count() == 1)
     prize = pg.evaluate("(()=>{const e=document.querySelector('.guestbook-prize'),c=getComputedStyle(e);return {t:e.textContent,fs:parseFloat(c.fontSize),fw:c.fontWeight,bg:c.backgroundColor}})()")
     check('guestbook gift-card notice: new copy, own panel, larger text', prize['t'] == '올려주신 결혼식 사진 중 한 장을 선정해상품권을 드립니다!' and prize['fs'] >= 15 and prize['bg'] != 'rgba(0, 0, 0, 0)', prize)
-    album = pg.evaluate("(()=>{const e=document.querySelector('.album-cta-type'),c=getComputedStyle(e),h=getComputedStyle(document.querySelector('.atlas-teaser h2'));return {t:e.textContent,ff:c.fontFamily,tt:c.textTransform,fw:c.fontWeight,hf:h.fontFamily,ok:document.fonts.check('40px \"Relationship of Melodrame\"')}})()")
-    check('Photo Album. uses the headline face (Relationship of Melodrame), not uppercase', album['t'] == 'Photo Album.' and album['ff'].startswith('"Relationship of Melodrame"') and album['ff'] == album['hf'] and album['tt'] == 'none' and album['fw'] == '400' and not pg.locator('.album-cta-type i').count(), album)
+    album = pg.evaluate("(()=>{const e=document.querySelector('.album-cta-type'),c=getComputedStyle(e),h=getComputedStyle(document.querySelector('.atlas-teaser h2'));return {t:e.textContent,ff:c.fontFamily,fs:c.fontStyle,synth:c.fontSynthesis,tt:c.textTransform,fw:c.fontWeight,hf:h.fontFamily,it:document.querySelectorAll('.album-cta-type i, .album-cta-type em').length}})()")
+    check('Photo Album. is upright Bodoni Moda (not the slanted display face), not uppercase', album['t'] == 'Photo Album.' and album['ff'].startswith('"Bodoni Moda"') and album['ff'] != album['hf'] and album['fs'] == 'normal' and album['synth'] == 'none' and album['tt'] == 'none' and album['fw'] == '500' and album['it'] == 0, album)
     order = pg.evaluate("(()=>{const y=s=>document.querySelector(s).getBoundingClientRect().top+scrollY;return [y('#guestbook-form'),y('.site-footer-signature .footer-title'),y('.bgm-dock'),y('.footer-actions')]})()")
     check('footer order: Guestbook -> J & S. -> Music -> footer links', order == sorted(order), order)
     check('music card shows no song title or artist', 'L-O-V-E' not in pg.inner_text('.bgm-dock') and 'Olivia' not in pg.inner_text('.bgm-dock'))
@@ -87,14 +89,16 @@ with sync_playwright() as p:
     check('bridge →: plane width 110-150px on mobile', f1 and 110 <= f1['w'] <= 150, f1)
     check('bridge →: view switches at the midpoint, not before', v1['inv'] and not v1['atlas'] and v2['atlas'] and not v2['inv'], f'{v1} {v2}')
     check('bridge →: one overlay only, double tap ignored', f1['count'] == 1 and f2['count'] == 1)
-    pg.wait_for_timeout(1050); v3 = view(pg)
-    check('bridge →: overlay removed after ~2s; single history entry added', pg.evaluate("document.querySelectorAll('.bridge').length") == 0 and v3['len'] == before['len'] + 1 and v3['path'].endswith('/atlas.html'), v3)
+    pg.wait_for_timeout(700); v3 = view(pg)
+    check('bridge →: overlay removed after ~1.5s; single history entry added', pg.evaluate("document.querySelectorAll('.bridge').length") == 0 and v3['len'] == before['len'] + 1 and v3['path'].endswith('/atlas.html'), v3)
     check('bridge →: music continues (same player, no new play call)', v3['same'] and v3['plays'] == before['plays'] and v3['yt'] == 1 and v3['players'] == 1, v3)
     pg.mouse.wheel(0, 1200); pg.wait_for_timeout(500)
     check('after bridge: Atlas scrolls normally', pg.evaluate("scrollY") > 300)
 
     # ---------- Atlas content ----------
     check('Atlas title "The Atlas."', pg.inner_text('#atlas-page-title') == 'The Atlas.')
+    cap = pg.evaluate("(()=>{const c=document.querySelector('.atlas-hero-caption'); if(!c) return null; const cs=getComputedStyle(c),r=c.getBoundingClientRect(),h=document.getElementById('atlas-page-title').getBoundingClientRect(); return {t:c.textContent.trim(),gap:Math.round(r.top-h.bottom),fs:parseFloat(cs.fontSize),vis:!!c.offsetParent}})()")
+    check('one-line caption sits right under the Atlas title', cap is not None and cap['t'] == '우리의 순간들을 지도 위에 담았습니다.' and cap['vis'] and 6 <= cap['gap'] <= 24 and 13 <= cap['fs'] <= 16, cap)
     tb = pg.evaluate("(()=>{const h=document.querySelector('.atlas-toolbar h2'),g=document.querySelector('.atlas-map-guide'),t=document.querySelector('.atlas-tabs');const r=e=>e.getBoundingClientRect();return {h:h.textContent,g:g.textContent,ok:r(h).bottom<=r(g).top+1&&r(g).bottom<=r(t).top+1,fs:parseFloat(getComputedStyle(g).fontSize)}})()")
     check('"Choose a Place" -> guide -> Map/Index, guide 15px', tb['h'] == 'Choose a Place' and tb['g'] == '지도 위 위치를 선택해 사진을 살펴보세요.' and tb['ok'] and tb['fs'] >= 15, tb)
     counts = pg.evaluate("[!!document.getElementById('collection-total'), !!document.getElementById('photo-total'), !!document.getElementById('wedding-total'), document.querySelectorAll('.atlas-index-item').length, !!document.getElementById('details-link'), document.getElementById('place-number').textContent]")
@@ -109,7 +113,7 @@ with sync_playwright() as p:
     check('bridge ←: same image mirrored with scaleX(-1)', g1 and g1['src'] == './images/airplane-bridge.webp' and g1['flip'].startswith('matrix(-1'), g1)
     check('bridge ←: plane flies right to left', g1 and g2 and g2['x'] < g1['x'] - 60, f'{g1} {g2}')
     check('bridge ←: Invitation shown after the midpoint', w2['inv'] and not w2['atlas'], w2)
-    pg.wait_for_timeout(1050)
+    pg.wait_for_timeout(700)
     check('bridge ←: overlay gone, music continues', pg.evaluate("document.querySelectorAll('.bridge').length") == 0 and view(pg)['plays'] == before['plays'] and view(pg)['yt'] == 1)
 
     # ---------- browser back / forward ----------
