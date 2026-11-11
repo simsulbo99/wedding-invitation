@@ -28,8 +28,8 @@ counts = {}
 total_bytes = 0
 for c in data['collections']:
     folder = ROOT / c['folder']
-    actual = sorted(p.name for p in folder.iterdir() if p.suffix.lower() == '.jpg')
-    pattern = re.compile(re.escape(c['filePrefix']) + r'_\d+\.jpg')
+    actual = sorted(p.name for p in folder.iterdir() if p.suffix.lower() in ('.jpg', '.webp'))
+    pattern = re.compile(re.escape(c['filePrefix']) + r'_\d+\.(jpg|webp)', re.IGNORECASE)
     assert all(pattern.fullmatch(name) for name in actual), f'Unexpected filename: {folder}'
     if args.refresh:
         c['photos'] = []

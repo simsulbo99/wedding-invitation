@@ -123,43 +123,43 @@ window.ATLAS_DATA = {
       "photos": [
         {
           "file": "WS_Sapa_01.jpg",
-          "width": 1920,
-          "height": 823
+          "width": 1280,
+          "height": 1920
         },
         {
           "file": "WS_Sapa_02.jpg",
-          "width": 1280,
+          "width": 1281,
           "height": 1920
         },
         {
           "file": "WS_Sapa_03.jpg",
-          "width": 1281,
+          "width": 1280,
           "height": 1920
         },
         {
           "file": "WS_Sapa_04.jpg",
-          "width": 1920,
-          "height": 1281
-        },
-        {
-          "file": "WS_Sapa_05.jpg",
           "width": 1280,
           "height": 1920
         },
         {
+          "file": "WS_Sapa_05.jpg",
+          "width": 1920,
+          "height": 823
+        },
+        {
           "file": "WS_Sapa_06.jpg",
-          "width": 1281,
+          "width": 1280,
           "height": 1920
         },
         {
           "file": "WS_Sapa_07.jpg",
-          "width": 1280,
+          "width": 1281,
           "height": 1920
         },
         {
           "file": "WS_Sapa_08.jpg",
-          "width": 1280,
-          "height": 1920
+          "width": 1920,
+          "height": 1281
         },
         {
           "file": "WS_Sapa_09.jpg",
@@ -298,8 +298,8 @@ window.ATLAS_DATA = {
         },
         {
           "file": "WS_Tokyo_07.webp",
-          "width": 1440,
-          "height": 1920
+          "width": 1246,
+          "height": 1600
         }
       ],
       "representative": "WS_Tokyo_05.jpg",
