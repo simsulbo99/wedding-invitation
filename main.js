@@ -13,8 +13,8 @@
   const withoutMusic = document.getElementById('start-without-music');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let timers = [];
-  // Whole unboxing runs 1.5x faster. CSS durations in style.css / opening.css are divided by the same factor.
-  const SPEED = 1.5;
+  // Unboxing runs at 1.875× original speed (1.25× faster than the previous 1.5×). CSS transitions follow the same ratio.
+  const SPEED = 1.875;
 
   function wait(fn, ms) { timers.push(window.setTimeout(fn, ms / SPEED)); }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }

@@ -48,7 +48,7 @@ with sync_playwright() as p:
     rsvp0=listeners(pg,'#rsvp-form'); gb0=listeners(pg,'#guestbook-form')
     pg.evaluate("document.documentElement.style.scrollBehavior='auto'; document.querySelector('a.atlas-feature').scrollIntoView({block:'center'})"); pg.wait_for_timeout(400)
     sy_before=pg.evaluate('scrollY'); t0=st['t']
-    pg.click('a.atlas-feature'); pg.wait_for_timeout(1500)
+    pg.click('a.atlas-feature'); pg.wait_for_timeout(2150)
     st=S(pg)
     check('A2 Invitation→Atlas: same document, URL atlas.html, atlas visible', st['path'].endswith('/atlas.html') and st['atlasVisible'] and not st['invVisible'] and pg.evaluate("!!window.__p0"), st)
     check('A3 music continues: same iframe, no new play/pause, time advancing', st['sameIframe'] and st['players']==1 and st['plays']==1 and st['pauses']==0 and st['yt']==1 and st['t']>t0, st)
@@ -71,33 +71,33 @@ with sync_playwright() as p:
     check('A8 music untouched by gallery/lightbox/back', st['sameIframe'] and st['plays']==1 and st['yt']==1, st)
     pg.evaluate("window.scrollTo(0,1200)"); pg.wait_for_timeout(500); atlas_sy=pg.evaluate('scrollY')
     # back via browser
-    pg.go_back(); pg.wait_for_timeout(1200)
+    pg.go_back(); pg.wait_for_timeout(2150)
     st=S(pg)
     check('A9 browser back → Invitation, scroll restored to Atlas entry point', st['invVisible'] and not st['atlasVisible'] and abs(st['sy']-sy_before)<2 and not st['path'].endswith('atlas.html'), f"{st} before={sy_before}")
     check('A10 no intro replay, music continues', 'opening' not in st['bodyCls'] and st['sameIframe'] and st['plays']==1 and st['yt']==1, st)
-    pg.go_forward(); pg.wait_for_timeout(1200)
+    pg.go_forward(); pg.wait_for_timeout(2150)
     st=S(pg)
     check('A11 forward → Atlas at its previous scroll', st['atlasVisible'] and abs(st['sy']-atlas_sy)<2, f"{st} atlas_sy={atlas_sy}")
     # return link
-    pg.evaluate("window.scrollTo(0,0)"); pg.click('.atlas-back'); pg.wait_for_timeout(1200)
+    pg.evaluate("window.scrollTo(0,0)"); pg.click('.atlas-back'); pg.wait_for_timeout(2150)
     st=S(pg)
     check('A12 "Return to invitation" link → Invitation (history.back), music continues', st['invVisible'] and abs(st['sy']-sy_before)<2 and st['plays']==1 and st['yt']==1, st)
     pg.screenshot(path=os.environ.get('SHOTS','/tmp')+'/s2-back-invitation.png')
     # OFF then go to atlas: stays off; ON in atlas resumes same position
     pg.click('#bgm-toggle'); pg.wait_for_timeout(300); toff=S(pg)['t']
-    pg.click('a.atlas-feature'); pg.wait_for_timeout(1200)
+    pg.click('a.atlas-feature'); pg.wait_for_timeout(2150)
     st=S(pg); check('B1 OFF carried into Atlas (no play)', st['label']=='BGM OFF' and st['plays']==1, st)
     pg.click('#bgm-toggle'); pg.wait_for_timeout(700)
     st=S(pg); check('B2 ON in Atlas resumes from paused position', st['label']=='BGM ON' and st['t']>=toff and st['t']-toff<1.2, f"{st} toff={toff}")
     # 20 round trips
     for i in range(20):
-        pg.evaluate("window.scrollTo(0,0)"); pg.click('.atlas-back'); pg.wait_for_timeout(1150)  # 1s airplane bridge
-        pg.evaluate("document.querySelector('a.atlas-feature').scrollIntoView()"); pg.click('a.atlas-feature'); pg.wait_for_timeout(1150)
+        pg.evaluate("window.scrollTo(0,0)"); pg.click('.atlas-back'); pg.wait_for_timeout(2150)  # 2s airplane bridge
+        pg.evaluate("document.querySelector('a.atlas-feature').scrollIntoView()"); pg.click('a.atlas-feature'); pg.wait_for_timeout(2150)
     st=S(pg)
     check('C1 20 round trips: one player, same iframe, still playing, atlas.js once', st['players']==1 and st['sameIframe'] and st['yt']==1 and pg.evaluate("document.querySelectorAll('script[src*=\"atlas.js\"]').length")==1 and pg.evaluate("document.querySelectorAll('.atlas-header').length")==1, st)
     check('C2 RSVP/Guestbook listeners unchanged', listeners(pg,'#rsvp-form')==rsvp0 and listeners(pg,'#guestbook-form')==gb0, f"{rsvp0} {listeners(pg,'#rsvp-form')}")
     check('C3 no pageerrors so far', all(results))
-    pg.evaluate("window.scrollTo(0,0)"); pg.click('.atlas-back'); pg.wait_for_timeout(1200)
+    pg.evaluate("window.scrollTo(0,0)"); pg.click('.atlas-back'); pg.wait_for_timeout(2150)
     pg.mouse.wheel(0,1500); pg.wait_for_timeout(500)
     check('C4 invitation still scrolls after trips', pg.evaluate('scrollY')>sy_before+500 or pg.evaluate('scrollY')!=sy_before)
     # footer & dock
@@ -120,14 +120,14 @@ with sync_playwright() as p:
     # fetch failure fallback
     ctx=ctxn(); pg=new_page(ctx, block_atlas_fetch=99)  # every in-page fetch fails (idle warm-up included)
     pg.goto(BASE, wait_until='domcontentloaded'); pg.wait_for_timeout(900); pg.click('#skip-opening'); pg.wait_for_timeout(300)
-    pg.evaluate("document.querySelector('a.atlas-feature').scrollIntoView()"); pg.click('a.atlas-feature'); pg.wait_for_timeout(1500)
+    pg.evaluate("document.querySelector('a.atlas-feature').scrollIntoView()"); pg.click('a.atlas-feature'); pg.wait_for_timeout(2150)
     check('E1 Atlas fetch fails → falls back to normal page load', pg.evaluate("document.body.dataset.bgmPage")=='atlas' and pg.evaluate("location.pathname").endswith('/atlas.html'))
     ctx.close()
 
     # Desktop
     ctx=b.new_context(viewport={'width':1280,'height':800}); pg=new_page(ctx)
     pg.goto(BASE, wait_until='domcontentloaded'); pg.wait_for_timeout(800); pg.click('#skip-opening'); pg.wait_for_timeout(300)
-    pg.evaluate("document.querySelector('a.atlas-feature').scrollIntoView()"); pg.click('a.atlas-feature'); pg.wait_for_timeout(1200)
+    pg.evaluate("document.querySelector('a.atlas-feature').scrollIntoView()"); pg.click('a.atlas-feature'); pg.wait_for_timeout(2150)
     pg.screenshot(path=os.environ.get('SHOTS','/tmp')+'/s5-desktop-atlas.png')
     check('F1 desktop atlas renders map route', pg.evaluate("document.getElementById('map-pairs').getAttribute('d').length")>10)
     ctx.close()

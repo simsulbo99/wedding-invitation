@@ -45,11 +45,11 @@ html { background:#f8f7f3; }
 /* Keep the document as the native page scroll container on mobile browsers. */
 /* The full-screen overlay absorbs touch while animating; no document scroll lock. */
 .unbox-overlay { position:fixed; inset:0; z-index:9999; background:#f8f7f3;
-  overflow:hidden; isolation:isolate; opacity:1; transition:opacity 780ms cubic-bezier(.36,0,.22,1); } /* 1.5x intro: 1170ms / 1.5 */
+  overflow:hidden; isolation:isolate; opacity:1; transition:opacity 624ms cubic-bezier(.36,0,.22,1); } /* 1.875× intro: 1170ms / 1.875 */
 .unbox-overlay.is-gone { opacity:0; pointer-events:none; }
 .unbox-frame { position:absolute; inset:0; display:block; width:100%; height:100%;
   object-fit:cover; object-position:center center; opacity:0; will-change:opacity;
-  transition:opacity 711ms cubic-bezier(.45,0,.18,1); }
+  transition:opacity 569ms cubic-bezier(.45,0,.18,1); }
 .unbox-frame.active { opacity:1; }
 /* Start the ivory wash while 02 -> 03 is still dissolving: no isolated jump. */
 .unbox-gradient {position:absolute; inset:0; z-index:1; pointer-events:none;
@@ -59,10 +59,10 @@ html { background:#f8f7f3; }
  rgba(248,247,243,.58) 52%,
  rgba(248,247,243,.97) 87%,
  #f8f7f3 100%);
- opacity:0; transition:opacity 936ms cubic-bezier(.24,.42,.24,1);}
+ opacity:0; transition:opacity 749ms cubic-bezier(.24,.42,.24,1);}
 .unbox-gradient.active {opacity:1;}
 .unbox-ivory {z-index:2; position:absolute; inset:0; background:#f8f7f3; opacity:0;
- transition:opacity 806ms cubic-bezier(.35,0,.2,1); pointer-events:none;}
+ transition:opacity 645ms cubic-bezier(.35,0,.2,1); pointer-events:none;}
 .unbox-ivory.active {opacity:1;}
 .unbox-skip {position:absolute;bottom:calc(20px + env(safe-area-inset-bottom));right:20px;
   border:1px solid rgba(255,255,255,.6);background:rgba(15,41,42,.35);color:#fff;
@@ -81,7 +81,7 @@ html{scroll-behavior:smooth}body{ /* no document-level overflow lock */ }
 .statement h2{font-size:clamp(25px,3.7vw,52px)}.statement-grid{min-height:154px}
 .note-copy p{font-size:clamp(17px,2vw,23px);line-height:1.9}.note-foot{justify-content:flex-end;text-align:right}
 .day-right{padding-top:26px}.day-date{font:400 clamp(30px,4vw,49px)/1.15 var(--serif);letter-spacing:-.045em}.day-date-sub{font:300 14px/1.9 var(--kr);margin-top:10px}
-.unbox-signature{position:absolute;z-index:3;top:13%;left:50%;transform:translateX(-50%);width:90%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;color:#152b2d;opacity:0;transition:opacity 467ms ease;pointer-events:none;text-shadow:0 1px 16px rgba(248,247,243,.5)}
+.unbox-signature{position:absolute;z-index:3;top:13%;left:50%;transform:translateX(-50%);width:90%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;color:#152b2d;opacity:0;transition:opacity 374ms ease;pointer-events:none;text-shadow:0 1px 16px rgba(248,247,243,.5)}
 .unbox-signature.active{opacity:1}.unbox-signature strong{font:500 clamp(19px,5vw,28px)/1.15 var(--serif);letter-spacing:-.04em}.unbox-signature em{font:italic 400 clamp(19px,5vw,27px)/1.2 var(--serif)}.unbox-signature small{font:500 10px/1.5 var(--sans);letter-spacing:.11em;text-transform:uppercase}
 /* Overlaid signature during ivory transition, not printed on the gift photo */
 body:not(.opening) .unbox-signature{display:none}

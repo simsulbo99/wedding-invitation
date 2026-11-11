@@ -338,9 +338,6 @@
     element.addEventListener('touchcancel', () => { start = null; }, { passive: true });
   }
 
-  $('collection-total').textContent = num(collections.length);
-  $('photo-total').textContent = `${collections.reduce((sum, c) => sum + c.photos.length, 0)} PHOTOS`;
-  $('wedding-total').textContent = `${groupCount('wedding')} PHOTOS`;
   makeFeatured();
   makeMapAndIndex();
   chooseCollection(defaultCollection);

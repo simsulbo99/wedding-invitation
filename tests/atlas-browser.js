@@ -49,7 +49,9 @@ async function run() {
       const active = data.collections.filter(c => !inactive.includes(c.group));
       check(data.collections.length === 11 && data.collections.reduce((a,c) => a+c.photos.length,0) === 166 && inactive.join() === 'details', 'data keeps all 11 collections / 166 photos; The Details parked via inactiveGroups');
       check(active.length === 10 && active.reduce((a,c) => a+c.photos.length,0) === 163, '10 active collections / 163 photos');
-      check(el('collection-total').textContent === '10' && el('photo-total').textContent === '163 PHOTOS', 'hero shows 10 COLLECTIONS / 163 PHOTOS');
+      const wTokyo=active.find(c=>c.id==='wedding-tokyo')?.map, tTokyo=active.find(c=>c.id==='travel-tokyo')?.map, karu=active.find(c=>c.id==='travel-karuizawa')?.map;
+      check(wTokyo?.y===22 && tTokyo?.y===22 && karu?.x===68 && karu?.y===41 && karu.y>tTokyo.y, 'Tokyo raised and Karuizawa moved just below Tokyo');
+      check(!el('collection-total') && !el('photo-total') && !el('wedding-total') && !doc().querySelector('.atlas-hero-aside'), 'Atlas removes ornamental count UI without dropping collections');
       check(['wedding','travel'].map(g=>active.filter(c=>c.group===g).reduce((a,c)=>a+c.photos.length,0)).join() === '43,120', 'group counts 43 / 120');
       check(!el('details-link') && !doc().querySelector('[data-collection="details"]') && doc().querySelectorAll('.atlas-index-group').length === 2, 'The Details removed from map link, Index and viewer');
       check(doc().querySelector('#atlas-page-title').textContent === 'The Atlas.' && doc().querySelector('.atlas-toolbar h2').textContent === 'Choose a Place', 'titles: The Atlas. / Choose a Place');

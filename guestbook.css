@@ -57,3 +57,13 @@
 .guestbook-pagination button:focus-visible,.guestbook-photo-arrow:focus-visible {outline:2px solid #248c81;outline-offset:2px;}
 .guestbook-page-gap {padding:0 4px;color:#75827e;}
 @media(max-width:650px){.guestbook-preview-grid {grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;} .guestbook-photo-arrow {width:40px;height:44px;} .guestbook-gallery-title {font-size:clamp(39px,10vw,56px);} }
+
+/* Text-light refinement: a larger standalone editorial heading. */
+.invitation-page .guestbook-gallery-title {
+  font-size: clamp(43px, 6.6vw, 82px);
+  max-width: 100%;
+  text-wrap: balance;
+}
+@media (max-width:700px) {
+  .invitation-page .guestbook-gallery-title { font-size: clamp(41px, 10.8vw, 52px); }
+}

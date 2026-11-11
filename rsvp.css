@@ -1,6 +1,5 @@
 /* Loaded after refine.css to retain the original editorial styling. */
 .invitation-page .rsvp-form-shell { display:block; }
-.rsvp-form-shell .rsvp-form-heading { padding-bottom:25px; }
 .rsvp-field { border:0; padding:22px 0; margin:0; border-bottom:1px solid rgba(21,43,45,.22); min-width:0; }
 .rsvp-legend { display:block; width:100%; margin-bottom:16px; font:600 10px/1.6 var(--sans,Arial,sans-serif); letter-spacing:.12em; color:#536d68; }
 .rsvp-choices { display:flex; flex-wrap:wrap; gap:12px 22px; }
@@ -43,12 +42,7 @@
 /* Reduce the unused gap between venue information and the location map. */
 .invitation-page .day-section > .venue-map { margin-top: clamp(44px, 5vw, 66px); }
 
-/* One separator only, under YOUR RESPONSE. Use spacing, not horizontal rules,
-   to organize the field groups. */
-.invitation-page .rsvp-form-shell .rsvp-form-heading {
-  border-bottom: 1px solid rgba(21,43,45,.25);
-  padding-bottom: 24px;
-}
+/* Use spacing, not horizontal rules, to organize the RSVP field groups. */
 .invitation-page .rsvp-form-shell .rsvp-field {
   border: 0;
   border-bottom: 0;
@@ -97,7 +91,6 @@
 .invitation-page .rsvp-form-shell .rsvp-field { padding-top:26px; padding-bottom:17px; }
 .invitation-page .rsvp-form-shell .rsvp-field + .rsvp-field { margin-top:8px; }
 .invitation-page .rsvp-form-shell .rsvp-legend { margin-bottom:13px; }
-.invitation-page .rsvp-form-shell .rsvp-form-heading + .rsvp-field { margin-top:8px; }
 /* Album CTA uses the invitation's own display face and italic, not bold UI lettering. */
 /* span.album-cta-type matches the specificity of the older "span:first-child" rules above
    (uppercase Bodoni 600), and comes later, so the headline face actually applies. */
@@ -113,4 +106,11 @@
  .invitation-page .rsvp-form-shell .rsvp-field + .rsvp-field {margin-top:6px;}
  .invitation-page .atlas-entry-cta > span.album-cta-type {font-size:clamp(31px,8.6vw,40px); line-height:1.08; letter-spacing:-.02em;}
  .invitation-page .day-section .dress-code-detail {padding-top:23px;}
+}
+
+/* Choice groups: more air above; half the gap between legend and controls. */
+.invitation-page .rsvp-form-shell .rsvp-field--choice { padding-top: 35px; }
+.invitation-page .rsvp-form-shell .rsvp-field--choice > .rsvp-legend { margin-bottom: 6.5px; }
+@media (max-width:700px) {
+  .invitation-page .rsvp-form-shell .rsvp-field--choice { padding-top: 31px; }
 }

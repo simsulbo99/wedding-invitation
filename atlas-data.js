@@ -309,7 +309,7 @@ window.ATLAS_DATA = {
       },
       "map": {
         "x": 85,
-        "y": 26,
+        "y": 22,
         "dx": 0,
         "dy": -24,
         "labelAlign": "end"
@@ -454,7 +454,7 @@ window.ATLAS_DATA = {
       },
       "map": {
         "x": 85,
-        "y": 26,
+        "y": 22,
         "dx": 0,
         "dy": 24,
         "labelAlign": "end"
@@ -1028,8 +1028,8 @@ window.ATLAS_DATA = {
         "longitude": 138.597
       },
       "map": {
-        "x": 70,
-        "y": 7.5,
+        "x": 68,
+        "y": 41,
         "dx": 0,
         "dy": 0,
         "labelAlign": "end"
