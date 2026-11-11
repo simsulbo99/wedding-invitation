@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./atlas.css?v=20261111-v2">
   <link rel="stylesheet" href="./atlas-typography.css?v=1">
-  <link rel="stylesheet" href="./bgm.css?v=1">
+  <link rel="stylesheet" href="./bgm.css?v=2">
 </head>
 <body class="atlas-page" data-bgm-page="atlas">
   <header class="atlas-header">
@@ -19,21 +19,15 @@
       </a>
     </div>
   </header>
-  <main>
-    <section class="atlas-hero" aria-labelledby="atlas-title">
+  <main class="atlas-main">
+    <section class="atlas-hero" aria-labelledby="atlas-page-title">
       <div class="wrap atlas-hero-layout">
-        <h1 id="atlas-title">The <em>atlas.</em></h1>
+        <h1 id="atlas-page-title">The <em>atlas.</em></h1>
         <div class="atlas-hero-aside">
           <p>여행은 끝나도 풍경은 남습니다.<br>우리가 함께 지나온 곳들을<br>하나의 지도에 담았습니다.</p>
           <span class="atlas-place-total"><b id="collection-total">11</b> COLLECTIONS <small id="photo-total">166 PHOTOS</small></span>
         </div>
       </div>
-    </section>
-    <section class="atlas-bgm wrap" aria-label="배경음악">
-      <figure class="bgm-card" aria-labelledby="bgm-card-title">
-        <figcaption class="bgm-card-caption"><span class="micro">Music</span><span class="bgm-card-title" id="bgm-card-title">Girl from Ipanema <i>Olivia Ong</i></span></figcaption>
-        <div class="bgm-frame"><div id="bgm-player"></div></div>
-      </figure>
     </section>
     <section class="atlas-featured wrap" aria-labelledby="wedding-edit-title">
       <div class="atlas-featured-heading">
@@ -88,6 +82,12 @@
       </div>
     </section>
   </main>
+  <section class="bgm-dock" aria-label="배경음악"><div class="wrap">
+    <figure class="bgm-card" aria-labelledby="bgm-card-title">
+      <figcaption class="bgm-card-caption"><span class="micro">Music</span><span class="bgm-card-title" id="bgm-card-title">L-O-V-E <i>Olivia Ong</i></span></figcaption>
+      <div class="bgm-frame"><div id="bgm-player"></div></div>
+    </figure>
+  </div></section>
   <footer class="atlas-footer"><div class="wrap"><a href="./index.html#atlas-entry" aria-label="청첩장으로 돌아가기"><span aria-hidden="true">←</span><span>Return to invitation</span></a></div></footer>
   <div id="photo-lightbox" class="atlas-lightbox" role="dialog" aria-modal="true" aria-label="확대된 사진" aria-hidden="true">
     <button id="close-lightbox" class="atlas-lightbox-close" type="button" aria-label="확대 사진 닫기">×</button>
@@ -98,6 +98,6 @@
   </div>
   <script src="./atlas-data.js?v=20261111-v2" defer></script>
   <script src="./atlas.js?v=20261111-v2" defer></script>
-  <script src="./bgm.js?v=1" defer></script>
+  <script src="./bgm.js?v=2" defer></script>
 </body>
 </html>

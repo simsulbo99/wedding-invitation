@@ -22,7 +22,8 @@
   let lastFocused;
   let lockedScroll = 0;
   let suppressPhotoClickUntil = 0;
-  const background = [document.querySelector('.atlas-header'), document.querySelector('main'), document.querySelector('.atlas-footer')];
+  // Scoped to the Atlas so it also works when mounted inside the invitation document (app-shell.js).
+  const background = [...document.querySelectorAll('.atlas-header, main.atlas-main, .bgm-dock, .atlas-footer')];
 
   const make = (tag, className, text) => {
     const element = document.createElement(tag);

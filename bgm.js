@@ -1,14 +1,14 @@
 'use strict';
 /* Background music for the invitation (index.html) and the Atlas (atlas.html).
-   - One YouTube IFrame player per page, shown at full size in the page (never hidden or shrunk).
-   - The guest's ON/OFF choice is shared between pages via sessionStorage; actual playback
-     is tracked separately and is the only thing the button reflects.
+   - One YouTube IFrame player per document, shown at full size in the shared music card
+     (never hidden, shrunk or moved). Inside index.html the Atlas is a view of the same document
+     (app-shell.js), so switching views never touches the player.
+   - The guest's ON/OFF choice is kept in sessionStorage for real page loads (refresh, direct
+     Atlas link); actual playback is tracked separately and is the only thing the button reflects.
    - Any failure leaves the page, the unboxing and the Atlas untouched. */
 (() => {
-  const BGM_TRACKS = {
-    invitation: { id: '5k71Ueu4wG8', title: 'L-O-V-E' },
-    atlas: { id: 'Y8oNDJ-OQKg', title: 'Girl from Ipanema' }
-  };
+  // One song for the whole invitation, Atlas included.
+  const TRACK = { id: '5k71Ueu4wG8', title: 'L-O-V-E' };
   const CHOICE_KEY = 'wedding-bgm-choice'; // 'on' | 'off'; absent in a new session = off
   const VOLUME = 40;
   const API_URL = 'https://www.youtube.com/iframe_api';
@@ -24,8 +24,8 @@
   };
 
   const body = document.body;
-  const page = body.dataset.bgmPage;
-  const track = BGM_TRACKS[page];
+  const page = body.dataset.bgmPage; // document the visit started in: 'invitation' | 'atlas'
+  const track = TRACK;
   const host = document.getElementById('bgm-player');
   if (!track || !host) return;
 

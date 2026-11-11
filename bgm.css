@@ -63,14 +63,19 @@ body.opening .bgm-control { display: none; } /* invitation: appears after the un
   aspect-ratio: 16 / 9; min-height: 200px; background: #0f2224; overflow: hidden; }
 .bgm-frame iframe, .bgm-frame > div { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* invitation: inside the dark footer */
-.site-footer .bgm-card { max-width: 480px; margin-bottom: 52px; color: rgba(248, 247, 243, .9); }
-.site-footer .bgm-card .micro { color: rgba(248, 247, 243, .55); }
+/* Shared music card: the top of the dark footer in both views. It stays in place while the
+   invitation and the Atlas swap above it, so the player is never moved or hidden. */
+.bgm-dock { display: flow-root; background: #192f31; padding-top: 55px; } /* flow-root keeps the card margin inside the dark band */
+.bgm-dock .bgm-card { max-width: 480px; margin-bottom: 52px; color: rgba(248, 247, 243, .9); }
+.bgm-dock .bgm-card .micro { color: rgba(248, 247, 243, .55); }
+.invitation-page .bgm-dock + .site-footer { padding-top: 0; display: flow-root; } /* footer continues the dock */
+.atlas-page .bgm-dock { background: #193535; padding-top: 44px; } /* matches the Atlas footer */
+.atlas-page .bgm-dock .bgm-card { margin-bottom: 36px; }
+@media (max-width: 700px) { .bgm-dock { padding-top: 45px; } }
 
-/* atlas: a quiet strip between the hero and the Wedding Edit */
-.atlas-bgm { padding-top: 34px; padding-bottom: 6px; }
-.atlas-bgm .bgm-card { max-width: 480px; color: #152b2d; }
-.atlas-bgm .bgm-card .micro { color: #647070; }
+/* App shell: only the active view is displayed (no overflow changes anywhere). */
+[data-shell-view][hidden] { display: none !important; }
+body.shell-loading, body.shell-loading a { cursor: progress; }
 
 @media (prefers-reduced-motion: reduce) {
   .bgm-hint, .bgm-hint.is-visible, .unbox-tap, .unbox-overlay.is-armed .unbox-tap { transition: none; }
