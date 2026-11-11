@@ -297,7 +297,7 @@ window.ATLAS_DATA = {
           "height": 1524
         },
         {
-          "file": "WS_Tokyo_07.jpg",
+          "file": "WS_Tokyo_07.webp",
           "width": 1440,
           "height": 1920
         }
