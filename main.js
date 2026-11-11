@@ -8,6 +8,7 @@
   const doors = [...overlay.querySelectorAll('.unbox-door')];
   const skip = document.getElementById('skip-opening');
   const replay = document.getElementById('replay-opening');
+  const tapPrompt = document.getElementById('unbox-tap');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let timers = [];
 
@@ -27,6 +28,7 @@
     requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('doors-open')));
   }
   function complete() {
+    disarm();
     clearTimers();
     overlay.hidden = true;
     overlay.classList.remove('is-gone');
@@ -39,14 +41,15 @@
     overlay.classList.add('is-gone');
     wait(complete, 1248);
   }
-  function start() {
+  function start(keepSignature) {
+    disarm();
     clearTimers();
     overlay.hidden = false;
     overlay.classList.remove('is-gone', 'ivory-mode', 'doors-open');
     inside.classList.remove('on');
     doors.forEach(door => door.classList.remove('on'));
     gradient.classList.remove('active');
-    signature.classList.remove('active');
+    if (keepSignature !== true) signature.classList.remove('active');
     showFrame(0);
     replay.hidden = true;
     document.body.classList.add('opening');
@@ -60,13 +63,37 @@
     wait(fadeToLiveCover, 7300);
   }
 
+  // First screen: the sealed box waits for the guest's tap ("Tap to open with music").
+  function arm() {
+    clearTimers();
+    overlay.hidden = false;
+    showFrame(0);
+    replay.hidden = true;
+    document.body.classList.add('opening');
+    window.scrollTo(0, 0);
+    wait(() => signature.classList.add('active'), 180);
+    overlay.classList.add('is-armed');
+    overlay.addEventListener('click', onFirstTap);
+  }
+  function disarm() {
+    overlay.classList.remove('is-armed');
+    overlay.removeEventListener('click', onFirstTap);
+  }
+  function onFirstTap(event) {
+    if (event.target.closest('#skip-opening')) return;
+    disarm();
+    // Music must be requested inside this tap; bgm.js listens. A failure there never stops the unboxing.
+    try { window.dispatchEvent(new CustomEvent('invitation:open')); } catch (e) { /* music is optional */ }
+    start(true);
+  }
+
   // Recover if the in-app browser restores a page from its back/forward cache.
   window.addEventListener('pageshow', () => {
     if (!document.body.classList.contains('opening')) complete();
   });
 
   skip.addEventListener('click', complete);
-  replay.addEventListener('click', start);
+  replay.addEventListener('click', () => start());
 
   // Landing directly on a chapter (including returning from Atlas) must not
   // replay the cover or send readers back to the top unexpectedly.
@@ -74,6 +101,8 @@
   if (targetId && document.getElementById(targetId)) {
     complete();
     requestAnimationFrame(() => document.getElementById(targetId).scrollIntoView());
+  } else if (tapPrompt) {
+    arm();
   } else {
     start();
   }

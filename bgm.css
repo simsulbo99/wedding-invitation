@@ -1,0 +1,77 @@
+/* Background music: fixed toggle, intro prompt and the visible YouTube player card.
+   Shared by index.html and atlas.html. Never touches overflow or the scrolling roots. */
+
+/* ---------- fixed toggle (top right) ---------- */
+.bgm-control {
+  position: fixed; z-index: 30;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  right: calc(12px + env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  pointer-events: none;
+}
+.bgm-control > * { pointer-events: auto; }
+body.opening .bgm-control { display: none; } /* invitation: appears after the unboxing */
+.atlas-page .bgm-control { top: calc(16px + env(safe-area-inset-top, 0px)); } /* centred on the Atlas header */
+
+.bgm-toggle {
+  position: relative; display: inline-flex; align-items: center; gap: 7px;
+  min-height: 36px; padding: 0 13px 0 11px;
+  border: 1px solid rgba(21, 43, 45, .2); border-radius: 999px;
+  background: rgba(248, 247, 243, .86);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  color: #152b2d; font: 600 10px/1 var(--sans, 'DM Sans', Arial, sans-serif); letter-spacing: .14em;
+  white-space: nowrap; -webkit-tap-highlight-color: transparent;
+  transition: color .2s ease, border-color .2s ease;
+}
+.bgm-toggle::after { content: ''; position: absolute; inset: -5px -4px; } /* 46px tall touch target */
+.bgm-toggle[aria-pressed="true"] { color: #1f7f79; border-color: rgba(31, 127, 121, .42); }
+.bgm-toggle.is-pending .bgm-label { opacity: .5; }
+.bgm-icon { width: 17px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.2;
+  stroke-linecap: round; stroke-linejoin: round; }
+.bgm-toggle[aria-pressed="true"] .bgm-mute,
+.bgm-toggle[aria-pressed="false"] .bgm-wave { display: none; }
+
+.bgm-hint {
+  margin: 0; max-width: min(240px, calc(100vw - 24px)); padding: 6px 11px; border-radius: 999px;
+  background: rgba(21, 43, 45, .78); color: #f8f7f3;
+  font: italic 400 12px/1.35 var(--serif, Georgia, serif); letter-spacing: .01em; text-align: right;
+  opacity: 0; visibility: hidden; transform: translateY(-3px);
+  transition: opacity .35s ease, transform .35s ease, visibility 0s linear .35s;
+}
+.bgm-hint.is-visible { opacity: 1; visibility: visible; transform: none; transition: opacity .35s ease, transform .35s ease; }
+
+/* ---------- invitation intro prompt ---------- */
+.unbox-tap {
+  position: absolute; z-index: 3; left: 50%; bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%); margin: 0; padding: 8px 16px 9px;
+  border: 1px solid rgba(248, 247, 243, .32); border-radius: 999px;
+  background: rgba(15, 41, 42, .26); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  color: #f8f7f3; font: italic 400 14px/1.2 var(--serif, Georgia, serif); letter-spacing: .02em;
+  white-space: nowrap; cursor: pointer;
+  opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s linear .3s;
+}
+.unbox-overlay.is-armed .unbox-tap { opacity: .9; visibility: visible; transition: opacity .9s ease .6s, visibility 0s; }
+.unbox-overlay.is-armed { cursor: pointer; }
+
+/* ---------- visible YouTube player card ---------- */
+.bgm-card { margin: 0; display: grid; gap: 14px; }
+.bgm-card-caption { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.bgm-card-title { font: 400 17px/1.25 var(--serif, Georgia, serif); letter-spacing: -.02em; }
+.bgm-card-title i { font-style: italic; opacity: .7; margin-left: 4px; }
+/* At least 200 x 200 px, as the YouTube embed policy requires. */
+.bgm-frame { position: relative; width: 100%; max-width: 480px; min-width: 200px;
+  aspect-ratio: 16 / 9; min-height: 200px; background: #0f2224; overflow: hidden; }
+.bgm-frame iframe, .bgm-frame > div { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* invitation: inside the dark footer */
+.site-footer .bgm-card { max-width: 480px; margin-bottom: 52px; color: rgba(248, 247, 243, .9); }
+.site-footer .bgm-card .micro { color: rgba(248, 247, 243, .55); }
+
+/* atlas: a quiet strip between the hero and the Wedding Edit */
+.atlas-bgm { padding-top: 34px; padding-bottom: 6px; }
+.atlas-bgm .bgm-card { max-width: 480px; color: #152b2d; }
+.atlas-bgm .bgm-card .micro { color: #647070; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bgm-hint, .bgm-hint.is-visible, .unbox-tap, .unbox-overlay.is-armed .unbox-tap { transition: none; }
+}

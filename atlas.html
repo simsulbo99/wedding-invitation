@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./atlas.css?v=20261111-v2">
   <link rel="stylesheet" href="./atlas-typography.css?v=1">
+  <link rel="stylesheet" href="./bgm.css?v=1">
 </head>
-<body class="atlas-page">
+<body class="atlas-page" data-bgm-page="atlas">
   <header class="atlas-header">
     <div class="wrap atlas-header-inner">
       <a class="atlas-back" href="./index.html#atlas-entry" aria-label="청첩장으로 돌아가기">
@@ -27,6 +28,12 @@
           <span class="atlas-place-total"><b id="collection-total">11</b> COLLECTIONS <small id="photo-total">166 PHOTOS</small></span>
         </div>
       </div>
+    </section>
+    <section class="atlas-bgm wrap" aria-label="배경음악">
+      <figure class="bgm-card" aria-labelledby="bgm-card-title">
+        <figcaption class="bgm-card-caption"><span class="micro">Music</span><span class="bgm-card-title" id="bgm-card-title">Girl from Ipanema <i>Olivia Ong</i></span></figcaption>
+        <div class="bgm-frame"><div id="bgm-player"></div></div>
+      </figure>
     </section>
     <section class="atlas-featured wrap" aria-labelledby="wedding-edit-title">
       <div class="atlas-featured-heading">
@@ -91,5 +98,6 @@
   </div>
   <script src="./atlas-data.js?v=20261111-v2" defer></script>
   <script src="./atlas.js?v=20261111-v2" defer></script>
+  <script src="./bgm.js?v=1" defer></script>
 </body>
 </html>
