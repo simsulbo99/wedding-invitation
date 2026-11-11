@@ -1,0 +1,694 @@
+PASS 360px — default Wedding Seoul, first photo
+PASS 360px — no initial automatic page scroll
+PASS 360px — 11 collections / 166 photos
+PASS 360px — group counts 43 / 120 / 3
+PASS 360px — initial original-image requests limited (2)
+PASS 360px — no browser GitHub API call
+PASS 360px — no page horizontal overflow
+PASS 360px — 10 map pins; no Details pin
+PASS 360px — 44×44px marker hit targets
+PASS 360px — all marker hit targets inside map
+PASS 360px — no overlapping marker hit targets (including Tokyo/Karuizawa)
+PASS 360px — 3 featured photos decoded
+PASS 360px — wedding-seoul featured selection resets to first photo
+PASS 360px — featured action reveals viewer (top 24)
+PASS 360px — wedding-sapa featured selection resets to first photo
+PASS 360px — featured action reveals viewer (top 24)
+PASS 360px — wedding-tokyo featured selection resets to first photo
+PASS 360px — featured action reveals viewer (top 24)
+PASS 360px — wedding-seoul independent marker + Index sync
+PASS 360px — wedding-sapa independent marker + Index sync
+PASS 360px — wedding-tokyo independent marker + Index sync
+PASS 360px — travel-tokyo independent marker + Index sync
+PASS 360px — travel-sapa independent marker + Index sync
+PASS 360px — travel-manado independent marker + Index sync
+PASS 360px — travel-bohol independent marker + Index sync
+PASS 360px — travel-seoul independent marker + Index sync
+PASS 360px — travel-karuizawa independent marker + Index sync
+PASS 360px — travel-pattaya independent marker + Index sync
+PASS 360px — wedding-seoul Index + full filmstrip
+PASS 360px — wedding-seoul last thumbnail selects photo (wedding-seoul, 12 / 12)
+PASS 360px — wedding-seoul active thumbnail visible
+PASS 360px — wedding-seoul next wraps to first
+PASS 360px — wedding-seoul previous wraps to last
+PASS 360px — wedding-seoul photo navigation preserves page scroll
+PASS 360px — wedding-sapa Index + full filmstrip
+PASS 360px — wedding-sapa last thumbnail selects photo (wedding-sapa, 24 / 24)
+PASS 360px — wedding-sapa active thumbnail visible
+PASS 360px — wedding-sapa next wraps to first
+PASS 360px — wedding-sapa previous wraps to last
+PASS 360px — wedding-sapa photo navigation preserves page scroll
+PASS 360px — wedding-tokyo Index + full filmstrip
+PASS 360px — wedding-tokyo last thumbnail selects photo (wedding-tokyo, 07 / 07)
+PASS 360px — wedding-tokyo active thumbnail visible
+PASS 360px — wedding-tokyo next wraps to first
+PASS 360px — wedding-tokyo previous wraps to last
+PASS 360px — wedding-tokyo photo navigation preserves page scroll
+PASS 360px — travel-tokyo Index + full filmstrip
+PASS 360px — travel-tokyo last thumbnail selects photo (travel-tokyo, 24 / 24)
+PASS 360px — travel-tokyo active thumbnail visible
+PASS 360px — travel-tokyo next wraps to first
+PASS 360px — travel-tokyo previous wraps to last
+PASS 360px — travel-tokyo photo navigation preserves page scroll
+PASS 360px — travel-sapa Index + full filmstrip
+PASS 360px — travel-sapa last thumbnail selects photo (travel-sapa, 20 / 20)
+PASS 360px — travel-sapa active thumbnail visible
+PASS 360px — travel-sapa next wraps to first
+PASS 360px — travel-sapa previous wraps to last
+PASS 360px — travel-sapa photo navigation preserves page scroll
+PASS 360px — travel-manado Index + full filmstrip
+PASS 360px — travel-manado last thumbnail selects photo (travel-manado, 18 / 18)
+PASS 360px — travel-manado active thumbnail visible
+PASS 360px — travel-manado next wraps to first
+PASS 360px — travel-manado previous wraps to last
+PASS 360px — travel-manado photo navigation preserves page scroll
+PASS 360px — travel-bohol Index + full filmstrip
+PASS 360px — travel-bohol last thumbnail selects photo (travel-bohol, 14 / 14)
+PASS 360px — travel-bohol active thumbnail visible
+PASS 360px — travel-bohol next wraps to first
+PASS 360px — travel-bohol previous wraps to last
+PASS 360px — travel-bohol photo navigation preserves page scroll
+PASS 360px — travel-seoul Index + full filmstrip
+PASS 360px — travel-seoul last thumbnail selects photo (travel-seoul, 22 / 22)
+PASS 360px — travel-seoul active thumbnail visible
+PASS 360px — travel-seoul next wraps to first
+PASS 360px — travel-seoul previous wraps to last
+PASS 360px — travel-seoul photo navigation preserves page scroll
+PASS 360px — travel-karuizawa Index + full filmstrip
+PASS 360px — travel-karuizawa last thumbnail selects photo (travel-karuizawa, 16 / 16)
+PASS 360px — travel-karuizawa active thumbnail visible
+PASS 360px — travel-karuizawa next wraps to first
+PASS 360px — travel-karuizawa previous wraps to last
+PASS 360px — travel-karuizawa photo navigation preserves page scroll
+PASS 360px — travel-pattaya Index + full filmstrip
+PASS 360px — travel-pattaya last thumbnail selects photo (travel-pattaya, 06 / 06)
+PASS 360px — travel-pattaya active thumbnail visible
+PASS 360px — travel-pattaya next wraps to first
+PASS 360px — travel-pattaya previous wraps to last
+PASS 360px — travel-pattaya photo navigation preserves page scroll
+PASS 360px — details Index + full filmstrip
+PASS 360px — details last thumbnail selects photo (details, 03 / 03)
+PASS 360px — details active thumbnail visible
+PASS 360px — details next wraps to first
+PASS 360px — details previous wraps to last
+PASS 360px — details photo navigation preserves page scroll
+PASS 360px — Details clears route
+PASS 360px — Details clears marker selection
+PASS 360px — Details discoverable from map
+PASS 360px — landscape photograph is contained
+PASS 360px — portrait photograph is contained
+PASS 360px — lightbox opens, locks and focuses
+PASS 360px — lightbox arrow key + viewer sync
+PASS 360px — lightbox buttons
+PASS 360px — lightbox focus trap
+PASS 360px — Escape restores focus, scroll and page access
+PASS 360px — main horizontal swipe
+PASS 360px — swipe does not accidentally open lightbox
+PASS 360px — vertical gesture does not change photo
+PASS 360px — lightbox horizontal swipe
+PASS 360px — filmstrip keyboard End
+PASS 360px — filmstrip keyboard Home
+PASS 360px — keyboard Map/Index switching
+PASS 360px — no overflow after all navigation
+PASS 360px — both invitation return links
+PASS 360px — return destination and anchor exist
+PASS 360px — no broken loaded images
+PASS 390px — default Wedding Seoul, first photo
+PASS 390px — no initial automatic page scroll
+PASS 390px — 11 collections / 166 photos
+PASS 390px — group counts 43 / 120 / 3
+PASS 390px — initial original-image requests limited (2)
+PASS 390px — no browser GitHub API call
+PASS 390px — no page horizontal overflow
+PASS 390px — 10 map pins; no Details pin
+PASS 390px — 44×44px marker hit targets
+PASS 390px — all marker hit targets inside map
+PASS 390px — no overlapping marker hit targets (including Tokyo/Karuizawa)
+PASS 390px — 3 featured photos decoded
+PASS 390px — wedding-seoul featured selection resets to first photo
+PASS 390px — featured action reveals viewer (top 24)
+PASS 390px — wedding-sapa featured selection resets to first photo
+PASS 390px — featured action reveals viewer (top 24)
+PASS 390px — wedding-tokyo featured selection resets to first photo
+PASS 390px — featured action reveals viewer (top 24)
+PASS 390px — wedding-seoul independent marker + Index sync
+PASS 390px — wedding-sapa independent marker + Index sync
+PASS 390px — wedding-tokyo independent marker + Index sync
+PASS 390px — travel-tokyo independent marker + Index sync
+PASS 390px — travel-sapa independent marker + Index sync
+PASS 390px — travel-manado independent marker + Index sync
+PASS 390px — travel-bohol independent marker + Index sync
+PASS 390px — travel-seoul independent marker + Index sync
+PASS 390px — travel-karuizawa independent marker + Index sync
+PASS 390px — travel-pattaya independent marker + Index sync
+PASS 390px — wedding-seoul Index + full filmstrip
+PASS 390px — wedding-seoul last thumbnail selects photo (wedding-seoul, 12 / 12)
+PASS 390px — wedding-seoul active thumbnail visible
+PASS 390px — wedding-seoul next wraps to first
+PASS 390px — wedding-seoul previous wraps to last
+PASS 390px — wedding-seoul photo navigation preserves page scroll
+PASS 390px — wedding-sapa Index + full filmstrip
+PASS 390px — wedding-sapa last thumbnail selects photo (wedding-sapa, 24 / 24)
+PASS 390px — wedding-sapa active thumbnail visible
+PASS 390px — wedding-sapa next wraps to first
+PASS 390px — wedding-sapa previous wraps to last
+PASS 390px — wedding-sapa photo navigation preserves page scroll
+PASS 390px — wedding-tokyo Index + full filmstrip
+PASS 390px — wedding-tokyo last thumbnail selects photo (wedding-tokyo, 07 / 07)
+PASS 390px — wedding-tokyo active thumbnail visible
+PASS 390px — wedding-tokyo next wraps to first
+PASS 390px — wedding-tokyo previous wraps to last
+PASS 390px — wedding-tokyo photo navigation preserves page scroll
+PASS 390px — travel-tokyo Index + full filmstrip
+PASS 390px — travel-tokyo last thumbnail selects photo (travel-tokyo, 24 / 24)
+PASS 390px — travel-tokyo active thumbnail visible
+PASS 390px — travel-tokyo next wraps to first
+PASS 390px — travel-tokyo previous wraps to last
+PASS 390px — travel-tokyo photo navigation preserves page scroll
+PASS 390px — travel-sapa Index + full filmstrip
+PASS 390px — travel-sapa last thumbnail selects photo (travel-sapa, 20 / 20)
+PASS 390px — travel-sapa active thumbnail visible
+PASS 390px — travel-sapa next wraps to first
+PASS 390px — travel-sapa previous wraps to last
+PASS 390px — travel-sapa photo navigation preserves page scroll
+PASS 390px — travel-manado Index + full filmstrip
+PASS 390px — travel-manado last thumbnail selects photo (travel-manado, 18 / 18)
+PASS 390px — travel-manado active thumbnail visible
+PASS 390px — travel-manado next wraps to first
+PASS 390px — travel-manado previous wraps to last
+PASS 390px — travel-manado photo navigation preserves page scroll
+PASS 390px — travel-bohol Index + full filmstrip
+PASS 390px — travel-bohol last thumbnail selects photo (travel-bohol, 14 / 14)
+PASS 390px — travel-bohol active thumbnail visible
+PASS 390px — travel-bohol next wraps to first
+PASS 390px — travel-bohol previous wraps to last
+PASS 390px — travel-bohol photo navigation preserves page scroll
+PASS 390px — travel-seoul Index + full filmstrip
+PASS 390px — travel-seoul last thumbnail selects photo (travel-seoul, 22 / 22)
+PASS 390px — travel-seoul active thumbnail visible
+PASS 390px — travel-seoul next wraps to first
+PASS 390px — travel-seoul previous wraps to last
+PASS 390px — travel-seoul photo navigation preserves page scroll
+PASS 390px — travel-karuizawa Index + full filmstrip
+PASS 390px — travel-karuizawa last thumbnail selects photo (travel-karuizawa, 16 / 16)
+PASS 390px — travel-karuizawa active thumbnail visible
+PASS 390px — travel-karuizawa next wraps to first
+PASS 390px — travel-karuizawa previous wraps to last
+PASS 390px — travel-karuizawa photo navigation preserves page scroll
+PASS 390px — travel-pattaya Index + full filmstrip
+PASS 390px — travel-pattaya last thumbnail selects photo (travel-pattaya, 06 / 06)
+PASS 390px — travel-pattaya active thumbnail visible
+PASS 390px — travel-pattaya next wraps to first
+PASS 390px — travel-pattaya previous wraps to last
+PASS 390px — travel-pattaya photo navigation preserves page scroll
+PASS 390px — details Index + full filmstrip
+PASS 390px — details last thumbnail selects photo (details, 03 / 03)
+PASS 390px — details active thumbnail visible
+PASS 390px — details next wraps to first
+PASS 390px — details previous wraps to last
+PASS 390px — details photo navigation preserves page scroll
+PASS 390px — Details clears route
+PASS 390px — Details clears marker selection
+PASS 390px — Details discoverable from map
+PASS 390px — landscape photograph is contained
+PASS 390px — portrait photograph is contained
+PASS 390px — lightbox opens, locks and focuses
+PASS 390px — lightbox arrow key + viewer sync
+PASS 390px — lightbox buttons
+PASS 390px — lightbox focus trap
+PASS 390px — Escape restores focus, scroll and page access
+PASS 390px — main horizontal swipe
+PASS 390px — swipe does not accidentally open lightbox
+PASS 390px — vertical gesture does not change photo
+PASS 390px — lightbox horizontal swipe
+PASS 390px — filmstrip keyboard End
+PASS 390px — filmstrip keyboard Home
+PASS 390px — keyboard Map/Index switching
+PASS 390px — no overflow after all navigation
+PASS 390px — both invitation return links
+PASS 390px — return destination and anchor exist
+PASS 390px — no broken loaded images
+PASS 430px — default Wedding Seoul, first photo
+PASS 430px — no initial automatic page scroll
+PASS 430px — 11 collections / 166 photos
+PASS 430px — group counts 43 / 120 / 3
+PASS 430px — initial original-image requests limited (2)
+PASS 430px — no browser GitHub API call
+PASS 430px — no page horizontal overflow
+PASS 430px — 10 map pins; no Details pin
+PASS 430px — 44×44px marker hit targets
+PASS 430px — all marker hit targets inside map
+PASS 430px — no overlapping marker hit targets (including Tokyo/Karuizawa)
+PASS 430px — 3 featured photos decoded
+PASS 430px — wedding-seoul featured selection resets to first photo
+PASS 430px — featured action reveals viewer (top 24)
+PASS 430px — wedding-sapa featured selection resets to first photo
+PASS 430px — featured action reveals viewer (top 24)
+PASS 430px — wedding-tokyo featured selection resets to first photo
+PASS 430px — featured action reveals viewer (top 24)
+PASS 430px — wedding-seoul independent marker + Index sync
+PASS 430px — wedding-sapa independent marker + Index sync
+PASS 430px — wedding-tokyo independent marker + Index sync
+PASS 430px — travel-tokyo independent marker + Index sync
+PASS 430px — travel-sapa independent marker + Index sync
+PASS 430px — travel-manado independent marker + Index sync
+PASS 430px — travel-bohol independent marker + Index sync
+PASS 430px — travel-seoul independent marker + Index sync
+PASS 430px — travel-karuizawa independent marker + Index sync
+PASS 430px — travel-pattaya independent marker + Index sync
+PASS 430px — wedding-seoul Index + full filmstrip
+PASS 430px — wedding-seoul last thumbnail selects photo (wedding-seoul, 12 / 12)
+PASS 430px — wedding-seoul active thumbnail visible
+PASS 430px — wedding-seoul next wraps to first
+PASS 430px — wedding-seoul previous wraps to last
+PASS 430px — wedding-seoul photo navigation preserves page scroll
+PASS 430px — wedding-sapa Index + full filmstrip
+PASS 430px — wedding-sapa last thumbnail selects photo (wedding-sapa, 24 / 24)
+PASS 430px — wedding-sapa active thumbnail visible
+PASS 430px — wedding-sapa next wraps to first
+PASS 430px — wedding-sapa previous wraps to last
+PASS 430px — wedding-sapa photo navigation preserves page scroll
+PASS 430px — wedding-tokyo Index + full filmstrip
+PASS 430px — wedding-tokyo last thumbnail selects photo (wedding-tokyo, 07 / 07)
+PASS 430px — wedding-tokyo active thumbnail visible
+PASS 430px — wedding-tokyo next wraps to first
+PASS 430px — wedding-tokyo previous wraps to last
+PASS 430px — wedding-tokyo photo navigation preserves page scroll
+PASS 430px — travel-tokyo Index + full filmstrip
+PASS 430px — travel-tokyo last thumbnail selects photo (travel-tokyo, 24 / 24)
+PASS 430px — travel-tokyo active thumbnail visible
+PASS 430px — travel-tokyo next wraps to first
+PASS 430px — travel-tokyo previous wraps to last
+PASS 430px — travel-tokyo photo navigation preserves page scroll
+PASS 430px — travel-sapa Index + full filmstrip
+PASS 430px — travel-sapa last thumbnail selects photo (travel-sapa, 20 / 20)
+PASS 430px — travel-sapa active thumbnail visible
+PASS 430px — travel-sapa next wraps to first
+PASS 430px — travel-sapa previous wraps to last
+PASS 430px — travel-sapa photo navigation preserves page scroll
+PASS 430px — travel-manado Index + full filmstrip
+PASS 430px — travel-manado last thumbnail selects photo (travel-manado, 18 / 18)
+PASS 430px — travel-manado active thumbnail visible
+PASS 430px — travel-manado next wraps to first
+PASS 430px — travel-manado previous wraps to last
+PASS 430px — travel-manado photo navigation preserves page scroll
+PASS 430px — travel-bohol Index + full filmstrip
+PASS 430px — travel-bohol last thumbnail selects photo (travel-bohol, 14 / 14)
+PASS 430px — travel-bohol active thumbnail visible
+PASS 430px — travel-bohol next wraps to first
+PASS 430px — travel-bohol previous wraps to last
+PASS 430px — travel-bohol photo navigation preserves page scroll
+PASS 430px — travel-seoul Index + full filmstrip
+PASS 430px — travel-seoul last thumbnail selects photo (travel-seoul, 22 / 22)
+PASS 430px — travel-seoul active thumbnail visible
+PASS 430px — travel-seoul next wraps to first
+PASS 430px — travel-seoul previous wraps to last
+PASS 430px — travel-seoul photo navigation preserves page scroll
+PASS 430px — travel-karuizawa Index + full filmstrip
+PASS 430px — travel-karuizawa last thumbnail selects photo (travel-karuizawa, 16 / 16)
+PASS 430px — travel-karuizawa active thumbnail visible
+PASS 430px — travel-karuizawa next wraps to first
+PASS 430px — travel-karuizawa previous wraps to last
+PASS 430px — travel-karuizawa photo navigation preserves page scroll
+PASS 430px — travel-pattaya Index + full filmstrip
+PASS 430px — travel-pattaya last thumbnail selects photo (travel-pattaya, 06 / 06)
+PASS 430px — travel-pattaya active thumbnail visible
+PASS 430px — travel-pattaya next wraps to first
+PASS 430px — travel-pattaya previous wraps to last
+PASS 430px — travel-pattaya photo navigation preserves page scroll
+PASS 430px — details Index + full filmstrip
+PASS 430px — details last thumbnail selects photo (details, 03 / 03)
+PASS 430px — details active thumbnail visible
+PASS 430px — details next wraps to first
+PASS 430px — details previous wraps to last
+PASS 430px — details photo navigation preserves page scroll
+PASS 430px — Details clears route
+PASS 430px — Details clears marker selection
+PASS 430px — Details discoverable from map
+PASS 430px — landscape photograph is contained
+PASS 430px — portrait photograph is contained
+PASS 430px — lightbox opens, locks and focuses
+PASS 430px — lightbox arrow key + viewer sync
+PASS 430px — lightbox buttons
+PASS 430px — lightbox focus trap
+PASS 430px — Escape restores focus, scroll and page access
+PASS 430px — main horizontal swipe
+PASS 430px — swipe does not accidentally open lightbox
+PASS 430px — vertical gesture does not change photo
+PASS 430px — lightbox horizontal swipe
+PASS 430px — filmstrip keyboard End
+PASS 430px — filmstrip keyboard Home
+PASS 430px — keyboard Map/Index switching
+PASS 430px — no overflow after all navigation
+PASS 430px — both invitation return links
+PASS 430px — return destination and anchor exist
+PASS 430px — no broken loaded images
+PASS 861px — default Wedding Seoul, first photo
+PASS 861px — no initial automatic page scroll
+PASS 861px — 11 collections / 166 photos
+PASS 861px — group counts 43 / 120 / 3
+PASS 861px — initial original-image requests limited (2)
+PASS 861px — no browser GitHub API call
+PASS 861px — no page horizontal overflow
+PASS 861px — 10 map pins; no Details pin
+PASS 861px — 44×44px marker hit targets
+PASS 861px — all marker hit targets inside map
+PASS 861px — no overlapping marker hit targets (including Tokyo/Karuizawa)
+PASS 861px — 3 featured photos decoded
+PASS 861px — wedding-seoul featured selection resets to first photo
+PASS 861px — featured action reveals viewer (top 24)
+PASS 861px — wedding-sapa featured selection resets to first photo
+PASS 861px — featured action reveals viewer (top 24)
+PASS 861px — wedding-tokyo featured selection resets to first photo
+PASS 861px — featured action reveals viewer (top 24)
+PASS 861px — wedding-seoul independent marker + Index sync
+PASS 861px — wedding-sapa independent marker + Index sync
+PASS 861px — wedding-tokyo independent marker + Index sync
+PASS 861px — travel-tokyo independent marker + Index sync
+PASS 861px — travel-sapa independent marker + Index sync
+PASS 861px — travel-manado independent marker + Index sync
+PASS 861px — travel-bohol independent marker + Index sync
+PASS 861px — travel-seoul independent marker + Index sync
+PASS 861px — travel-karuizawa independent marker + Index sync
+PASS 861px — travel-pattaya independent marker + Index sync
+PASS 861px — wedding-seoul Index + full filmstrip
+PASS 861px — wedding-seoul last thumbnail selects photo (wedding-seoul, 12 / 12)
+PASS 861px — wedding-seoul active thumbnail visible
+PASS 861px — wedding-seoul next wraps to first
+PASS 861px — wedding-seoul previous wraps to last
+PASS 861px — wedding-seoul photo navigation preserves page scroll
+PASS 861px — wedding-sapa Index + full filmstrip
+PASS 861px — wedding-sapa last thumbnail selects photo (wedding-sapa, 24 / 24)
+PASS 861px — wedding-sapa active thumbnail visible
+PASS 861px — wedding-sapa next wraps to first
+PASS 861px — wedding-sapa previous wraps to last
+PASS 861px — wedding-sapa photo navigation preserves page scroll
+PASS 861px — wedding-tokyo Index + full filmstrip
+PASS 861px — wedding-tokyo last thumbnail selects photo (wedding-tokyo, 07 / 07)
+PASS 861px — wedding-tokyo active thumbnail visible
+PASS 861px — wedding-tokyo next wraps to first
+PASS 861px — wedding-tokyo previous wraps to last
+PASS 861px — wedding-tokyo photo navigation preserves page scroll
+PASS 861px — travel-tokyo Index + full filmstrip
+PASS 861px — travel-tokyo last thumbnail selects photo (travel-tokyo, 24 / 24)
+PASS 861px — travel-tokyo active thumbnail visible
+PASS 861px — travel-tokyo next wraps to first
+PASS 861px — travel-tokyo previous wraps to last
+PASS 861px — travel-tokyo photo navigation preserves page scroll
+PASS 861px — travel-sapa Index + full filmstrip
+PASS 861px — travel-sapa last thumbnail selects photo (travel-sapa, 20 / 20)
+PASS 861px — travel-sapa active thumbnail visible
+PASS 861px — travel-sapa next wraps to first
+PASS 861px — travel-sapa previous wraps to last
+PASS 861px — travel-sapa photo navigation preserves page scroll
+PASS 861px — travel-manado Index + full filmstrip
+PASS 861px — travel-manado last thumbnail selects photo (travel-manado, 18 / 18)
+PASS 861px — travel-manado active thumbnail visible
+PASS 861px — travel-manado next wraps to first
+PASS 861px — travel-manado previous wraps to last
+PASS 861px — travel-manado photo navigation preserves page scroll
+PASS 861px — travel-bohol Index + full filmstrip
+PASS 861px — travel-bohol last thumbnail selects photo (travel-bohol, 14 / 14)
+PASS 861px — travel-bohol active thumbnail visible
+PASS 861px — travel-bohol next wraps to first
+PASS 861px — travel-bohol previous wraps to last
+PASS 861px — travel-bohol photo navigation preserves page scroll
+PASS 861px — travel-seoul Index + full filmstrip
+PASS 861px — travel-seoul last thumbnail selects photo (travel-seoul, 22 / 22)
+PASS 861px — travel-seoul active thumbnail visible
+PASS 861px — travel-seoul next wraps to first
+PASS 861px — travel-seoul previous wraps to last
+PASS 861px — travel-seoul photo navigation preserves page scroll
+PASS 861px — travel-karuizawa Index + full filmstrip
+PASS 861px — travel-karuizawa last thumbnail selects photo (travel-karuizawa, 16 / 16)
+PASS 861px — travel-karuizawa active thumbnail visible
+PASS 861px — travel-karuizawa next wraps to first
+PASS 861px — travel-karuizawa previous wraps to last
+PASS 861px — travel-karuizawa photo navigation preserves page scroll
+PASS 861px — travel-pattaya Index + full filmstrip
+PASS 861px — travel-pattaya last thumbnail selects photo (travel-pattaya, 06 / 06)
+PASS 861px — travel-pattaya active thumbnail visible
+PASS 861px — travel-pattaya next wraps to first
+PASS 861px — travel-pattaya previous wraps to last
+PASS 861px — travel-pattaya photo navigation preserves page scroll
+PASS 861px — details Index + full filmstrip
+PASS 861px — details last thumbnail selects photo (details, 03 / 03)
+PASS 861px — details active thumbnail visible
+PASS 861px — details next wraps to first
+PASS 861px — details previous wraps to last
+PASS 861px — details photo navigation preserves page scroll
+PASS 861px — Details clears route
+PASS 861px — Details clears marker selection
+PASS 861px — Details discoverable from map
+PASS 861px — landscape photograph is contained
+PASS 861px — portrait photograph is contained
+PASS 861px — lightbox opens, locks and focuses
+PASS 861px — lightbox arrow key + viewer sync
+PASS 861px — lightbox buttons
+PASS 861px — lightbox focus trap
+PASS 861px — Escape restores focus, scroll and page access
+PASS 861px — main horizontal swipe
+PASS 861px — swipe does not accidentally open lightbox
+PASS 861px — vertical gesture does not change photo
+PASS 861px — lightbox horizontal swipe
+PASS 861px — filmstrip keyboard End
+PASS 861px — filmstrip keyboard Home
+PASS 861px — keyboard Map/Index switching
+PASS 861px — no overflow after all navigation
+PASS 861px — both invitation return links
+PASS 861px — return destination and anchor exist
+PASS 861px — no broken loaded images
+PASS 1024px — default Wedding Seoul, first photo
+PASS 1024px — no initial automatic page scroll
+PASS 1024px — 11 collections / 166 photos
+PASS 1024px — group counts 43 / 120 / 3
+PASS 1024px — initial original-image requests limited (2)
+PASS 1024px — no browser GitHub API call
+PASS 1024px — no page horizontal overflow
+PASS 1024px — 10 map pins; no Details pin
+PASS 1024px — 44×44px marker hit targets
+PASS 1024px — all marker hit targets inside map
+PASS 1024px — no overlapping marker hit targets (including Tokyo/Karuizawa)
+PASS 1024px — 3 featured photos decoded
+PASS 1024px — wedding-seoul featured selection resets to first photo
+PASS 1024px — featured action reveals viewer (top 24)
+PASS 1024px — wedding-sapa featured selection resets to first photo
+PASS 1024px — featured action reveals viewer (top 24)
+PASS 1024px — wedding-tokyo featured selection resets to first photo
+PASS 1024px — featured action reveals viewer (top 24)
+PASS 1024px — wedding-seoul independent marker + Index sync
+PASS 1024px — wedding-sapa independent marker + Index sync
+PASS 1024px — wedding-tokyo independent marker + Index sync
+PASS 1024px — travel-tokyo independent marker + Index sync
+PASS 1024px — travel-sapa independent marker + Index sync
+PASS 1024px — travel-manado independent marker + Index sync
+PASS 1024px — travel-bohol independent marker + Index sync
+PASS 1024px — travel-seoul independent marker + Index sync
+PASS 1024px — travel-karuizawa independent marker + Index sync
+PASS 1024px — travel-pattaya independent marker + Index sync
+PASS 1024px — wedding-seoul Index + full filmstrip
+PASS 1024px — wedding-seoul last thumbnail selects photo (wedding-seoul, 12 / 12)
+PASS 1024px — wedding-seoul active thumbnail visible
+PASS 1024px — wedding-seoul next wraps to first
+PASS 1024px — wedding-seoul previous wraps to last
+PASS 1024px — wedding-seoul photo navigation preserves page scroll
+PASS 1024px — wedding-sapa Index + full filmstrip
+PASS 1024px — wedding-sapa last thumbnail selects photo (wedding-sapa, 24 / 24)
+PASS 1024px — wedding-sapa active thumbnail visible
+PASS 1024px — wedding-sapa next wraps to first
+PASS 1024px — wedding-sapa previous wraps to last
+PASS 1024px — wedding-sapa photo navigation preserves page scroll
+PASS 1024px — wedding-tokyo Index + full filmstrip
+PASS 1024px — wedding-tokyo last thumbnail selects photo (wedding-tokyo, 07 / 07)
+PASS 1024px — wedding-tokyo active thumbnail visible
+PASS 1024px — wedding-tokyo next wraps to first
+PASS 1024px — wedding-tokyo previous wraps to last
+PASS 1024px — wedding-tokyo photo navigation preserves page scroll
+PASS 1024px — travel-tokyo Index + full filmstrip
+PASS 1024px — travel-tokyo last thumbnail selects photo (travel-tokyo, 24 / 24)
+PASS 1024px — travel-tokyo active thumbnail visible
+PASS 1024px — travel-tokyo next wraps to first
+PASS 1024px — travel-tokyo previous wraps to last
+PASS 1024px — travel-tokyo photo navigation preserves page scroll
+PASS 1024px — travel-sapa Index + full filmstrip
+PASS 1024px — travel-sapa last thumbnail selects photo (travel-sapa, 20 / 20)
+PASS 1024px — travel-sapa active thumbnail visible
+PASS 1024px — travel-sapa next wraps to first
+PASS 1024px — travel-sapa previous wraps to last
+PASS 1024px — travel-sapa photo navigation preserves page scroll
+PASS 1024px — travel-manado Index + full filmstrip
+PASS 1024px — travel-manado last thumbnail selects photo (travel-manado, 18 / 18)
+PASS 1024px — travel-manado active thumbnail visible
+PASS 1024px — travel-manado next wraps to first
+PASS 1024px — travel-manado previous wraps to last
+PASS 1024px — travel-manado photo navigation preserves page scroll
+PASS 1024px — travel-bohol Index + full filmstrip
+PASS 1024px — travel-bohol last thumbnail selects photo (travel-bohol, 14 / 14)
+PASS 1024px — travel-bohol active thumbnail visible
+PASS 1024px — travel-bohol next wraps to first
+PASS 1024px — travel-bohol previous wraps to last
+PASS 1024px — travel-bohol photo navigation preserves page scroll
+PASS 1024px — travel-seoul Index + full filmstrip
+PASS 1024px — travel-seoul last thumbnail selects photo (travel-seoul, 22 / 22)
+PASS 1024px — travel-seoul active thumbnail visible
+PASS 1024px — travel-seoul next wraps to first
+PASS 1024px — travel-seoul previous wraps to last
+PASS 1024px — travel-seoul photo navigation preserves page scroll
+PASS 1024px — travel-karuizawa Index + full filmstrip
+PASS 1024px — travel-karuizawa last thumbnail selects photo (travel-karuizawa, 16 / 16)
+PASS 1024px — travel-karuizawa active thumbnail visible
+PASS 1024px — travel-karuizawa next wraps to first
+PASS 1024px — travel-karuizawa previous wraps to last
+PASS 1024px — travel-karuizawa photo navigation preserves page scroll
+PASS 1024px — travel-pattaya Index + full filmstrip
+PASS 1024px — travel-pattaya last thumbnail selects photo (travel-pattaya, 06 / 06)
+PASS 1024px — travel-pattaya active thumbnail visible
+PASS 1024px — travel-pattaya next wraps to first
+PASS 1024px — travel-pattaya previous wraps to last
+PASS 1024px — travel-pattaya photo navigation preserves page scroll
+PASS 1024px — details Index + full filmstrip
+PASS 1024px — details last thumbnail selects photo (details, 03 / 03)
+PASS 1024px — details active thumbnail visible
+PASS 1024px — details next wraps to first
+PASS 1024px — details previous wraps to last
+PASS 1024px — details photo navigation preserves page scroll
+PASS 1024px — Details clears route
+PASS 1024px — Details clears marker selection
+PASS 1024px — Details discoverable from map
+PASS 1024px — landscape photograph is contained
+PASS 1024px — portrait photograph is contained
+PASS 1024px — lightbox opens, locks and focuses
+PASS 1024px — lightbox arrow key + viewer sync
+PASS 1024px — lightbox buttons
+PASS 1024px — lightbox focus trap
+PASS 1024px — Escape restores focus, scroll and page access
+PASS 1024px — main horizontal swipe
+PASS 1024px — swipe does not accidentally open lightbox
+PASS 1024px — vertical gesture does not change photo
+PASS 1024px — lightbox horizontal swipe
+PASS 1024px — filmstrip keyboard End
+PASS 1024px — filmstrip keyboard Home
+PASS 1024px — keyboard Map/Index switching
+PASS 1024px — no overflow after all navigation
+PASS 1024px — both invitation return links
+PASS 1024px — return destination and anchor exist
+PASS 1024px — no broken loaded images
+PASS 1440px — default Wedding Seoul, first photo
+PASS 1440px — no initial automatic page scroll
+PASS 1440px — 11 collections / 166 photos
+PASS 1440px — group counts 43 / 120 / 3
+PASS 1440px — initial original-image requests limited (2)
+PASS 1440px — no browser GitHub API call
+PASS 1440px — no page horizontal overflow
+PASS 1440px — 10 map pins; no Details pin
+PASS 1440px — 44×44px marker hit targets
+PASS 1440px — all marker hit targets inside map
+PASS 1440px — no overlapping marker hit targets (including Tokyo/Karuizawa)
+PASS 1440px — 3 featured photos decoded
+PASS 1440px — wedding-seoul featured selection resets to first photo
+PASS 1440px — featured action reveals viewer (top 24)
+PASS 1440px — wedding-sapa featured selection resets to first photo
+PASS 1440px — featured action reveals viewer (top 24)
+PASS 1440px — wedding-tokyo featured selection resets to first photo
+PASS 1440px — featured action reveals viewer (top 24)
+PASS 1440px — wedding-seoul independent marker + Index sync
+PASS 1440px — wedding-sapa independent marker + Index sync
+PASS 1440px — wedding-tokyo independent marker + Index sync
+PASS 1440px — travel-tokyo independent marker + Index sync
+PASS 1440px — travel-sapa independent marker + Index sync
+PASS 1440px — travel-manado independent marker + Index sync
+PASS 1440px — travel-bohol independent marker + Index sync
+PASS 1440px — travel-seoul independent marker + Index sync
+PASS 1440px — travel-karuizawa independent marker + Index sync
+PASS 1440px — travel-pattaya independent marker + Index sync
+PASS 1440px — wedding-seoul Index + full filmstrip
+PASS 1440px — wedding-seoul last thumbnail selects photo (wedding-seoul, 12 / 12)
+PASS 1440px — wedding-seoul active thumbnail visible
+PASS 1440px — wedding-seoul next wraps to first
+PASS 1440px — wedding-seoul previous wraps to last
+PASS 1440px — wedding-seoul photo navigation preserves page scroll
+PASS 1440px — wedding-sapa Index + full filmstrip
+PASS 1440px — wedding-sapa last thumbnail selects photo (wedding-sapa, 24 / 24)
+PASS 1440px — wedding-sapa active thumbnail visible
+PASS 1440px — wedding-sapa next wraps to first
+PASS 1440px — wedding-sapa previous wraps to last
+PASS 1440px — wedding-sapa photo navigation preserves page scroll
+PASS 1440px — wedding-tokyo Index + full filmstrip
+PASS 1440px — wedding-tokyo last thumbnail selects photo (wedding-tokyo, 07 / 07)
+PASS 1440px — wedding-tokyo active thumbnail visible
+PASS 1440px — wedding-tokyo next wraps to first
+PASS 1440px — wedding-tokyo previous wraps to last
+PASS 1440px — wedding-tokyo photo navigation preserves page scroll
+PASS 1440px — travel-tokyo Index + full filmstrip
+PASS 1440px — travel-tokyo last thumbnail selects photo (travel-tokyo, 24 / 24)
+PASS 1440px — travel-tokyo active thumbnail visible
+PASS 1440px — travel-tokyo next wraps to first
+PASS 1440px — travel-tokyo previous wraps to last
+PASS 1440px — travel-tokyo photo navigation preserves page scroll
+PASS 1440px — travel-sapa Index + full filmstrip
+PASS 1440px — travel-sapa last thumbnail selects photo (travel-sapa, 20 / 20)
+PASS 1440px — travel-sapa active thumbnail visible
+PASS 1440px — travel-sapa next wraps to first
+PASS 1440px — travel-sapa previous wraps to last
+PASS 1440px — travel-sapa photo navigation preserves page scroll
+PASS 1440px — travel-manado Index + full filmstrip
+PASS 1440px — travel-manado last thumbnail selects photo (travel-manado, 18 / 18)
+PASS 1440px — travel-manado active thumbnail visible
+PASS 1440px — travel-manado next wraps to first
+PASS 1440px — travel-manado previous wraps to last
+PASS 1440px — travel-manado photo navigation preserves page scroll
+PASS 1440px — travel-bohol Index + full filmstrip
+PASS 1440px — travel-bohol last thumbnail selects photo (travel-bohol, 14 / 14)
+PASS 1440px — travel-bohol active thumbnail visible
+PASS 1440px — travel-bohol next wraps to first
+PASS 1440px — travel-bohol previous wraps to last
+PASS 1440px — travel-bohol photo navigation preserves page scroll
+PASS 1440px — travel-seoul Index + full filmstrip
+PASS 1440px — travel-seoul last thumbnail selects photo (travel-seoul, 22 / 22)
+PASS 1440px — travel-seoul active thumbnail visible
+PASS 1440px — travel-seoul next wraps to first
+PASS 1440px — travel-seoul previous wraps to last
+PASS 1440px — travel-seoul photo navigation preserves page scroll
+PASS 1440px — travel-karuizawa Index + full filmstrip
+PASS 1440px — travel-karuizawa last thumbnail selects photo (travel-karuizawa, 16 / 16)
+PASS 1440px — travel-karuizawa active thumbnail visible
+PASS 1440px — travel-karuizawa next wraps to first
+PASS 1440px — travel-karuizawa previous wraps to last
+PASS 1440px — travel-karuizawa photo navigation preserves page scroll
+PASS 1440px — travel-pattaya Index + full filmstrip
+PASS 1440px — travel-pattaya last thumbnail selects photo (travel-pattaya, 06 / 06)
+PASS 1440px — travel-pattaya active thumbnail visible
+PASS 1440px — travel-pattaya next wraps to first
+PASS 1440px — travel-pattaya previous wraps to last
+PASS 1440px — travel-pattaya photo navigation preserves page scroll
+PASS 1440px — details Index + full filmstrip
+PASS 1440px — details last thumbnail selects photo (details, 03 / 03)
+PASS 1440px — details active thumbnail visible
+PASS 1440px — details next wraps to first
+PASS 1440px — details previous wraps to last
+PASS 1440px — details photo navigation preserves page scroll
+PASS 1440px — Details clears route
+PASS 1440px — Details clears marker selection
+PASS 1440px — Details discoverable from map
+PASS 1440px — landscape photograph is contained
+PASS 1440px — portrait photograph is contained
+PASS 1440px — lightbox opens, locks and focuses
+PASS 1440px — lightbox arrow key + viewer sync
+PASS 1440px — lightbox buttons
+PASS 1440px — lightbox focus trap
+PASS 1440px — Escape restores focus, scroll and page access
+PASS 1440px — main horizontal swipe
+PASS 1440px — swipe does not accidentally open lightbox
+PASS 1440px — vertical gesture does not change photo
+PASS 1440px — lightbox horizontal swipe
+PASS 1440px — filmstrip keyboard End
+PASS 1440px — filmstrip keyboard Home
+PASS 1440px — keyboard Map/Index switching
+PASS 1440px — no overflow after all navigation
+PASS 1440px — both invitation return links
+PASS 1440px — return destination and anchor exist
+PASS 1440px — no broken loaded images
+PASS 344 local HTTP paths: all 200
+PASS 166 original JPGs decode in Chromium: all passed
+
+Complete: 692 passed, 0 failed

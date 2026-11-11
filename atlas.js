@@ -1,251 +1,380 @@
 'use strict';
 
-// The order is the order shown in the Index and the map marker numbers.
-// Map positions are deliberately adjusted for small screens (especially Karuizawa).
-// Photos are relative to atlas.html at the repository root.
-const records = [
-  {
-    name: 'Tokyo', country: 'JAPAN', x: 82.8, y: 18.1,
-    story: '도시의 밤과 불빛 속에 남긴 한 장.',
-    photos: ['./images/Tokyo/tokyo-01.jpg', './images/Tokyo/tokyo-02.jpg', './images/Tokyo/tokyo-03.jpg', './images/Tokyo/tokyo-04.jpg', './images/Tokyo/tokyo-05.jpg', './images/Tokyo/tokyo-06.jpg', './images/Tokyo/tokyo-07.jpg', './images/Tokyo/tokyo-08.jpg', './images/Tokyo/tokyo-09.jpg', './images/Tokyo/tokyo-10.jpg', './images/Tokyo/tokyo-11.jpg', './images/Tokyo/tokyo-12.jpg', './images/Tokyo/tokyo-13.jpg', './images/Tokyo/tokyo-14.jpg', './images/Tokyo/tokyo-15.jpg', './images/Tokyo/tokyo-16.jpg', './images/Tokyo/tokyo-17.jpg', './images/Tokyo/tokyo-18.jpg', './images/Tokyo/tokyo-19.jpg', './images/Tokyo/tokyo-20.jpg']
-  },
-  {
-    name: 'Sapa', country: 'VIETNAM', x: 16.4, y: 41.5,
-    story: '산등성이를 따라 이어지는 길과 느리게 흘러간 시간.', photos: ['./images/sapa/sapa-01.jpg', './images/sapa/sapa-02.jpg', './images/sapa/sapa-03.jpg', './images/sapa/sapa-04.jpg', './images/sapa/sapa-05.jpg', './images/sapa/sapa-06.jpg', './images/sapa/sapa-07.jpg', './images/sapa/sapa-08.jpg', './images/sapa/sapa-09.jpg', './images/sapa/sapa-10.jpg', './images/sapa/sapa-11.webp', './images/sapa/sapa-12.webp', './images/sapa/sapa-13.webp', './images/sapa/sapa-14.webp', './images/sapa/sapa-15.webp']
-  },
-  {
-    name: 'Seoul', country: 'KOREA', x: 59.2, y: 14.8,
-    story: '가장 익숙한 도시에서 가장 특별한 모습으로.',
-    photos: ['./images/main-1.webp', './images/main-2.webp', './images/main-3.webp']
-  },
-  {
-    name: 'Manado', country: 'INDONESIA', x: 55.3, y: 78.1,
-    story: '바다의 낯선 색을 처음 함께 기억한 곳.', photos: ['./images/manado/manado-01.jpg', './images/manado/manado-02.jpg', './images/manado/manado-03.jpg', './images/manado/manado-04.jpg', './images/manado/manado-05.jpg', './images/manado/manado-06.jpg', './images/manado/manado-07.jpg', './images/manado/manado-08.jpg', './images/manado/manado-09.jpg', './images/manado/manado-10.jpg', './images/manado/manado-11.jpg', './images/manado/manado-12.jpg', './images/manado/manado-13.jpg', './images/manado/manado-14.jpg']
-  },
-  {
-    name: 'Karuizawa', country: 'JAPAN', x: 69.5, y: 5.4,
-    story: '숲이 가까운 작은 도시에서.', photos: ['./images/karuizawa/karuizawa-01.jpg', './images/karuizawa/karuizawa-02.jpg', './images/karuizawa/karuizawa-03.jpg', './images/karuizawa/karuizawa-04.jpg', './images/karuizawa/karuizawa-05.jpg', './images/karuizawa/karuizawa-06.jpg', './images/karuizawa/karuizawa-07.jpg', './images/karuizawa/karuizawa-08.jpg', './images/karuizawa/karuizawa-09.jpg', './images/karuizawa/karuizawa-10.jpg']
-  },
-  {
-    name: 'Nha Trang', country: 'VIETNAM', x: 26.3, y: 59.2,
-    story: '여름의 바다를 함께 건너온 기록.', photos: ['./images/nhatrang/nhatrang-01.webp', './images/nhatrang/nhatrang-02.webp', './images/nhatrang/nhatrang-03.webp', './images/nhatrang/nhatrang-04.webp', './images/nhatrang/nhatrang-05.webp']
-  },
-  {
-    name: 'Pattaya', country: 'THAILAND', x: 10.9, y: 58.0,
-    story: '같이 걷고 같은 방향을 바라본 풍경.', photos: []
-  },
-  {
-    name: 'Bohol', country: 'PHILIPPINES', x: 53.4, y: 63.8,
-    story: '햇빛과 바다가 나란히 놓였던 날들.', photos: []
+// Map, Index, featured photographs and the viewer all use atlas-data.js.
+(() => {
+  const { collections, groups, defaultCollection, routeOrigin } = window.ATLAS_DATA;
+  const byId = new Map(collections.map(collection => [collection.id, collection]));
+  const groupById = new Map(groups.map(group => [group.id, group]));
+  const $ = id => document.getElementById(id);
+  const num = value => String(value).padStart(2, '0');
+  const url = path => './' + path.split('/').map(encodeURIComponent).join('/');
+  const photoURL = (collection, photo) => url(`${collection.folder}/${photo.file}`);
+  const thumbURL = (collection, photo) => url(`images/atlas-thumbs/${collection.id}/${photo.file.replace(/\.[^.]+$/, '.webp')}`);
+  const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scrollBehavior = () => reduceMotion() ? 'auto' : 'smooth';
+  let selected = byId.get(defaultCollection);
+  let photoIndex = 0;
+  let thumbObserver;
+  let photoRequest = 0;
+  let preloadTimer;
+  let preloadedImage;
+  let lightboxOpen = false;
+  let lastFocused;
+  let lockedScroll = 0;
+  let suppressPhotoClickUntil = 0;
+  const background = [document.querySelector('.atlas-header'), document.querySelector('main'), document.querySelector('.atlas-footer')];
+
+  const make = (tag, className, text) => {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text !== undefined) element.textContent = text;
+    return element;
+  };
+  const groupCount = id => collections.filter(c => c.group === id).reduce((sum, c) => sum + c.photos.length, 0);
+  const photoAlt = () => `${selected.name} ${groupById.get(selected.group).photoLabel} 사진 ${photoIndex + 1} / ${selected.photos.length}`;
+
+  function bindCollection(button, collection, scroll) {
+    button.type = 'button';
+    button.dataset.collection = collection.id;
+    button.setAttribute('aria-pressed', 'false');
+    button.addEventListener('click', () => chooseCollection(collection.id, scroll));
+    return button;
   }
-];
 
-const $ = id => document.getElementById(id);
-const num = value => String(value).padStart(2, '0');
-let selected = 0;
-let photoIndex = 0;
-let lastFocused = null;
-let touchStart = null;
-
-function photoCount() { return records[selected].photos.length; }
-
-function paintRoute() {
-  const from = records[2]; // Seoul is the reference point.
-  const to = records[selected];
-  const path = $('map-route-line');
-  if (selected === 2) { path.setAttribute('d', ''); return; }
-  const x1 = from.x * 10, y1 = from.y * 8.5;
-  const x2 = to.x * 10, y2 = to.y * 8.5;
-  const midX = (x1 + x2) / 2;
-  const midY = (y1 + y2) / 2 - Math.min(65, Math.abs(x1 - x2) * .10 + 22);
-  path.setAttribute('d', `M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${midX.toFixed(1)} ${midY.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`);
-}
-
-function makeMapAndIndex() {
-  const pins = $('map-dots');
-  const index = $('index-view');
-  records.forEach((place, i) => {
-    const pin = document.createElement('button');
-    pin.type = 'button';
-    pin.className = `atlas-pin${place.y < 12 ? ' is-high' : ''}`;
-    pin.style.left = `${place.x}%`;
-    pin.style.top = `${place.y}%`;
-    pin.dataset.city = String(i);
-    pin.setAttribute('aria-label', `${place.name} 사진 보기`);
-    pin.setAttribute('aria-pressed', 'false');
-    const number = document.createElement('span');
-    number.textContent = num(i + 1);
-    const label = document.createElement('span');
-    label.className = 'atlas-pin-label';
-    label.textContent = place.name;
-    label.setAttribute('aria-hidden', 'true');
-    pin.append(number, label);
-    pin.addEventListener('click', () => choosePlace(i));
-    pins.append(pin);
-
-    const row = document.createElement('button');
-    row.type = 'button';
-    row.className = 'atlas-index-item';
-    row.dataset.city = String(i);
-    row.setAttribute('aria-pressed', 'false');
-    const n = document.createElement('span');
-    n.className = 'atlas-index-no';
-    n.textContent = num(i + 1);
-    const name = document.createElement('span');
-    name.className = 'atlas-index-title';
-    name.textContent = place.name;
-    const country = document.createElement('small');
-    country.className = 'atlas-index-country';
-    country.textContent = place.country;
-    name.append(country);
-    const arrow = document.createElement('span');
-    arrow.className = 'atlas-index-arr';
-    arrow.textContent = '↗';
-    arrow.setAttribute('aria-hidden', 'true');
-    row.append(n, name, arrow);
-    row.addEventListener('click', () => choosePlace(i, true));
-    index.append(row);
-  });
-}
-
-function choosePlace(i, indexClicked = false) {
-  selected = i;
-  photoIndex = 0;
-  const p = records[i];
-  $('place-number').textContent = `${num(i + 1)} / ${num(records.length)}`;
-  $('place-country').textContent = p.country;
-  $('place-title').textContent = `${p.name}.`;
-  $('place-title').classList.toggle('is-long', p.name.length > 8);
-  $('memory-story').textContent = p.story;
-  document.querySelectorAll('[data-city]').forEach(el => {
-    const active = Number(el.dataset.city) === i;
-    el.classList.toggle('is-selected', active);
-    el.setAttribute('aria-pressed', String(active));
-  });
-  paintRoute();
-  paintPhoto();
-  // Mobile: selecting a city in Index should reveal its photo, not leave it offscreen.
-  if (indexClicked && window.matchMedia('(max-width:700px)').matches) {
-    $('place-title').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-  }
-}
-
-function placeholder() {
-  const div = document.createElement('div');
-  div.className = 'atlas-photo-placeholder';
-  div.textContent = '사진을 준비하고 있습니다.';
-  return div;
-}
-
-function paintPhoto() {
-  const p = records[selected];
-  const stage = $('memory-photo');
-  stage.replaceChildren();
-  const total = p.photos.length;
-  $('memory-count').textContent = total ? `${num(photoIndex + 1)} / ${num(total)}` : '00 / 00';
-  $('prev-photo').disabled = total < 2;
-  $('next-photo').disabled = total < 2;
-  if (!total) { stage.append(placeholder()); return; }
-  const img = document.createElement('img');
-  img.alt = `${p.name} 여행 사진 ${photoIndex + 1} / ${total}`;
-  img.loading = 'eager';
-  img.decoding = 'async';
-  img.src = p.photos[photoIndex];
-  // If the file hasn't been uploaded yet, keep a clean placeholder rather than a broken icon.
-  img.addEventListener('error', () => {
-    if (stage.contains(img)) stage.replaceChildren(placeholder());
-  }, { once: true });
-  img.addEventListener('click', openLightbox);
-  // Landscape shots are shown whole inside the portrait frame instead of being cropped.
-  img.addEventListener('load', () => img.classList.toggle('is-wide', img.naturalWidth > img.naturalHeight), { once: true });
-  stage.append(img);
-  if (total > 1) {
-    const preload = new Image();
-    preload.src = p.photos[(photoIndex + 1) % total];
-  }
-}
-
-function movePhoto(delta) {
-  const total = photoCount();
-  if (total < 2) return;
-  photoIndex = (photoIndex + delta + total) % total;
-  paintPhoto();
-  if ($('photo-lightbox').classList.contains('is-open')) updateLightbox();
-}
-
-function updateLightbox() {
-  const p = records[selected];
-  const total = p.photos.length;
-  if (!total) return;
-  $('lightbox-image').src = p.photos[photoIndex];
-  $('lightbox-image').alt = `${p.name} 여행 사진 ${photoIndex + 1} / ${total}`;
-  $('lightbox-count').textContent = `${num(photoIndex + 1)} / ${num(total)}`;
-  $('lightbox-prev').hidden = total < 2;
-  $('lightbox-next').hidden = total < 2;
-}
-
-function openLightbox() {
-  if (!photoCount()) return;
-  lastFocused = document.activeElement;
-  updateLightbox();
-  $('photo-lightbox').classList.add('is-open');
-  $('photo-lightbox').setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-  $('close-lightbox').focus();
-}
-
-function closeLightbox() {
-  $('photo-lightbox').classList.remove('is-open');
-  $('photo-lightbox').setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-  if (lastFocused?.isConnected) lastFocused.focus();
-}
-
-function showTab(next) {
-  const map = next === 'map';
-  $('map-view').hidden = !map;
-  $('index-view').hidden = map;
-  $('index-view').classList.toggle('is-hidden', map);
-  $('tab-map').classList.toggle('is-active', map);
-  $('tab-index').classList.toggle('is-active', !map);
-  $('tab-map').setAttribute('aria-selected', String(map));
-  $('tab-index').setAttribute('aria-selected', String(!map));
-}
-
-function trackSwipe(element) {
-  element.addEventListener('touchstart', ev => {
-    const p = ev.touches[0];
-    if (p) touchStart = { x: p.clientX, y: p.clientY };
-  }, { passive: true });
-  element.addEventListener('touchend', ev => {
-    if (!touchStart) return;
-    const p = ev.changedTouches[0];
-    const dx = p.clientX - touchStart.x;
-    const dy = p.clientY - touchStart.y;
-    touchStart = null;
-    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-      movePhoto(dx < 0 ? 1 : -1);
+  function makeFeatured() {
+    for (const collection of collections.filter(c => c.group === 'wedding')) {
+      const button = bindCollection(make('button', 'atlas-featured-item'), collection, 'always');
+      button.setAttribute('aria-label', `${collection.name} 웨딩 스냅 ${collection.photos.length}장 보기`);
+      const img = make('img');
+      img.src = url(`images/atlas-featured/${collection.id}.webp`);
+      img.alt = `${collection.name} 웨딩 스냅 대표사진`;
+      img.width = 560;
+      img.height = 700;
+      img.decoding = 'async';
+      const label = make('span', 'atlas-featured-label', `${num(collection.number)} / ${collection.name.toUpperCase()}`);
+      const arrow = make('span', '', '↗');
+      arrow.setAttribute('aria-hidden', 'true');
+      label.append(arrow);
+      button.append(img, label);
+      $('wedding-features').append(button);
     }
-  }, { passive: true });
-}
+  }
 
-makeMapAndIndex();
-choosePlace(0);
-$('tab-map').addEventListener('click', () => showTab('map'));
-$('tab-index').addEventListener('click', () => showTab('index'));
-$('prev-photo').addEventListener('click', () => movePhoto(-1));
-$('next-photo').addEventListener('click', () => movePhoto(1));
-$('lightbox-prev').addEventListener('click', () => movePhoto(-1));
-$('lightbox-next').addEventListener('click', () => movePhoto(1));
-$('close-lightbox').addEventListener('click', closeLightbox);
-$('photo-lightbox').addEventListener('click', event => {
-  if (event.target === $('photo-lightbox')) closeLightbox();
-});
-document.addEventListener('keydown', event => {
-  if (!$('photo-lightbox').classList.contains('is-open')) return;
-  if (event.key === 'Escape') closeLightbox();
-  if (event.key === 'ArrowLeft') movePhoto(-1);
-  if (event.key === 'ArrowRight') movePhoto(1);
-});
-trackSwipe($('memory-photo'));
-trackSwipe($('photo-lightbox'));
+  function makeMapAndIndex() {
+    for (const collection of collections.filter(c => c.map)) {
+      const pin = bindCollection(make('button', `atlas-pin is-${collection.group}`), collection, 'mobile');
+      const { x, y, dx, dy, labelAlign } = collection.map;
+      pin.style.left = `calc(${x}% + ${dx}px)`;
+      pin.style.top = `calc(${y}% + ${dy}px)`;
+      pin.dataset.labelAlign = labelAlign;
+      pin.setAttribute('aria-label', `${num(collection.number)} ${collection.name} — ${groupById.get(collection.group).name}, ${collection.photos.length}장`);
+      const marker = make('span', 'atlas-pin-symbol');
+      marker.append(make('span', '', num(collection.number)));
+      const label = make('span', 'atlas-pin-label', `${collection.name} · ${collection.group === 'wedding' ? 'Wedding' : 'Travel'}`);
+      label.setAttribute('aria-hidden', 'true');
+      pin.append(marker, label);
+      $('map-dots').append(pin);
+    }
+    for (const group of groups) {
+      const section = make('section', `atlas-index-group is-${group.id}`);
+      const heading = make('h3', 'atlas-index-heading');
+      heading.id = `index-group-${group.id}`;
+      section.setAttribute('aria-labelledby', heading.id);
+      heading.append(make('span', '', `${group.roman}. ${group.name}`), make('small', '', `${groupCount(group.id)} PHOTOS`));
+      section.append(heading);
+      for (const collection of collections.filter(c => c.group === group.id)) {
+        const row = bindCollection(make('button', 'atlas-index-item'), collection, 'mobile');
+        const name = make('span', 'atlas-index-title', collection.name);
+        if (collection.country) name.append(make('small', 'atlas-index-country', collection.country));
+        const count = make('span', 'atlas-index-count', `${collection.photos.length} photos`);
+        const arrow = make('span', 'atlas-index-arr', '↗');
+        arrow.setAttribute('aria-hidden', 'true');
+        row.append(make('span', 'atlas-index-no', num(collection.number)), name, count, arrow);
+        section.append(row);
+      }
+      $('index-view').append(section);
+    }
+    const details = collections.find(c => c.group === 'details');
+    bindCollection($('details-link'), details, 'mobile');
+    $('details-link').replaceChildren(document.createTextNode(`${num(details.number)} / ${details.name}`), make('span', '', '↗'));
+  }
+
+  // Use rendered pin centers so fixed 48px pair spacing remains correct on resize.
+  function paintRoute() {
+    const origin = byId.get(routeOrigin);
+    if (!selected.map || selected.city === origin.city) $('map-route-line').setAttribute('d', '');
+    const box = $('map-holder').getBoundingClientRect();
+    if (!box.width || !box.height) return;
+    const point = c => ({ x: (c.map.x / 100 + c.map.dx / box.width) * 1000, y: (c.map.y / 100 + c.map.dy / box.height) * 850 });
+    const pairs = collections.filter(c => c.group === 'wedding').map(c => {
+      const sibling = collections.find(other => other.group === 'travel' && other.city === c.city);
+      if (!sibling?.map) return '';
+      const a = point(c), b = point(sibling);
+      return `M ${a.x} ${a.y} L ${b.x} ${b.y}`;
+    });
+    $('map-pairs').setAttribute('d', pairs.join(' '));
+    if (!selected.map || selected.city === origin.city) {
+      $('map-route-line').setAttribute('d', '');
+      return;
+    }
+    const from = point(origin), to = point(selected);
+    const midX = (from.x + to.x) / 2;
+    const midY = (from.y + to.y) / 2 - Math.min(65, Math.abs(from.x - to.x) * .1 + 22);
+    $('map-route-line').setAttribute('d', `M ${from.x} ${from.y} Q ${midX} ${midY} ${to.x} ${to.y}`);
+  }
+
+  function revealViewer() {
+    // Move only the document, without also scrolling any embedding container.
+    const viewer = $('photo-viewer');
+    const top = window.scrollY + viewer.getBoundingClientRect().top - 24;
+    viewer.focus({ preventScroll: true });
+    window.scrollTo({ top, behavior: scrollBehavior() });
+  }
+
+  function chooseCollection(id, scroll = 'none') {
+    selected = byId.get(id);
+    photoIndex = 0;
+    $('photo-viewer').dataset.collection = id;
+    $('place-number').textContent = `${num(selected.number)} / ${num(collections.length)}`;
+    $('place-group').textContent = groupById.get(selected.group).name.toUpperCase();
+    $('place-country').textContent = selected.country || 'EPILOGUE';
+    $('place-title').textContent = `${selected.name}.`;
+    $('place-title').classList.toggle('is-long', selected.name.length > 8);
+    $('memory-story').textContent = selected.story;
+    document.querySelectorAll('button[data-collection]').forEach(button => {
+      const active = button.dataset.collection === id;
+      button.classList.toggle('is-selected', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+    makeFilmstrip();
+    paintPhoto();
+    paintRoute();
+    if (scroll === 'always' || (scroll === 'mobile' && matchMedia('(max-width: 860px)').matches)) revealViewer();
+  }
+
+  function makeFilmstrip() {
+    thumbObserver?.disconnect();
+    const strip = $('filmstrip');
+    strip.replaceChildren();
+    strip.scrollLeft = 0;
+    // Observe the viewport AND horizontal clipping; offscreen strips never fetch originals.
+    thumbObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+      entries.filter(entry => entry.isIntersecting).forEach(({ target }) => {
+        target.src = target.dataset.src;
+        thumbObserver.unobserve(target);
+      });
+    }, { rootMargin: '80px' }) : null;
+    selected.photos.forEach((photo, index) => {
+      const button = make('button', 'atlas-thumb');
+      button.type = 'button';
+      button.dataset.photoIndex = index;
+      button.setAttribute('aria-label', `${selected.name} ${groupById.get(selected.group).photoLabel} 사진 ${index + 1} / ${selected.photos.length}`);
+      button.addEventListener('click', () => setPhoto(index));
+      const img = make('img');
+      img.alt = '';
+      img.width = 160;
+      img.height = 160;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.dataset.src = thumbURL(selected, photo);
+      if (!thumbObserver) img.src = img.dataset.src;
+      button.append(img);
+      strip.append(button);
+      thumbObserver?.observe(img);
+    });
+  }
+
+  function syncFilmstrip() {
+    const strip = $('filmstrip');
+    const buttons = [...strip.children];
+    buttons.forEach((button, index) => {
+      const active = index === photoIndex;
+      button.classList.toggle('is-selected', active);
+      button.setAttribute('aria-pressed', String(active));
+      button.tabIndex = active ? 0 : -1;
+    });
+    const active = buttons[photoIndex];
+    // Scroll this container only, never scrollIntoView (which also moves the page).
+    const left = active.offsetLeft, right = left + active.offsetWidth;
+    if (left < strip.scrollLeft || right > strip.scrollLeft + strip.clientWidth) {
+      strip.scrollTo({ left: left - (strip.clientWidth - active.offsetWidth) / 2, behavior: 'instant' });
+    }
+  }
+
+  function paintPhoto() {
+    const request = ++photoRequest;
+    clearTimeout(preloadTimer);
+    const collection = selected;
+    const photo = collection.photos[photoIndex];
+    const img = $('memory-image');
+    const stage = $('memory-photo');
+    const placeholder = $('memory-placeholder');
+    stage.dataset.loadState = 'loading';
+    stage.setAttribute('aria-busy', 'true');
+    stage.setAttribute('aria-label', `${photoAlt()} 확대`);
+    placeholder.hidden = false;
+    placeholder.textContent = '사진을 불러오는 중입니다.';
+    img.style.opacity = '0';
+    img.alt = photoAlt();
+    img.width = photo.width;
+    img.height = photo.height;
+    img.onload = () => {
+      if (request !== photoRequest) return;
+      stage.dataset.loadState = 'loaded';
+      stage.setAttribute('aria-busy', 'false');
+      placeholder.hidden = true;
+      img.style.opacity = '1';
+      // At most the following original, only after the current photo has loaded.
+      if (collection.photos.length > 1 && !navigator.connection?.saveData) {
+        const next = collection.photos[(photoIndex + 1) % collection.photos.length];
+        preloadTimer = setTimeout(() => {
+          if (request !== photoRequest) return;
+          preloadedImage = new Image();
+          preloadedImage.decoding = 'async';
+          preloadedImage.fetchPriority = 'low';
+          preloadedImage.src = photoURL(collection, next);
+        }, 180);
+      }
+    };
+    img.onerror = () => {
+      if (request !== photoRequest) return;
+      stage.dataset.loadState = 'error';
+      stage.setAttribute('aria-busy', 'false');
+      placeholder.textContent = '사진을 불러오지 못했습니다. 터치해서 다시 시도해주세요.';
+    };
+    img.src = photoURL(collection, photo);
+    $('memory-count').textContent = `${num(photoIndex + 1)} / ${num(collection.photos.length)}`;
+    $('prev-photo').disabled = $('next-photo').disabled = collection.photos.length < 2;
+    $('viewer-status').textContent = photoAlt();
+    syncFilmstrip();
+    if (lightboxOpen) updateLightbox();
+  }
+
+  function setPhoto(index) {
+    photoIndex = (index + selected.photos.length) % selected.photos.length;
+    paintPhoto();
+  }
+  function movePhoto(delta) { setPhoto(photoIndex + delta); }
+
+  function updateLightbox() {
+    $('lightbox-image').src = photoURL(selected, selected.photos[photoIndex]);
+    $('lightbox-image').alt = photoAlt();
+    $('lightbox-count').textContent = `${selected.name} · ${num(photoIndex + 1)} / ${num(selected.photos.length)}`;
+    $('lightbox-prev').disabled = $('lightbox-next').disabled = selected.photos.length < 2;
+  }
+  function openLightbox() {
+    if (performance.now() < suppressPhotoClickUntil) return;
+    if ($('memory-photo').dataset.loadState === 'error') { paintPhoto(); return; }
+    if (lightboxOpen) return;
+    lastFocused = document.activeElement;
+    lockedScroll = window.scrollY;
+    lightboxOpen = true;
+    updateLightbox();
+    background.forEach(element => { element.inert = true; });
+    document.body.style.setProperty('--atlas-scroll-offset', `-${lockedScroll}px`);
+    document.body.classList.add('atlas-lightbox-open');
+    $('photo-lightbox').classList.add('is-open');
+    $('photo-lightbox').setAttribute('aria-hidden', 'false');
+    $('close-lightbox').focus({ preventScroll: true });
+  }
+  function closeLightbox() {
+    if (!lightboxOpen) return;
+    lightboxOpen = false;
+    $('photo-lightbox').classList.remove('is-open');
+    $('photo-lightbox').setAttribute('aria-hidden', 'true');
+    background.forEach(element => { element.inert = false; });
+    document.body.classList.remove('atlas-lightbox-open');
+    document.body.style.removeProperty('--atlas-scroll-offset');
+    // Override the shared smooth-scroll rule only for restoring the pre-dialog position.
+    const root = document.documentElement;
+    const previous = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, lockedScroll);
+    lastFocused?.focus({ preventScroll: true });
+    root.style.scrollBehavior = previous;
+  }
+
+  function showTab(next, focus = false) {
+    for (const name of ['map', 'index']) {
+      const active = name === next;
+      $(`${name}-view`).hidden = !active;
+      $(`${name}-view`).classList.toggle('is-hidden', !active);
+      $(`tab-${name}`).classList.toggle('is-active', active);
+      $(`tab-${name}`).setAttribute('aria-selected', String(active));
+      $(`tab-${name}`).tabIndex = active ? 0 : -1;
+    }
+    if (next === 'map') paintRoute();
+    if (focus) $(`tab-${next}`).focus();
+  }
+
+  // Passive touch handlers keep vertical page scrolling and pinch zoom available.
+  function trackSwipe(element) {
+    let start;
+    element.addEventListener('touchstart', event => {
+      start = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
+    }, { passive: true });
+    element.addEventListener('touchend', event => {
+      const end = event.changedTouches[0];
+      if (!start || !end) return;
+      const dx = end.clientX - start.x, dy = end.clientY - start.y;
+      start = null;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        suppressPhotoClickUntil = performance.now() + 500;
+        movePhoto(dx < 0 ? 1 : -1);
+      }
+    }, { passive: true });
+    element.addEventListener('touchcancel', () => { start = null; }, { passive: true });
+  }
+
+  $('collection-total').textContent = num(collections.length);
+  $('photo-total').textContent = `${collections.reduce((sum, c) => sum + c.photos.length, 0)} PHOTOS`;
+  $('wedding-total').textContent = `${groupCount('wedding')} PHOTOS`;
+  makeFeatured();
+  makeMapAndIndex();
+  chooseCollection(defaultCollection);
+  new ResizeObserver(paintRoute).observe($('map-holder'));
+  for (const name of ['map', 'index']) {
+    $(`tab-${name}`).addEventListener('click', () => showTab(name));
+    $(`tab-${name}`).addEventListener('keydown', event => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      showTab(event.key === 'Home' ? 'map' : event.key === 'End' ? 'index' : name === 'map' ? 'index' : 'map', true);
+    });
+  }
+  $('filmstrip').addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    setPhoto(event.key === 'Home' ? 0 : event.key === 'End' ? selected.photos.length - 1 : photoIndex + (event.key === 'ArrowRight' ? 1 : -1));
+    $('filmstrip').children[photoIndex].focus({ preventScroll: true });
+  });
+  $('memory-photo').addEventListener('click', openLightbox);
+  $('memory-photo').addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    movePhoto(event.key === 'ArrowRight' ? 1 : -1);
+  });
+  $('prev-photo').addEventListener('click', () => movePhoto(-1));
+  $('next-photo').addEventListener('click', () => movePhoto(1));
+  $('lightbox-prev').addEventListener('click', () => movePhoto(-1));
+  $('lightbox-next').addEventListener('click', () => movePhoto(1));
+  $('close-lightbox').addEventListener('click', closeLightbox);
+  $('photo-lightbox').addEventListener('click', event => {
+    if (event.target === $('photo-lightbox')) closeLightbox();
+  });
+  document.addEventListener('keydown', event => {
+    if (!lightboxOpen) return;
+    if (['Escape', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      event.preventDefault();
+      if (event.key === 'Escape') closeLightbox();
+      else movePhoto(event.key === 'ArrowRight' ? 1 : -1);
+    }
+    if (event.key === 'Tab') {
+      const focusable = [...$('photo-lightbox').querySelectorAll('button:not(:disabled)')];
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  });
+  trackSwipe($('memory-photo'));
+  trackSwipe($('lightbox-image'));
+})();

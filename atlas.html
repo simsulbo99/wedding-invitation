@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#81d8d0">
   <title>The Atlas — Jungwoo &amp; Seoha</title>
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./atlas.css?v=20261027-frame">
+  <link rel="stylesheet" href="./atlas.css?v=20261111-v2">
   <link rel="stylesheet" href="./atlas-typography.css?v=1">
 </head>
 <body class="atlas-page">
@@ -24,34 +24,50 @@
         <h1 id="atlas-title">The <em>atlas.</em></h1>
         <div class="atlas-hero-aside">
           <p>여행은 끝나도 풍경은 남습니다.<br>우리가 함께 지나온 곳들을<br>하나의 지도에 담았습니다.</p>
-          <span class="atlas-place-total"><b>08</b> PLACES</span>
+          <span class="atlas-place-total"><b id="collection-total">11</b> COLLECTIONS <small id="photo-total">166 PHOTOS</small></span>
         </div>
       </div>
     </section>
-    <section class="atlas-workspace wrap" aria-label="함께 여행한 도시와 사진">
+    <section class="atlas-featured wrap" aria-labelledby="wedding-edit-title">
+      <div class="atlas-featured-heading">
+        <h2 id="wedding-edit-title">The Wedding Edit.</h2>
+        <span id="wedding-total">43 PHOTOS</span>
+      </div>
+      <div id="wedding-features" class="atlas-featured-grid"></div>
+    </section>
+    <section class="atlas-workspace wrap" id="explore" aria-label="웨딩 스냅과 여행 사진 탐색">
       <div class="atlas-toolbar">
         <h2>Choose a place.</h2>
         <div class="atlas-tabs" role="tablist" aria-label="도시 탐색 방식">
           <button class="is-active" id="tab-map" type="button" role="tab" aria-selected="true" aria-controls="map-view">Map</button>
-          <button id="tab-index" type="button" role="tab" aria-selected="false" aria-controls="index-view">Index</button>
+          <button id="tab-index" type="button" role="tab" tabindex="-1" aria-selected="false" aria-controls="index-view">Index</button>
         </div>
       </div>
       <div class="atlas-columns">
         <div class="atlas-locator">
           <div id="map-view" class="map-view" role="tabpanel" aria-labelledby="tab-map">
             <div id="map-holder" class="atlas-map">
-              <img class="atlas-map-art" src="./images/atlas-map.svg?v=20261023-1" alt="동아시아와 동남아시아 해안선 지도" draggable="false">
-              <svg class="atlas-map-route" viewBox="0 0 1000 850" preserveAspectRatio="none" aria-hidden="true"><path id="map-route-line" d=""></path></svg>
-              <div id="map-dots" class="atlas-map-pins" aria-label="여행 도시를 선택하세요"></div>
+              <svg class="atlas-map-art" viewBox="0 0 1000 850" preserveAspectRatio="none" role="img" aria-label="동아시아와 동남아시아 해안선 지도"><image href="./images/atlas-map.svg?v=20261023-1" width="1000" height="850"/></svg>
+              <svg class="atlas-map-route" viewBox="0 0 1000 850" preserveAspectRatio="none" aria-hidden="true"><path id="map-pairs" d=""></path><path id="map-route-line" d=""></path></svg>
+              <div id="map-dots" class="atlas-map-pins" aria-label="웨딩 스냅 또는 여행 컬렉션을 선택하세요"></div>
+            </div>
+            <div class="atlas-map-legend" aria-label="지도 범례">
+              <span><i class="legend-wedding" aria-hidden="true"></i>The Wedding Edit</span>
+              <span><i class="legend-travel" aria-hidden="true"></i>The Travel Journal</span>
             </div>
             <p class="atlas-map-guide">지도 위의 위치를 선택해 사진을 살펴보세요.</p>
+            <button class="atlas-details-link" id="details-link" type="button" aria-pressed="false">11 / The Details <span aria-hidden="true">↗</span></button>
           </div>
           <div id="index-view" class="atlas-index is-hidden" role="tabpanel" aria-labelledby="tab-index" hidden></div>
         </div>
-        <article class="atlas-memory" aria-label="선택한 도시의 사진 앨범" aria-live="polite">
-          <div class="atlas-memory-top"><span id="place-number">01 / 08</span><span id="place-country">JAPAN</span></div>
-          <h3 id="place-title">Tokyo.</h3>
-          <div id="memory-photo" class="atlas-photo-stage"><div class="atlas-photo-placeholder">사진을 준비하고 있습니다.</div></div>
+        <article class="atlas-memory" id="photo-viewer" aria-labelledby="place-title" tabindex="-1">
+          <div class="atlas-memory-top"><span><span id="place-number">01 / 11</span><span id="place-group">THE WEDDING EDIT</span></span><span id="place-country">SOUTH KOREA</span></div>
+          <h3 id="place-title">Seoul.</h3>
+          <button id="memory-photo" class="atlas-photo-stage" type="button" aria-label="선택한 사진 확대" aria-haspopup="dialog">
+            <img id="memory-image" alt="" decoding="async" fetchpriority="high" width="1200" height="1800">
+            <span id="memory-placeholder" class="atlas-photo-placeholder">사진을 불러오는 중입니다.</span>
+          </button>
+          <div id="filmstrip" class="atlas-filmstrip" role="group" aria-label="사진 썸네일. 좌우 방향키로 이동"></div>
           <div class="atlas-photo-toolbar">
             <span id="memory-count" aria-live="polite">01 / 10</span>
             <div class="atlas-photo-arrows">
@@ -60,18 +76,20 @@
             </div>
           </div>
           <p class="atlas-memory-caption" id="memory-story"></p>
+          <p class="atlas-sr-only" id="viewer-status" role="status" aria-live="polite" aria-atomic="true"></p>
         </article>
       </div>
     </section>
   </main>
   <footer class="atlas-footer"><div class="wrap"><a href="./index.html#atlas-entry" aria-label="청첩장으로 돌아가기"><span aria-hidden="true">←</span><span>Return to invitation</span></a></div></footer>
-  <div id="photo-lightbox" class="atlas-lightbox" role="dialog" aria-modal="true" aria-label="확대된 여행 사진" aria-hidden="true">
+  <div id="photo-lightbox" class="atlas-lightbox" role="dialog" aria-modal="true" aria-label="확대된 사진" aria-hidden="true">
     <button id="close-lightbox" class="atlas-lightbox-close" type="button" aria-label="확대 사진 닫기">×</button>
     <button id="lightbox-prev" class="atlas-lightbox-prev" type="button" aria-label="이전 확대 사진">←</button>
     <img id="lightbox-image" alt="확대된 여행 사진">
     <button id="lightbox-next" class="atlas-lightbox-next" type="button" aria-label="다음 확대 사진">→</button>
     <span id="lightbox-count" class="atlas-lightbox-count"></span>
   </div>
-  <script src="./atlas.js?v=20261027-frame" defer></script>
+  <script src="./atlas-data.js?v=20261111-v2" defer></script>
+  <script src="./atlas.js?v=20261111-v2" defer></script>
 </body>
 </html>
