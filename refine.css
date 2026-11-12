@@ -56,8 +56,13 @@
 /* The J's swash reaches left of its box: give it room so it isn't clipped at the screen edge. */
 .invitation-page .site-footer .footer-title { padding-left: .12em; }
 
-/* v4 / Match the "Our Story in Pictures." headline to nearby display sizes. */
-.invitation-page .atlas-teaser h2 { font-size:clamp(106px,12.4vw,194px); }
+/* v4 / Match the "Our Story in Pictures." headline to nearby display sizes.
+   simplify.css sizes this heading through #atlas-title, which outranks a class-only
+   selector, so the id is carried here for the size to take effect. */
+.invitation-page .atlas-teaser #atlas-title { font-size:clamp(106px,12.4vw,194px); }
 @media(max-width:700px) {
-  .invitation-page .atlas-teaser h2 { font-size:clamp(78px,24vw,112px); }
+  .invitation-page .atlas-teaser #atlas-title { font-size:clamp(78px,24vw,112px); }
+}
+@media(min-width:701px) and (max-width:900px) {
+  .invitation-page .atlas-teaser #atlas-title { font-size:clamp(86px,12.4vw,112px); }
 }
