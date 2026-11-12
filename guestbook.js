@@ -20,6 +20,102 @@
     if (label !== undefined) node.textContent = label;
     return node;
   };
+  // Guestbook photo viewer stays on this page; Drive is only an image source.
+  const viewer = $('guestbook-lightbox');
+  const viewerImage = $('guestbook-lightbox-image');
+  const viewerStatus = $('guestbook-lightbox-status');
+  const viewerClose = $('guestbook-lightbox-close');
+  const viewerPrev = $('guestbook-lightbox-prev');
+  const viewerNext = $('guestbook-lightbox-next');
+  const viewerCount = $('guestbook-lightbox-count');
+  const viewerState = { ids:[], current:0, author:'', returnFocus:null, scrollY:0 };
+  const viewerSource = (id, size) => 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(id) + '&sz=w' + size;
+  function renderViewer() {
+    if (!viewer || !viewerState.ids.length) return;
+    const fileId = viewerState.ids[viewerState.current];
+    const larger = viewerSource(fileId, 1600);
+    const fallback = viewerSource(fileId, 960);
+    viewerImage.hidden = false;
+    viewerStatus.hidden = true;
+    viewerStatus.textContent = '';
+    viewerImage.alt = viewerState.author + '님 사진 ' + (viewerState.current + 1);
+    viewerImage.onerror = () => {
+      if (viewerImage.src === larger) {
+        viewerImage.src = fallback;
+      } else {
+        viewerImage.hidden = true;
+        viewerStatus.textContent = '사진을 불러오지 못했습니다.';
+        viewerStatus.hidden = false;
+      }
+    };
+    viewerImage.src = larger;
+    viewerPrev.hidden = viewerNext.hidden = viewerState.ids.length < 2;
+    viewerCount.textContent = viewerState.ids.length > 1
+      ? (viewerState.current + 1) + ' / ' + viewerState.ids.length : '';
+  }
+  function openViewer(ids, index, author, trigger) {
+    if (!viewer || !viewerImage) return;
+    viewerState.ids = ids.slice();
+    viewerState.current = index;
+    viewerState.author = author;
+    viewerState.returnFocus = trigger;
+    viewerState.scrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.setProperty('--guestbook-lock-top', '-' + viewerState.scrollY + 'px');
+    document.body.classList.add('guestbook-lightbox-open');
+    viewer.hidden = false;
+    renderViewer();
+    viewerClose.focus({ preventScroll:true });
+  }
+  function closeViewer() {
+    if (!viewer || viewer.hidden) return;
+    viewer.hidden = true;
+    viewerImage.removeAttribute('src');
+    viewerImage.onerror = null;
+    document.body.classList.remove('guestbook-lightbox-open');
+    document.body.style.removeProperty('--guestbook-lock-top');
+    window.scrollTo(0, viewerState.scrollY);
+    if (viewerState.returnFocus && viewerState.returnFocus.isConnected) {
+      viewerState.returnFocus.focus({ preventScroll:true });
+    }
+    viewerState.ids = [];
+  }
+  function moveViewer(delta) {
+    if (!viewer || viewer.hidden || viewerState.ids.length < 2) return;
+    viewerState.current = (viewerState.current + delta + viewerState.ids.length) % viewerState.ids.length;
+    renderViewer();
+  }
+  viewerClose?.addEventListener('click', closeViewer);
+  viewerPrev?.addEventListener('click', () => moveViewer(-1));
+  viewerNext?.addEventListener('click', () => moveViewer(1));
+  viewer?.addEventListener('click', event => { if (event.target === viewer) closeViewer(); });
+  document.addEventListener('keydown', event => {
+    if (!viewer || viewer.hidden) return;
+    if (event.key === 'Escape') { event.preventDefault(); closeViewer(); }
+    else if (event.key === 'ArrowLeft') { event.preventDefault(); moveViewer(-1); }
+    else if (event.key === 'ArrowRight') { event.preventDefault(); moveViewer(1); }
+    else if (event.key === 'Tab') {
+      const controls = [viewerClose, viewerPrev, viewerNext].filter(button => button && !button.hidden);
+      if (!controls.length) return;
+      const first = controls[0], last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  });
+  let touchX = 0, touchY = 0, touchTracking = false;
+  viewerImage?.addEventListener('touchstart', event => {
+    touchTracking = event.touches.length === 1;
+    if (!touchTracking) return;
+    touchX = event.touches[0].clientX;
+    touchY = event.touches[0].clientY;
+  }, { passive:true });
+  viewerImage?.addEventListener('touchend', event => {
+    if (!touchTracking || event.changedTouches.length !== 1 || !viewerState.ids.length) return;
+    touchTracking = false;
+    const dx = event.changedTouches[0].clientX - touchX;
+    const dy = event.changedTouches[0].clientY - touchY;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) moveViewer(dx < 0 ? 1 : -1);
+  }, { passive:true });
+  viewerImage?.addEventListener('touchcancel', () => { touchTracking = false; }, { passive:true });
   function notice(text, error = false) {
     status.textContent = text;
     status.classList.toggle('is-error', error);
@@ -137,8 +233,8 @@
   }
   function photoCarousel(ids, author) {
     const wrap = el('div', 'guestbook-photo-stack');
-    const link = el('a', 'guestbook-entry-photo');
-    link.target = '_blank'; link.rel = 'noopener noreferrer';
+    const link = el('button', 'guestbook-entry-photo');
+    link.type = 'button'; link.setAttribute('aria-haspopup', 'dialog');
     const img = el('img'); img.loading = 'lazy'; img.decoding = 'async';
     const count = el('span', 'guestbook-photo-count', `${ids.length} PHOTOS`);
     const prev = el('button', 'guestbook-photo-arrow is-prev', '‹');
@@ -151,7 +247,6 @@
       current = (i + ids.length) % ids.length;
       const id = encodeURIComponent(ids[current]);
       img.src = `https://drive.google.com/thumbnail?id=${id}&sz=w960`;
-      link.href = `https://drive.google.com/file/d/${id}/view`;
       link.setAttribute('aria-label', `${author}님 사진 ${current+1}/${ids.length} 크게 보기`);
       position.textContent = `${current+1} / ${ids.length}`;
     }
@@ -168,6 +263,7 @@
       if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) show(current + (dx < 0 ? 1 : -1));
     }, {passive:true});
     link.appendChild(img);
+    link.addEventListener('click', () => openViewer(ids, current, author, link));
     wrap.append(link);
     if (ids.length > 1) wrap.append(count, prev, next, position);
     img.onerror = () => { img.alt = '사진 미리보기를 불러오지 못했습니다'; };

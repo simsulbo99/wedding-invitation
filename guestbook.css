@@ -67,3 +67,42 @@
 @media (max-width:700px) {
   .invitation-page .guestbook-gallery-title { font-size: clamp(41px, 10.8vw, 52px); }
 }
+
+/* v4 / On-page guestbook photo lightbox; no Google Drive preview navigation. */
+.guestbook-photo-stack .guestbook-entry-photo { border:0; padding:0; cursor:zoom-in; appearance:none; }
+.guestbook-photo-stack .guestbook-entry-photo:focus-visible { outline:3px solid #287f7b; outline-offset:3px; }
+body.guestbook-lightbox-open {
+  position:fixed; left:0; right:0; top:var(--guestbook-lock-top); width:100%; overflow:hidden;
+}
+.guestbook-lightbox {
+  position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
+  padding:clamp(56px,8vh,78px) 45px; background:rgba(11,24,26,.94);
+}
+.guestbook-lightbox[hidden],.guestbook-lightbox [hidden] { display:none!important; }
+.guestbook-lightbox-frame { display:flex; align-items:center; justify-content:center; max-width:100%; max-height:100%; min-width:0; }
+.guestbook-lightbox-frame img {
+  display:block; width:auto; height:auto; max-width:100%; max-height:calc(100dvh - 145px);
+  object-fit:contain; touch-action:pinch-zoom; user-select:none; -webkit-user-drag:none;
+}
+.guestbook-lightbox button {
+  display:grid; place-items:center; position:absolute; width:46px; height:46px;
+  border:1px solid #c8e1d7a8; border-radius:50%;
+  background:#1c3838cc; color:#fff; font:400 23px/1 var(--sans,Arial,sans-serif); cursor:pointer;
+}
+.guestbook-lightbox button:focus-visible { outline:3px solid #81d8d0; outline-offset:3px; }
+.guestbook-lightbox-close { top:max(16px,env(safe-area-inset-top,16px)); right:16px; }
+.guestbook-lightbox-prev { top:50%; left:10px; transform:translateY(-50%); }
+.guestbook-lightbox-next { top:50%; right:10px; transform:translateY(-50%); }
+.guestbook-lightbox-count {
+  position:absolute; left:50%; bottom:max(19px,env(safe-area-inset-bottom,19px));
+  transform:translateX(-50%); color:#eef6f2;
+  font:600 12px/1 var(--sans,Arial,sans-serif); letter-spacing:.12em;
+}
+.guestbook-lightbox-status { color:#f8f7f3; font:400 14px/1.7 var(--kr,Georgia,serif); text-align:center; }
+@media(max-width:650px) {
+  .guestbook-lightbox { padding:65px 14px 60px; }
+  .guestbook-lightbox-frame img { max-height:calc(100dvh - 125px); }
+  .guestbook-lightbox-prev { left:6px; }
+  .guestbook-lightbox-next { right:6px; }
+  .guestbook-lightbox button { width:42px; height:42px; }
+}

@@ -1,0 +1,52 @@
+/* The Day / subdued account disclosures after transit and parking information. */
+.invitation-page .gift-accounts {
+  margin-top:clamp(35px,4.8vw,62px); padding-top:clamp(24px,3vw,36px);
+  border-top:1px solid var(--hair);
+}
+.invitation-page .gift-accounts-head .micro { display:block; color:var(--muted); }
+.invitation-page .gift-accounts-head h3 {
+  margin:17px 0 10px; font:400 clamp(23px,3vw,34px)/1.4 var(--kr,Georgia,serif);
+  letter-spacing:-.055em; color:var(--ink); word-break:keep-all;
+}
+.invitation-page .gift-accounts-head p {
+  margin:0; font:400 14px/1.9 var(--kr,Georgia,serif); color:var(--muted); word-break:keep-all;
+}
+.invitation-page .gift-accounts-list { margin-top:28px; border-top:1px solid var(--hair); }
+.invitation-page .gift-account { border-bottom:1px solid var(--hair); }
+.invitation-page .gift-account summary {
+  list-style:none; display:flex; justify-content:space-between; align-items:center; gap:18px;
+  min-height:62px; padding:15px 5px; cursor:pointer;
+  color:var(--ink); font:500 15px/1.6 var(--kr,Georgia,serif);
+}
+.invitation-page .gift-account summary::-webkit-details-marker { display:none; }
+.invitation-page .gift-account summary:focus-visible,
+.invitation-page .gift-account-copy:focus-visible { outline:2px solid #287f7b; outline-offset:3px; }
+.invitation-page .gift-account-toggle {
+  display:grid; place-items:center; flex:none; width:30px; height:30px;
+  border:1px solid #a7c6be; border-radius:50%; font:400 20px/1 var(--sans,Arial,sans-serif);
+}
+.invitation-page .gift-account[open] .gift-account-toggle { font-size:0; }
+.invitation-page .gift-account[open] .gift-account-toggle::after { content:"−"; font-size:20px; }
+.invitation-page .gift-account-content { padding:0 5px 24px; }
+.invitation-page .gift-account dl { margin:0; display:grid; gap:8px; }
+.invitation-page .gift-account dl>div {
+  display:grid; grid-template-columns:86px minmax(0,1fr); gap:14px; align-items:baseline;
+}
+.invitation-page .gift-account dt { font:400 12px/1.6 var(--kr,Georgia,serif); color:var(--muted); }
+.invitation-page .gift-account dd {
+  margin:0; overflow-wrap:anywhere; font:500 14px/1.7 var(--kr,Georgia,serif); color:var(--ink);
+}
+.invitation-page .gift-account-copy {
+  margin-top:17px; padding:11px 17px; min-height:43px; border:1px solid #6daba3;
+  background:transparent; color:var(--ink); font:500 12px/1.4 var(--kr,Georgia,serif); cursor:pointer;
+}
+.invitation-page .gift-account-copy:not(:disabled):hover { background:#e0f0ec; }
+.invitation-page .gift-account-copy:disabled { opacity:.4; cursor:not-allowed; }
+.invitation-page .gift-account-feedback {
+  min-height:1em; margin:7px 0 0; color:#28766c; font:400 12px/1.6 var(--kr,Georgia,serif);
+}
+@media(max-width:700px) {
+  .invitation-page .gift-accounts { margin-top:33px; }
+  .invitation-page .gift-accounts-head h3 { font-size:25px; }
+  .invitation-page .gift-accounts-head p { font-size:13px; }
+}

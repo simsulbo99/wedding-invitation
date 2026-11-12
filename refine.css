@@ -55,3 +55,9 @@
 }
 /* The J's swash reaches left of its box: give it room so it isn't clipped at the screen edge. */
 .invitation-page .site-footer .footer-title { padding-left: .12em; }
+
+/* v4 / Match the "Our Story in Pictures." headline to nearby display sizes. */
+.invitation-page .atlas-teaser h2 { font-size:clamp(106px,12.4vw,194px); }
+@media(max-width:700px) {
+  .invitation-page .atlas-teaser h2 { font-size:clamp(78px,24vw,112px); }
+}
