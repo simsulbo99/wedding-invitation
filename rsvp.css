@@ -153,3 +153,16 @@
   margin: 0;
   flex: 0 0 auto;
 }
+
+/* RSVP existing-response notice spacing, scoped to the invitation only.
+   Append this block to the end of rsvp.css. */
+.invitation-page .rsvp-form-shell .rsvp-edit-hint {
+  margin: 0;
+  padding: 0;
+}
+
+/* Exactly 24px from the notice's bottom to the first field's top.
+   Hidden notice reserves no space and does not affect a new RSVP. */
+.invitation-page .rsvp-form-shell .rsvp-edit-hint:not([hidden]) + .rsvp-field {
+  margin-top: 24px;
+}
