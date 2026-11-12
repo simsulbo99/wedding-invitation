@@ -9,7 +9,7 @@
 (() => {
   // One song for the whole invitation, Atlas included.
   const TRACK = { id: '5k71Ueu4wG8', title: 'L-O-V-E' };
-  const CHOICE_KEY = 'wedding-bgm-choice'; // 'on' | 'off'; absent in a new session = off
+  const CHOICE_KEY = 'wedding-bgm-choice'; // 'on' | 'off'; absent = ON at the opening prompt
   const VOLUME = 40;
   const API_URL = 'https://www.youtube.com/iframe_api';
   const API_TIMEOUT = 12000;
@@ -67,12 +67,16 @@
   const hint = control.querySelector('.bgm-hint');
 
   function render() {
-    const on = status === 'playing';
-    button.setAttribute('aria-pressed', String(on));
+    // Before the first tap the switch expresses the desired setting, not playback.
+    // After opening, the label describes the action available to the guest.
+    const beforeFirstTap = page === 'invitation' && !openedByTap
+      && !!document.getElementById('unboxing')?.classList.contains('is-armed');
+    const enabled = beforeFirstTap ? readChoice() !== 'off' : (status === 'playing' || status === 'pending');
+    button.setAttribute('aria-pressed', String(enabled));
     button.dataset.state = status;
     button.classList.toggle('is-pending', status === 'pending');
-    label.textContent = on ? 'BGM ON' : 'BGM OFF';
-    button.setAttribute('aria-label', (on ? '배경음악 끄기: ' : '배경음악 켜기: ') + track.title);
+    label.textContent = enabled ? 'BGM OFF' : 'BGM ON';
+    button.setAttribute('aria-label', (enabled ? '배경음악 끄기: ' : '배경음악 켜기: ') + track.title);
   }
   function setStatus(next) { status = next; render(); }
   function showHint(text, ms = HINT_MS) {
@@ -265,6 +269,14 @@
 
   // ---------- events ----------
   button.addEventListener('click', () => {
+    if (page === 'invitation' && !openedByTap
+      && document.getElementById('unboxing')?.classList.contains('is-armed')) {
+      // The opening toggle is a preference switch only. Never play or open the box.
+      saveChoice(readChoice() === 'off' ? 'on' : 'off');
+      hideHint();
+      render();
+      return;
+    }
     if (status === 'unavailable') { showHint(MSG.unavailable); return; }
     if (status === 'playing' || status === 'pending') { saveChoice('off'); stop(); return; }
     saveChoice('on');
@@ -272,23 +284,23 @@
     play('gesture'); // called inside the tap so mobile browsers accept it
   });
 
-  // Invitation: the guest opens the gift box with one of two buttons. main.js dispatches this
-  // synchronously inside the same tap, before the unboxing timers start.
-  //   detail.music === true  -> "음악과 함께 시작하기": save ON and play
-  //   detail.music === false -> "음악 없이 시작하기": save OFF; the BGM button can still turn it on
+  // Invitation: the single TAP TO OPEN action dispatches this synchronously.
+  // Respect the preference selected at the top right; ON is the default.
+  window.addEventListener('invitation:armed', render);
   window.addEventListener('invitation:open', event => {
     openedByTap = true;
-    const music = !(event && event.detail && event.detail.music === false);
+    const music = event?.detail?.music === false ? false : readChoice() !== 'off';
     if (!music) {
       saveChoice('off');
       if (status === 'playing' || status === 'pending') stop();
+      else render();
       return;
     }
     saveChoice('on');
     play('gesture');
   });
 
-  // Invitation: the button appears when the unboxing ends (or is skipped / bypassed by a link).
+  // Invitation: the same toggle stays available in the intro and live invitation.
   if (page === 'invitation') {
     let opening = body.classList.contains('opening');
     new MutationObserver(() => {
@@ -299,6 +311,7 @@
         else if (!openedByTap) autoResume();
       }
       opening = now;
+      render();
     }).observe(body, { attributes: true, attributeFilter: ['class'] });
   }
 

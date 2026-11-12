@@ -9,8 +9,7 @@
   const skip = document.getElementById('skip-opening');
   const replay = document.getElementById('replay-opening');
   const choices = document.getElementById('unbox-choices');
-  const withMusic = document.getElementById('start-with-music');
-  const withoutMusic = document.getElementById('start-without-music');
+  const tapToOpen = document.getElementById('tap-to-open');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let timers = [];
   // Unboxing runs at 1.875× original speed (1.25× faster than the previous 1.5×). CSS transitions follow the same ratio.
@@ -67,7 +66,7 @@
     wait(fadeToLiveCover, 7300);
   }
 
-  // First screen: the sealed box waits for the guest's choice: with music or without.
+  // First screen: a single quiet "TAP TO OPEN" prompt over the sealed gift box.
   function arm() {
     clearTimers();
     overlay.hidden = false;
@@ -77,22 +76,22 @@
     window.scrollTo(0, 0);
     wait(() => signature.classList.add('active'), 180);
     overlay.classList.add('is-armed');
+    window.dispatchEvent(new Event('invitation:armed'));
   }
   function disarm() {
     overlay.classList.remove('is-armed');
   }
-  function onChoice(event, music) {
-    // Only the two buttons open the box; nothing reaches the overlay or starts music by accident.
+  function onTapToOpen(event) {
     event.preventDefault();
     event.stopPropagation();
     if (!overlay.classList.contains('is-armed')) return;
-    disarm();
-    // Music must be requested inside this tap; bgm.js listens. A failure there never stops the unboxing.
-    try { window.dispatchEvent(new CustomEvent('invitation:open', { detail: { music } })); } catch (e) { /* music is optional */ }
+    disarm(); // A second tap cannot restart the sequence.
+    // bgm.js reads the choice made in the top-right toggle; ON is the default.
+    // Dispatch synchronously inside this gesture for mobile playback policies.
+    try { window.dispatchEvent(new CustomEvent('invitation:open')); } catch (e) { /* music is optional */ }
     start(true);
   }
-  if (withMusic) withMusic.addEventListener('click', event => onChoice(event, true));
-  if (withoutMusic) withoutMusic.addEventListener('click', event => onChoice(event, false));
+  if (tapToOpen) tapToOpen.addEventListener('click', onTapToOpen);
 
   // Recover if the in-app browser restores a page from its back/forward cache.
   window.addEventListener('pageshow', () => {
@@ -108,7 +107,7 @@
   if (targetId && document.getElementById(targetId)) {
     complete();
     requestAnimationFrame(() => document.getElementById(targetId).scrollIntoView());
-  } else if (choices && withMusic && withoutMusic) {
+  } else if (choices && tapToOpen) {
     arm();
   } else {
     start();

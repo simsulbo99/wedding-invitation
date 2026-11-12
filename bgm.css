@@ -10,7 +10,8 @@
   pointer-events: none;
 }
 .bgm-control > * { pointer-events: auto; }
-body.opening .bgm-control { display: none; } /* invitation: appears after the unboxing */
+/* The unboxing overlay sits at z-index:9999. Keep the toggle accessible over it. */
+body.opening .bgm-control { z-index: 10010; }
 .atlas-page .bgm-control { top: calc(16px + env(safe-area-inset-top, 0px)); } /* centred on the Atlas header */
 
 .bgm-toggle {
@@ -40,33 +41,36 @@ body.opening .bgm-control { display: none; } /* invitation: appears after the un
 }
 .bgm-hint.is-visible { opacity: 1; visibility: visible; transform: none; transition: opacity .35s ease, transform .35s ease; }
 
-/* ---------- invitation intro: two start choices ---------- */
+/* ---------- invitation intro: a quiet typographic tap prompt ---------- */
 .unbox-choices {
-  position: absolute; z-index: 3; left: 50%; bottom: calc(78px + env(safe-area-inset-bottom, 0px));
-  transform: translateX(-50%); width: min(288px, calc(100vw - 56px));
-  display: grid; gap: 10px;
-  opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s linear .25s;
+  position: absolute; z-index: 3; left: 50%;
+  bottom: calc(clamp(70px, 10svh, 104px) + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%); width: min(260px, calc(100vw - 48px));
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .25s ease, visibility 0s linear .25s;
 }
-.unbox-overlay.is-armed .unbox-choices { opacity: 1; visibility: visible; transition: opacity .7s ease .4s, visibility 0s; }
-.unbox-choice {
-  display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; margin: 0;
-  padding: 0 20px; border-radius: 999px; cursor: pointer; white-space: nowrap;
-  font-family: var(--kr, 'Noto Serif KR', serif); letter-spacing: -.01em; word-break: keep-all;
-  -webkit-tap-highlight-color: transparent; transition: background-color .2s ease, border-color .2s ease;
+.unbox-overlay.is-armed .unbox-choices {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transition: opacity .7s ease .4s, visibility 0s;
 }
-/* Primary: ivory, reads first over the Tiffany box and the ivory ribbon. */
-.unbox-choice.is-primary {
-  border: 1px solid rgba(21, 43, 45, .16); background: #f8f7f3; color: #152b2d;
-  font-size: 15px; font-weight: 500; box-shadow: 0 6px 18px rgba(15, 41, 42, .14);
+/* Skip is available only after the box starts opening. */
+.unbox-overlay.is-armed .unbox-skip { display: none; }
+.unbox-tap {
+  display: inline-flex; justify-content: center; align-items: center;
+  min-height: 44px; min-width: 148px; padding: 8px 16px;
+  border: 0; border-radius: 0; background: transparent;
+  color: #152b2d; text-shadow: 0 1px 12px rgba(248,247,243,.42);
+  font: 500 13px/1.4 var(--sans, 'DM Sans', Arial, sans-serif);
+  letter-spacing: .22em; white-space: nowrap; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
-.unbox-choice.is-primary:active { background: #fffdf8; }
-/* Secondary: the same quiet glass as SKIP INTRO. */
-.unbox-choice.is-secondary {
-  min-height: 46px; border: 1px solid rgba(248, 247, 243, .55); background: rgba(15, 41, 42, .3);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  color: #f8f7f3; font-size: 14px; font-weight: 400;
+.unbox-overlay.is-armed .unbox-tap { animation: unbox-tap-breathe 2.8s ease-in-out infinite; }
+.unbox-tap:focus-visible { outline: 1px solid currentColor; outline-offset: 1px; }
+@keyframes unbox-tap-breathe {
+  0%, 100% { opacity: .52; }
+  50% { opacity: 1; }
 }
-.unbox-choice.is-secondary:active { background: rgba(15, 41, 42, .42); }
 
 /* ---------- visible YouTube player card ---------- */
 .bgm-card { margin: 0; display: grid; gap: 14px; }
@@ -98,4 +102,5 @@ body.shell-loading, body.shell-loading a { cursor: progress; }
 
 @media (prefers-reduced-motion: reduce) {
   .bgm-hint, .bgm-hint.is-visible, .unbox-choices, .unbox-overlay.is-armed .unbox-choices { transition: none; }
+  .unbox-overlay.is-armed .unbox-tap { animation: none; }
 }

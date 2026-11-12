@@ -111,6 +111,53 @@
     detailsLink.replaceChildren(document.createTextNode(`${num(details.number)} / ${details.name}`), make('span', '', '↗'));
   }
 
+  // Place each label where it avoids all neighbouring pin symbols and the map edges.
+  // Measure the live map so standalone atlas.html and the in-page Atlas shell both work.
+  function positionMapLabels() {
+    const bounds = $('map-holder').getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return; // Atlas view may be hidden while mounting.
+    const pins = [...$('map-dots').querySelectorAll('.atlas-pin')];
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const hitArea = (a, b) => Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left))
+      * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+    const symbols = pins.map(pin => pin.querySelector('.atlas-pin-symbol').getBoundingClientRect());
+    pins.forEach((pin, index) => {
+      const label = pin.querySelector('.atlas-pin-label');
+      if (!label) return;
+      const r = pin.getBoundingClientRect();
+      const w = label.offsetWidth, h = label.offsetHeight;
+      if (!w || !h) return;
+      const cx = r.left + r.width / 2;
+      const roomMin = bounds.left + 5 + w / 2;
+      const roomMax = bounds.right - 5 - w / 2;
+      const shifts = [0, -24, 24, -48, 48, -72, 72, -96, 96, -120, 120, -144, 144, -168, 168];
+      let best = null;
+      for (const side of ['top', 'bottom']) {
+        const naturalTop = side === 'top' ? r.top - h - 3 : r.bottom + 3;
+        const top = clamp(naturalTop, bounds.top + 5, bounds.bottom - 5 - h);
+        for (const shift of shifts) {
+          const center = roomMin <= roomMax ? clamp(cx + shift, roomMin, roomMax) : (bounds.left + bounds.right) / 2;
+          const box = { left: center - w / 2, right: center + w / 2, top, bottom: top + h };
+          const overflow = Math.max(0, bounds.top + 5 - box.top) + Math.max(0, box.bottom - bounds.bottom + 5)
+            + Math.max(0, bounds.left + 5 - box.left) + Math.max(0, box.right - bounds.right + 5);
+          const collisions = symbols.reduce((sum, symbol, i) => i === index ? sum : sum + hitArea(box, {
+            left: symbol.left - 5, right: symbol.right + 5, top: symbol.top - 5, bottom: symbol.bottom + 5
+          }), 0);
+          // Collision avoidance dominates visual centering; otherwise prefer a short offset.
+          const preferredTop = r.top > bounds.top + bounds.height / 2;
+          const score = collisions * 10 + overflow * 1000 + Math.abs(center - cx) * .15
+            + Math.abs(top - naturalTop) * .25 + ((side === 'top') === preferredTop ? 0 : 2);
+          if (!best || score < best.score) best = { score, side, offset: center - cx, top: top - r.top };
+        }
+      }
+      if (best) {
+        pin.dataset.labelSide = best.side;
+        pin.style.setProperty('--label-shift', `${best.offset.toFixed(1)}px`);
+        pin.style.setProperty('--label-top', `${best.top.toFixed(1)}px`);
+      }
+    });
+  }
+
   // Use rendered pin centers so fixed 48px pair spacing remains correct on resize.
   function paintRoute() {
     const origin = byId.get(routeOrigin);
@@ -161,6 +208,7 @@
     makeFilmstrip();
     paintPhoto();
     paintRoute();
+    positionMapLabels();
     if (scroll === 'always' || (scroll === 'mobile' && matchMedia('(max-width: 860px)').matches)) revealViewer();
   }
 
@@ -341,7 +389,7 @@
   makeFeatured();
   makeMapAndIndex();
   chooseCollection(defaultCollection);
-  new ResizeObserver(paintRoute).observe($('map-holder'));
+  new ResizeObserver(() => { paintRoute(); positionMapLabels(); }).observe($('map-holder'));
   for (const name of ['map', 'index']) {
     $(`tab-${name}`).addEventListener('click', () => showTab(name));
     $(`tab-${name}`).addEventListener('keydown', event => {

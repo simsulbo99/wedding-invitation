@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="./accounts.css?v=5">
   <link rel="stylesheet" href="./rsvp.css?v=7-spacing">
   <link rel="stylesheet" href="./guestbook.css?v=5-lightbox">
-  <link rel="stylesheet" href="./bgm.css?v=3">
+  <link rel="stylesheet" href="./bgm.css?v=6">
   <link rel="stylesheet" href="./bridge.css?v=3-15s">
   <style id="wedding-final-style">
 /* The blank blue band remains a deliberate editorial visual divider. */
@@ -62,9 +62,8 @@ letter-spacing: -.035em;
     <div class="unbox-door right" aria-hidden="true"><img src="./images/unbox-04-seam.webp" alt=""></div>
     <div class="unbox-gradient" aria-hidden="true"></div>
     <button type="button" class="unbox-skip" id="skip-opening">SKIP INTRO ↗</button>
-    <div class="unbox-choices" id="unbox-choices" role="group" aria-label="청첩장 열기">
-      <button type="button" class="unbox-choice is-primary" id="start-with-music">음악과 함께 시작하기 ♪</button>
-      <button type="button" class="unbox-choice is-secondary" id="start-without-music">음악 없이 시작하기</button>
+    <div class="unbox-choices" id="unbox-choices">
+      <button type="button" class="unbox-tap" id="tap-to-open">TAP TO OPEN</button>
     </div>
     <div class="unbox-signature" id="unbox-signature" aria-hidden="true">
       <strong>Jungwoo &amp; Seoha</strong>
@@ -117,11 +116,11 @@ letter-spacing: -.035em;
           </div>
           <div class="detail">
             <span class="micro">WHERE</span>
-            <div><div class="detail-title detail-korean">페어몬트 앰배서더 서울<br>그랜드 볼룸</div><div class="detail-sub">서울특별시 영등포구 여의대로 108</div></div>
+            <div><div class="detail-title detail-korean">페어몬트 앰배서더 서울<br>그랜드 볼룸 B1F</div><div class="detail-sub">서울특별시 영등포구 여의대로 108</div></div>
           </div>
           <div class="detail dress-code-detail">
             <span class="micro">DRESS CODE</span>
-            <div class="dress-code-copy">편안한 옷차림으로 오세요.<br>흰옷도, 반바지도, 트레이닝복도 환영합니다!</div>
+            <div class="dress-code-copy">편안한 옷차림으로 오세요.<br>흰옷도, 슬리퍼도, 트레이닝복도 환영합니다.</div>
           </div>
         </div>
       </div>
@@ -137,7 +136,7 @@ letter-spacing: -.035em;
         </div>
         <div class="access-summary">
           <div><span class="micro">SUBWAY</span><p>여의나루역 5호선 1번 출구 · 도보 약 7분<br>여의도역 5·9호선 5번 출구 · 도보 약 9분</p></div>
-          <div><span class="micro">PARKING</span><p>호텔 주차장 4시간 무료 등록 가능<br>(더현대 주차장 3시간 지원 가능)<br>축의금 접수대에서 차량번호 기재</p></div>
+          <div><span class="micro">PARKING</span><p>호텔 주차장 4시간 무료 등록 가능<br>(더현대 주차장 3시간 지원 가능)</p></div>
         </div>
       </div>
       <section class="gift-accounts" aria-labelledby="gift-accounts-title">
@@ -237,7 +236,7 @@ letter-spacing: -.035em;
     <section class="guestbook wrap" id="guestbook" aria-labelledby="guestbook-title">
       <div class="section-head micro"><span>06 / THE GUESTBOOK</span></div>
       <div class="guestbook-grid">
-        <div class="guestbook-copy"><h2 id="guestbook-title">Leave<br><i>a Note.</i></h2><p>축하의 한마디와 함께,<br>결혼식의 순간들을 사진으로 나눠주세요.</p><p class="guestbook-prize">올려주신 결혼식 사진 중 한 장을 선정해<br>상품권을 드립니다!</p></div>
+        <div class="guestbook-copy"><h2 id="guestbook-title">Leave<br><i>a Note.</i></h2><p>축하의 한마디와 함께,<br>결혼식의 순간들을 사진으로 나눠주세요.</p><p class="guestbook-prize">올려주신 결혼식 사진 중 선정해<br>상품권을 드립니다!<br>선정된 사진은 본 청첩장에서<br>공지할 예정입니다!!</p></div>
         <form class="guestbook-paper" id="guestbook-form" aria-label="공개 방명록 작성">
           <label class="guestbook-field-label" for="guestbook-message">MESSAGE</label>
           <textarea class="guestbook-message" id="guestbook-message" name="message" rows="4" maxlength="500" required placeholder="축하의 마음을 남겨주세요."></textarea>
@@ -290,8 +289,8 @@ letter-spacing: -.035em;
     <div class="footer-bottom micro"><div class="footer-actions"><a href="./atlas.html">OUR ATLAS ↗</a><button class="replay-intro" id="replay-opening" type="button" hidden>REPLAY INTRO ↺</button></div></div>
   </div></footer>
   <div id="atlas-footer-slot" data-shell-view="atlas" hidden></div>
-  <script src="./bgm.js?v=3" defer></script>
-  <script src="./main.js?v=10-intro125" defer></script>
+  <script src="./bgm.js?v=6" defer></script>
+  <script src="./main.js?v=11-tap-open" defer></script>
   
   <script src="./rsvp.js?v=3" defer></script>
   <script src="./guestbook.js?v=3-lightbox" defer></script>
