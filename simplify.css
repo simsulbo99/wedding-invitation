@@ -37,8 +37,14 @@
    with a clear, deliberately separate entrance to the Atlas. */
 .invitation-page .atlas-teaser { padding:clamp(79px,8vw,112px) 0 clamp(84px,8.5vw,120px); }
 .invitation-page .atlas-teaser-top { padding-top:clamp(54px,6vw,85px); margin-bottom:clamp(43px,5vw,67px); }
+/* Readable two-line heading; keep the existing display font and editorial feel. */
+.invitation-page #atlas-title { font-size:clamp(64px,8.1vw,116px); }
+.invitation-page #atlas-title i { padding-left:6%; }
+.invitation-page .atlas-teaser-intro { word-break:keep-all; }
 .invitation-page .atlas-feature { display:flex; flex-direction:column; gap:16px; min-height:0; box-shadow:none; }
-.invitation-page .atlas-feature-image { width:100%; height:clamp(380px,43vw,545px); flex:none; overflow:hidden; }
+.invitation-page .atlas-feature-image { width:100%; height:clamp(380px,43vw,545px); flex:none; overflow:hidden; position:relative; }
+.invitation-page .atlas-photo-hint { position:absolute; right:18px; bottom:18px; z-index:1; display:inline-flex; align-items:center; gap:8px; padding:10px 14px; background:#f8f7f3; color:#192f31; font:500 13px/1.4 var(--kr); letter-spacing:-.035em; white-space:nowrap; pointer-events:none; }
+.invitation-page .atlas-photo-hint-arrow { font:400 17px/1 var(--sans); }
 .invitation-page .atlas-feature-image img { width:100%; height:100%; object-fit:cover; object-position:50% 50%; }
 .atlas-entry-cta { width:100%; min-height:104px; display:flex; align-items:center; justify-content:space-between; gap:25px; background:var(--blue); color:var(--ink); padding:18px clamp(23px,3vw,36px); transition:background .25s ease; }
 .atlas-entry-cta>span:first-child { font:400 clamp(29px,3.9vw,49px)/1.1 var(--serif); letter-spacing:-.05em; }
@@ -47,6 +53,11 @@
 .atlas-feature:hover .atlas-entry-arrow,.atlas-feature:focus-visible .atlas-entry-arrow { transform:translate(3px,-3px); }
 .atlas-feature:focus-visible { outline:3px solid var(--blue); outline-offset:6px; }
 
+/* Fit the second line beside the introduction on intermediate screens. */
+@media(min-width:701px) and (max-width:900px) {
+  .invitation-page #atlas-title { font-size:clamp(50px,6.2vw,64px); }
+  .invitation-page #atlas-title i { padding-left:2%; }
+}
 /* 05: Reduce the header and subheading space without squeezing the form. */
 .invitation-page .reply { padding:clamp(82px,8.5vw,120px) 0 clamp(88px,9vw,135px); }
 .invitation-page .rsvp-grid { padding-top:clamp(48px,5.5vw,77px); }
@@ -110,6 +121,9 @@
   .invitation-page .day-section>.venue-map { margin-top:52px; }
   .invitation-page .atlas-teaser { padding:78px 0 88px; }
   .invitation-page .atlas-teaser-top { padding-top:49px; margin-bottom:43px; }
+  .invitation-page #atlas-title { font-size:clamp(40px,12vw,70px); }
+  .invitation-page #atlas-title i { padding-left:2%; }
+  .invitation-page .atlas-photo-hint { right:12px; bottom:12px; padding:9px 12px; font-size:12px; }
   .invitation-page .atlas-teaser-intro { margin-top:25px; }
   .invitation-page .atlas-feature { gap:12px; }
   .invitation-page .atlas-feature-image { height:auto; aspect-ratio:1.12; }
