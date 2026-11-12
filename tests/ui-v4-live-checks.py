@@ -77,7 +77,7 @@ with sync_playwright() as p:
         accHeading: document.getElementById('gift-accounts-title')?.textContent,
         accBg: acc ? getComputedStyle(acc).borderTopColor : null,
         copyDisabled: copy ? copy.disabled : null,
-        placeholder: document.querySelector('.gift-account-number')?.textContent,
+        placeholder: document.querySelector('.gift-account-number')?.textContent?.trim(),
         overflowX: document.documentElement.scrollWidth,
         innerW: window.innerWidth,
         bgm: !!document.getElementById('bgm-player'),
@@ -92,7 +92,8 @@ with sync_playwright() as p:
     check('mobile: account section exists', info['accExists'])
     check('mobile: account section below parking info', info['accTop'] and info['parkingTop'] and info['accTop'] > info['parkingTop'])
     check('mobile: account heading text', info['accHeading'] == '마음을 전하는 곳', info['accHeading'])
-    check('mobile: copy button disabled for placeholder', info['copyDisabled'] is True)
+    # v5: the groom account now carries real details, so copy must be live.
+    check('mobile: copy button live for the real groom account', info['copyDisabled'] is False)
     check('mobile: no horizontal overflow', info['overflowX'] <= info['innerW'] + 1, f"{info['overflowX']} vs {info['innerW']}")
     check('mobile: bgm player present', info['bgm'])
     check('mobile: rsvp form present', info['rsvp'])
@@ -199,7 +200,7 @@ with sync_playwright() as p:
     print('DESKTOP INFO', json.dumps(d, ensure_ascii=False))
     check('desktop: main headline enlarged (was clamp 9vw=129.6px)', float(d['headline'].replace('px','')) > 135, d['headline'])
     check('desktop: account section exists', d['acc'])
-    check('desktop: copy button disabled', d['copyDisabled'] is True)
+    check('desktop: copy button live for the real groom account', d['copyDisabled'] is False)
     check('desktop: no horizontal overflow', d['overflowX'] <= d['innerW'] + 1, f"{d['overflowX']} vs {d['innerW']}")
     shoot(pg2, 'v4-desktop-01-headline', '#atlas-entry .atlas-teaser-top')
     pg2.click('.gift-account summary')

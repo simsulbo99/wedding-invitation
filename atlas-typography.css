@@ -1,5 +1,4 @@
-/* Align Atlas English editorial headings with the invitation's display face.
-   Existing font assets remain in /fonts. Navigation and body text stay legible. */
+/* Atlas editorial display system. Uses the original local font assets. */
 @font-face {
   font-family:'Relationship of Melodrame';
   src:url('./fonts/relationship-of-melodrame.woff2') format('woff2'),
@@ -13,3 +12,31 @@
 .atlas-page .atlas-index-title {font-family:var(--display);font-weight:400;letter-spacing:-.02em;}
 .atlas-page .atlas-hero h1 em {font-style:normal;}
 .atlas-page .atlas-index-title {letter-spacing:-.025em;}
+
+/* v5 / Make the actual Photo Album page title prominent.
+   On very narrow devices it may break naturally at the single space. */
+.atlas-page .atlas-hero h1 {
+  max-width:100%;
+  margin-left:0;
+  font-size:clamp(120px,10.8vw,150px);
+  line-height:.94;
+  letter-spacing:-.045em;
+  white-space:normal;
+  overflow-wrap:normal;
+  word-break:normal;
+}
+@media (min-width:701px) and (max-width:1050px) {
+  .atlas-page .atlas-hero h1 { font-size:clamp(84px,11.4vw,120px); }
+}
+@media (max-width:700px) {
+  .atlas-page .atlas-hero h1 {
+    font-size:clamp(66px,17.6vw,82px);
+    line-height:.94;
+    letter-spacing:-.045em;
+    white-space:normal;
+  }
+  .atlas-page .atlas-hero-caption { margin-top:clamp(14px,3vw,20px); }
+}
+@media (max-width:345px) {
+  .atlas-page .atlas-hero h1 { font-size:clamp(58px,18vw,66px); }
+}
