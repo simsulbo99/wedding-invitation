@@ -111,49 +111,70 @@
     detailsLink.replaceChildren(document.createTextNode(`${num(details.number)} / ${details.name}`), make('span', '', '↗'));
   }
 
-  // Place each label where it avoids all neighbouring pin symbols and the map edges.
-  // Measure the live map so standalone atlas.html and the in-page Atlas shell both work.
+  // v7: Only the 44px pin HIT TARGETS and map edges are protected. Label-to-label
+  // overlap is intentionally allowed: normally only one selected label is visible.
+  // All map coordinates remain untouched, in both the standalone and mounted Atlas.
   function positionMapLabels() {
-    const bounds = $('map-holder').getBoundingClientRect();
-    if (!bounds.width || !bounds.height) return; // Atlas view may be hidden while mounting.
+    const holder = $('map-holder');
+    const bounds = holder.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return; // hidden until the Atlas view is shown
     const pins = [...$('map-dots').querySelectorAll('.atlas-pin')];
-    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
-    const hitArea = (a, b) => Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left))
+    const pinBoxes = pins.map(pin => pin.getBoundingClientRect());
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+    const area = (a, b) => Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left))
       * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
-    const symbols = pins.map(pin => pin.querySelector('.atlas-pin-symbol').getBoundingClientRect());
+    const gapOptions = [3, 9, 18, 30, 45, 60, 78, 96];
+    const shifts = [0, -12, 12, -24, 24, -36, 36, -48, 48, -64, 64, -80, 80, -96, 96, -120, 120, -144, 144];
+    const edge = 5;
+    const safety = 2;
     pins.forEach((pin, index) => {
       const label = pin.querySelector('.atlas-pin-label');
       if (!label) return;
-      const r = pin.getBoundingClientRect();
-      const w = label.offsetWidth, h = label.offsetHeight;
-      if (!w || !h) return;
-      const cx = r.left + r.width / 2;
-      const roomMin = bounds.left + 5 + w / 2;
-      const roomMax = bounds.right - 5 - w / 2;
-      const shifts = [0, -24, 24, -48, 48, -72, 72, -96, 96, -120, 120, -144, 144, -168, 168];
+      const pinBox = pinBoxes[index];
+      const width = label.offsetWidth;
+      const height = label.offsetHeight;
+      if (!width || !height) return;
+      const cx = (pinBox.left + pinBox.right) / 2;
+      const preferX = pin.dataset.collection === 'travel-seoul' ? 14 : 0;
+      const requestedX = cx + preferX;
+      const minCenter = bounds.left + edge + width / 2;
+      const maxCenter = bounds.right - edge - width / 2;
+      const sides = pinBox.top > bounds.top + bounds.height / 2 ? ['top', 'bottom'] : ['bottom', 'top'];
       let best = null;
-      for (const side of ['top', 'bottom']) {
-        const naturalTop = side === 'top' ? r.top - h - 3 : r.bottom + 3;
-        const top = clamp(naturalTop, bounds.top + 5, bounds.bottom - 5 - h);
-        for (const shift of shifts) {
-          const center = roomMin <= roomMax ? clamp(cx + shift, roomMin, roomMax) : (bounds.left + bounds.right) / 2;
-          const box = { left: center - w / 2, right: center + w / 2, top, bottom: top + h };
-          const overflow = Math.max(0, bounds.top + 5 - box.top) + Math.max(0, box.bottom - bounds.bottom + 5)
-            + Math.max(0, bounds.left + 5 - box.left) + Math.max(0, box.right - bounds.right + 5);
-          const collisions = symbols.reduce((sum, symbol, i) => i === index ? sum : sum + hitArea(box, {
-            left: symbol.left - 5, right: symbol.right + 5, top: symbol.top - 5, bottom: symbol.bottom + 5
-          }), 0);
-          // Collision avoidance dominates visual centering; otherwise prefer a short offset.
-          const preferredTop = r.top > bounds.top + bounds.height / 2;
-          const score = collisions * 10 + overflow * 1000 + Math.abs(center - cx) * .15
-            + Math.abs(top - naturalTop) * .25 + ((side === 'top') === preferredTop ? 0 : 2);
-          if (!best || score < best.score) best = { score, side, offset: center - cx, top: top - r.top };
+      for (const side of sides) {
+        for (const gap of gapOptions) {
+          const idealTop = side === 'top' ? pinBox.top - height - gap : pinBox.bottom + gap;
+          const top = clamp(idealTop, bounds.top + edge, bounds.bottom - edge - height);
+          for (const shift of shifts) {
+            const center = minCenter <= maxCenter
+              ? clamp(requestedX + shift, minCenter, maxCenter)
+              : (bounds.left + bounds.right) / 2;
+            const rect = { left: center - width / 2, right: center + width / 2, top, bottom: top + height };
+            // Include the selected pin too; label never covers its own symbol/touch area.
+            const coveredPinArea = pinBoxes.reduce((sum, hit) => sum + area(rect, {
+              left: hit.left - safety, right: hit.right + safety,
+              top: hit.top - safety, bottom: hit.bottom + safety
+            }), 0);
+            const overflow = Math.max(0, bounds.left + edge - rect.left)
+              + Math.max(0, rect.right - bounds.right + edge)
+              + Math.max(0, bounds.top + edge - rect.top)
+              + Math.max(0, rect.bottom - bounds.bottom + edge);
+            // Pin clearance dominates, then closeness to the selected pin (and +14px
+            // bias for Seoul Travel). Do not compute any other label's rectangle.
+            const score = coveredPinArea * 10000 + overflow * 10000
+              + Math.abs(center - requestedX) * .22 + gap * .28
+              + Math.abs(top - idealTop) * .5
+              + (side === sides[0] ? 0 : 2);
+            if (!best || score < best.score) best = {
+              score, side, dx: center - cx, dy: top - pinBox.top
+            };
+          }
         }
       }
       if (best) {
         pin.dataset.labelSide = best.side;
-        pin.style.setProperty('--label-shift', `${best.offset.toFixed(1)}px`);
-        pin.style.setProperty('--label-top', `${best.top.toFixed(1)}px`);
+        pin.style.setProperty('--label-shift', `${best.dx.toFixed(1)}px`);
+        pin.style.setProperty('--label-top', `${best.dy.toFixed(1)}px`);
       }
     });
   }

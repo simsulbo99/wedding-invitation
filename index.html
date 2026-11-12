@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="./accounts.css?v=5">
   <link rel="stylesheet" href="./rsvp.css?v=7-spacing">
   <link rel="stylesheet" href="./guestbook.css?v=5-lightbox">
-  <link rel="stylesheet" href="./bgm.css?v=6">
+  <link rel="stylesheet" href="./bgm.css?v=7">
   <link rel="stylesheet" href="./bridge.css?v=3-15s">
   <style id="wedding-final-style">
 /* The blank blue band remains a deliberate editorial visual divider. */
@@ -43,6 +43,7 @@ font-family: 'Relationship of Melodrame', Georgia, serif !important;
 font-style: normal !important;
 font-weight: 500;
 font-synthesis: none;
+text-transform: none !important;
 letter-spacing: -.035em;
 }
 @media (max-width: 700px) {
@@ -183,7 +184,7 @@ letter-spacing: -.035em;
         </div>
         <a class="atlas-feature" href="./atlas.html" aria-label="사진 앨범 보기">
           <div class="atlas-feature-image"><img src="./images/main-5.webp" loading="lazy" alt="도쿄에서 함께한 여행 사진"><span class="atlas-photo-hint" aria-hidden="true">사진 앨범 보기 <span class="atlas-photo-hint-arrow">↗</span></span></div>
-          <div class="atlas-entry-cta"><span class="album-cta-type">PHOTO ALBUM</span><span class="atlas-entry-arrow" aria-hidden="true">↗</span></div>
+          <div class="atlas-entry-cta"><span class="album-cta-type">Photo Album</span><span class="atlas-entry-arrow" aria-hidden="true">↗</span></div>
         </a>
       </div>
     </section>
@@ -236,7 +237,7 @@ letter-spacing: -.035em;
     <section class="guestbook wrap" id="guestbook" aria-labelledby="guestbook-title">
       <div class="section-head micro"><span>06 / THE GUESTBOOK</span></div>
       <div class="guestbook-grid">
-        <div class="guestbook-copy"><h2 id="guestbook-title">Leave<br><i>a Note.</i></h2><p>축하의 한마디와 함께,<br>결혼식의 순간들을 사진으로 나눠주세요.</p><p class="guestbook-prize">올려주신 결혼식 사진 중 선정해<br>상품권을 드립니다!<br>선정된 사진은 본 청첩장에서<br>공지할 예정입니다!!</p></div>
+        <div class="guestbook-copy"><h2 id="guestbook-title">Leave<br><i>a Note.</i></h2><p>축하의 한마디와 함께,<br>결혼식의 순간들을 사진으로 나눠주세요.</p><p class="guestbook-prize">올려주신 결혼식 사진 중 선정해<br>상품권을 드립니다!</p></div>
         <form class="guestbook-paper" id="guestbook-form" aria-label="공개 방명록 작성">
           <label class="guestbook-field-label" for="guestbook-message">MESSAGE</label>
           <textarea class="guestbook-message" id="guestbook-message" name="message" rows="4" maxlength="500" required placeholder="축하의 마음을 남겨주세요."></textarea>
@@ -279,6 +280,7 @@ letter-spacing: -.035em;
   </div></div>
   <!-- App shell: Atlas is mounted here on first visit; the music card below is shared and never moves. -->
   <div id="atlas-view" data-shell-view="atlas" hidden></div>
+  <div id="atlas-footer-slot" data-shell-view="atlas" hidden></div>
   <section class="bgm-dock" aria-label="배경음악"><div class="wrap">
     <figure class="bgm-card" aria-label="배경음악 플레이어">
       <figcaption class="bgm-card-caption"><span class="micro">Music</span></figcaption>
@@ -288,9 +290,8 @@ letter-spacing: -.035em;
   <footer class="site-footer" data-shell-view="invitation"><div class="wrap">
     <div class="footer-bottom micro"><div class="footer-actions"><a href="./atlas.html">OUR ATLAS ↗</a><button class="replay-intro" id="replay-opening" type="button" hidden>REPLAY INTRO ↺</button></div></div>
   </div></footer>
-  <div id="atlas-footer-slot" data-shell-view="atlas" hidden></div>
   <script src="./bgm.js?v=6" defer></script>
-  <script src="./main.js?v=11-tap-open" defer></script>
+  <script src="./main.js?v=12-fullscreen-tap" defer></script>
   
   <script src="./rsvp.js?v=3" defer></script>
   <script src="./guestbook.js?v=3-lightbox" defer></script>

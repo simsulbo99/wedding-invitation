@@ -82,16 +82,21 @@
     overlay.classList.remove('is-armed');
   }
   function onTapToOpen(event) {
+    // Only the sealed, waiting box can start. Replay, Skip and the live invitation
+    // never inherit an accidental full-screen click handler.
+    if (!overlay.classList.contains('is-armed')) return;
+    if (event.target.closest('button:not(#tap-to-open), a, input, select, textarea')) return;
     event.preventDefault();
     event.stopPropagation();
-    if (!overlay.classList.contains('is-armed')) return;
-    disarm(); // A second tap cannot restart the sequence.
-    // bgm.js reads the choice made in the top-right toggle; ON is the default.
-    // Dispatch synchronously inside this gesture for mobile playback policies.
-    try { window.dispatchEvent(new CustomEvent('invitation:open')); } catch (e) { /* music is optional */ }
+    disarm(); // Guard against rapid double taps.
+    // This fires synchronously inside the user gesture for YouTube playback.
+    // bgm.js respects the preselected ON/OFF choice, independent of this tap.
+    try { window.dispatchEvent(new CustomEvent('invitation:open')); } catch (e) { /* BGM is optional */ }
     start(true);
   }
-  if (tapToOpen) tapToOpen.addEventListener('click', onTapToOpen);
+  // Any tap on the sealed box opens it. The BGM dock is a separate sibling above
+  // the overlay, so its control never bubbles into this listener.
+  overlay.addEventListener('click', onTapToOpen);
 
   // Recover if the in-app browser restores a page from its back/forward cache.
   window.addEventListener('pageshow', () => {

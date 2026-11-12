@@ -12,6 +12,11 @@
 .bgm-control > * { pointer-events: auto; }
 /* The unboxing overlay sits at z-index:9999. Keep the toggle accessible over it. */
 body.opening .bgm-control { z-index: 10010; }
+/* A non-opening exclusion zone around the control; the real toggle stays above it. */
+body.opening .bgm-control::before {
+  content: ''; position: absolute; inset: -10px; pointer-events: auto;
+}
+body.opening .bgm-control > * { position: relative; z-index: 1; }
 .atlas-page .bgm-control { top: calc(16px + env(safe-area-inset-top, 0px)); } /* centred on the Atlas header */
 
 .bgm-toggle {
@@ -44,7 +49,7 @@ body.opening .bgm-control { z-index: 10010; }
 /* ---------- invitation intro: a quiet typographic tap prompt ---------- */
 .unbox-choices {
   position: absolute; z-index: 3; left: 50%;
-  bottom: calc(clamp(70px, 10svh, 104px) + env(safe-area-inset-bottom, 0px));
+  bottom: 42svh;
   transform: translateX(-50%); width: min(260px, calc(100vw - 48px));
   display: flex; align-items: center; justify-content: center;
   opacity: 0; visibility: hidden; pointer-events: none;
@@ -61,14 +66,14 @@ body.opening .bgm-control { z-index: 10010; }
   min-height: 44px; min-width: 148px; padding: 8px 16px;
   border: 0; border-radius: 0; background: transparent;
   color: #152b2d; text-shadow: 0 1px 12px rgba(248,247,243,.42);
-  font: 500 13px/1.4 var(--sans, 'DM Sans', Arial, sans-serif);
+  font: 500 16px/1.4 var(--sans, 'DM Sans', Arial, sans-serif);
   letter-spacing: .22em; white-space: nowrap; cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 .unbox-overlay.is-armed .unbox-tap { animation: unbox-tap-breathe 2.8s ease-in-out infinite; }
 .unbox-tap:focus-visible { outline: 1px solid currentColor; outline-offset: 1px; }
 @keyframes unbox-tap-breathe {
-  0%, 100% { opacity: .52; }
+  0%, 100% { opacity: .7; }
   50% { opacity: 1; }
 }
 
@@ -83,7 +88,7 @@ body.opening .bgm-control { z-index: 10010; }
 /* Shared music card. It stays in one place in the DOM while the invitation and the Atlas swap
    around it, so the player is never moved or hidden.
    Invitation order: body copy -> J & S. (.site-footer-signature) -> Music (.bgm-dock) -> footer links.
-   Atlas order: Atlas content -> Music -> Atlas footer. */
+   Atlas order: Atlas content -> Return button -> Music. */
 .bgm-dock { display: flow-root; background: #192f31; padding-top: 55px; } /* flow-root keeps the card margin inside the dark band */
 .bgm-dock .bgm-card { max-width: 480px; margin-bottom: 52px; color: rgba(248, 247, 243, .9); }
 .bgm-dock .bgm-card .micro { color: rgba(248, 247, 243, .55); }
@@ -92,9 +97,11 @@ body.opening .bgm-control { z-index: 10010; }
 .invitation-page .bgm-dock { padding-top: 0; } /* continues straight under J & S. */
 .invitation-page .bgm-dock .bgm-card { margin-bottom: 44px; }
 .invitation-page .bgm-dock + .site-footer { padding-top: 0; display: flow-root; } /* footer links continue the band */
-.atlas-page .bgm-dock { background: #193535; padding-top: 44px; } /* matches the Atlas footer */
+/* The return button now precedes the shared music card in both mounting modes. */
+.atlas-page .atlas-footer { padding-bottom: 12px; }
+.atlas-page .bgm-dock { background: #193535; padding-top: 16px; }
 .atlas-page .bgm-dock .bgm-card { margin-bottom: 36px; }
-@media (max-width: 700px) { .atlas-page .bgm-dock { padding-top: 40px; } }
+@media (max-width: 700px) { .atlas-page .atlas-footer { padding-bottom: 8px; } .atlas-page .bgm-dock { padding-top: 12px; } }
 
 /* App shell: only the active view is displayed (no overflow changes anywhere). */
 [data-shell-view][hidden] { display: none !important; }
