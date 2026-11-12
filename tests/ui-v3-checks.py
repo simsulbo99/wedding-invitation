@@ -71,7 +71,8 @@ with sync_playwright() as p:
     prize = pg.evaluate("(()=>{const e=document.querySelector('.guestbook-prize'),c=getComputedStyle(e);return {t:e.textContent,fs:parseFloat(c.fontSize),fw:c.fontWeight,bg:c.backgroundColor}})()")
     check('guestbook gift-card notice: new copy, own panel, larger text', prize['t'] == '올려주신 결혼식 사진 중 한 장을 선정해상품권을 드립니다!' and prize['fs'] >= 15 and prize['bg'] != 'rgba(0, 0, 0, 0)', prize)
     album = pg.evaluate("(()=>{const e=document.querySelector('.album-cta-type'),c=getComputedStyle(e),h=getComputedStyle(document.querySelector('.atlas-teaser h2'));return {t:e.textContent,ff:c.fontFamily,fs:c.fontStyle,synth:c.fontSynthesis,tt:c.textTransform,fw:c.fontWeight,hf:h.fontFamily,it:document.querySelectorAll('.album-cta-type i, .album-cta-type em').length}})()")
-    check('Photo Album. is upright Bodoni Moda (not the slanted display face), not uppercase', album['t'] == 'Photo Album.' and album['ff'].startswith('"Bodoni Moda"') and album['ff'] != album['hf'] and album['fs'] == 'normal' and album['synth'] == 'none' and album['tt'] == 'none' and album['fw'] == '500' and album['it'] == 0, album)
+    # 46dcae9 reworded the entry CTA to "PHOTO ALBUM" in the display face; the old check still expected "Photo Album." in Bodoni Moda.
+    check('entry CTA reads PHOTO ALBUM in the display face, no faux slant', album['t'] == 'PHOTO ALBUM' and album['ff'].startswith('"Relationship of Melodrame"') and album['fs'] == 'normal' and album['synth'] == 'none' and album['it'] == 0, album)
     order = pg.evaluate("(()=>{const y=s=>document.querySelector(s).getBoundingClientRect().top+scrollY;return [y('#guestbook-form'),y('.site-footer-signature .footer-title'),y('.bgm-dock'),y('.footer-actions')]})()")
     check('footer order: Guestbook -> J & S. -> Music -> footer links', order == sorted(order), order)
     check('music card shows no song title or artist', 'L-O-V-E' not in pg.inner_text('.bgm-dock') and 'Olivia' not in pg.inner_text('.bgm-dock'))
@@ -96,7 +97,8 @@ with sync_playwright() as p:
     check('after bridge: Atlas scrolls normally', pg.evaluate("scrollY") > 300)
 
     # ---------- Atlas content ----------
-    check('Atlas title "The Atlas."', pg.inner_text('#atlas-page-title') == 'The Atlas.')
+    # UI refinement v4 renamed the album heading and dropped the <em>.
+    check('Atlas title "Photo Album"', pg.inner_text('#atlas-page-title') == 'Photo Album')
     cap = pg.evaluate("(()=>{const c=document.querySelector('.atlas-hero-caption'); if(!c) return null; const cs=getComputedStyle(c),r=c.getBoundingClientRect(),h=document.getElementById('atlas-page-title').getBoundingClientRect(); return {t:c.textContent.trim(),gap:Math.round(r.top-h.bottom),fs:parseFloat(cs.fontSize),vis:!!c.offsetParent}})()")
     check('one-line caption sits right under the Atlas title', cap is not None and cap['t'] == '우리의 순간들을 지도 위에 담았습니다.' and cap['vis'] and 6 <= cap['gap'] <= 24 and 13 <= cap['fs'] <= 16, cap)
     tb = pg.evaluate("(()=>{const h=document.querySelector('.atlas-toolbar h2'),g=document.querySelector('.atlas-map-guide'),t=document.querySelector('.atlas-tabs');const r=e=>e.getBoundingClientRect();return {h:h.textContent,g:g.textContent,ok:r(h).bottom<=r(g).top+1&&r(g).bottom<=r(t).top+1,fs:parseFloat(getComputedStyle(g).fontSize)}})()")
