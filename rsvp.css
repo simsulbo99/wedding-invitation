@@ -114,3 +114,42 @@
 @media (max-width:700px) {
   .invitation-page .rsvp-form-shell .rsvp-field--choice { padding-top: 31px; }
 }
+
+/* RSVP spacing normalization — append to the END of rsvp.css.
+   Four fields: 12px between heading and control, 28px between groups.
+   This is intentionally scoped to the invitation RSVP form. */
+.invitation-page .rsvp-form-shell .rsvp-field,
+.invitation-page .rsvp-form-shell .rsvp-field--choice {
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.invitation-page .rsvp-form-shell .rsvp-field + .rsvp-field {
+  margin-top: 28px;
+}
+
+.invitation-page .rsvp-form-shell .rsvp-legend,
+.invitation-page .rsvp-form-shell .rsvp-field--choice > .rsvp-legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 12px;
+  line-height: 1.6;
+}
+
+.invitation-page .rsvp-form-shell .rsvp-choices {
+  margin: 0;
+  padding: 0;
+}
+
+.invitation-page .rsvp-form-shell .rsvp-choice {
+  align-items: center;
+}
+
+.invitation-page .rsvp-form-shell .rsvp-choice input {
+  margin: 0;
+  flex: 0 0 auto;
+}
