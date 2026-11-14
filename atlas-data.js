@@ -347,11 +347,6 @@ window.ATLAS_DATA = {
           "height": 1920
         },
         {
-          "file": "Tokyo_05.jpg",
-          "width": 1440,
-          "height": 1920
-        },
-        {
           "file": "Tokyo_06.jpg",
           "width": 1372,
           "height": 1920
@@ -368,11 +363,6 @@ window.ATLAS_DATA = {
         },
         {
           "file": "Tokyo_09.jpg",
-          "width": 1440,
-          "height": 1920
-        },
-        {
-          "file": "Tokyo_10.jpg",
           "width": 1440,
           "height": 1920
         },
@@ -402,11 +392,6 @@ window.ATLAS_DATA = {
           "height": 1920
         },
         {
-          "file": "Tokyo_16.jpg",
-          "width": 1440,
-          "height": 1920
-        },
-        {
           "file": "Tokyo_17.jpg",
           "width": 1440,
           "height": 1920
@@ -429,11 +414,6 @@ window.ATLAS_DATA = {
         {
           "file": "Tokyo_21.jpg",
           "width": 1439,
-          "height": 1920
-        },
-        {
-          "file": "Tokyo_22.jpg",
-          "width": 1440,
           "height": 1920
         },
         {
@@ -548,11 +528,6 @@ window.ATLAS_DATA = {
         },
         {
           "file": "Sapa_16.jpg",
-          "width": 1440,
-          "height": 1920
-        },
-        {
-          "file": "Sapa_17.jpg",
           "width": 1440,
           "height": 1920
         },
