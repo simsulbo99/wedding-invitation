@@ -46,8 +46,40 @@ font-synthesis: none;
 text-transform: none !important;
 letter-spacing: -.035em;
 }
+/* Introduction family caption: match the photo's alignment without changing the image. */
+.invitation-page .hero-family {
+  display: grid;
+  grid-template-columns: 47% 53%;
+  margin-top: 32px;
+  position: relative;
+}
+.invitation-page .hero-family-column {
+  grid-column: 2;
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 34px;
+}
+.invitation-page .hero-family-caption {
+  width: 84%;
+  text-align: center;
+  font: 400 16px/1.75 var(--kr);
+  letter-spacing: -.04em;
+  color: #77736d;
+}
+.invitation-page .hero-family-caption p {
+  margin: 0;
+  white-space: nowrap;
+}
+.invitation-page .hero-family-caption p + p { margin-top: 10px; }
+.invitation-page .hero-family-caption strong {
+  font-weight: 500;
+  color: #302f2b;
+}
 @media (max-width: 700px) {
-.invitation-page .statement--stripe { height: 84px; }
+  .invitation-page .statement--stripe { height: 84px; }
+  .invitation-page .hero-family { display: block; margin-top: 32px; }
+  .invitation-page .hero-family-column { display: block; padding-left: 0; }
+  .invitation-page .hero-family-caption { width: 90%; margin-left: auto; font-size: 15px; }
 }
 </style>
 </head>
@@ -85,6 +117,14 @@ letter-spacing: -.035em;
           <span class="hero-plate" aria-hidden="true"></span>
           <div class="hero-photo-frame">
             <img src="./images/main-1.webp" alt="정우와 서하가 함께한 서울의 웨딩 사진" fetchpriority="high">
+          </div>
+        </div>
+      </div>
+      <div class="hero-family" aria-label="신랑 신부의 부모님">
+        <div class="hero-family-column">
+          <div class="hero-family-caption">
+            <p>김용덕 · 서현선의 아들 <strong>정우</strong></p>
+            <p>현진성 · 유지윤의 딸 <strong>서하</strong></p>
           </div>
         </div>
       </div>
