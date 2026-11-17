@@ -267,9 +267,9 @@ window.ATLAS_DATA = {
       "filePrefix": "WS_Tokyo",
       "photos": [
         {
-          "file": "WS_Tokyo_01.jpg",
-          "width": 1017,
-          "height": 1527
+          "file": "WS_Tokyo_01.webp",
+          "width": 1006,
+          "height": 1536
         },
         {
           "file": "WS_Tokyo_02.jpg",
@@ -282,27 +282,42 @@ window.ATLAS_DATA = {
           "height": 1920
         },
         {
-          "file": "WS_Tokyo_04.jpg",
-          "width": 1281,
-          "height": 1920
+          "file": "WS_Tokyo_04.webp",
+          "width": 1091,
+          "height": 1536
         },
         {
-          "file": "WS_Tokyo_05.jpg",
-          "width": 1044,
-          "height": 1568
+          "file": "WS_Tokyo_05.webp",
+          "width": 1024,
+          "height": 1536
         },
         {
-          "file": "WS_Tokyo_06.jpg",
-          "width": 1016,
-          "height": 1524
+          "file": "WS_Tokyo_06.webp",
+          "width": 1062,
+          "height": 1536
         },
         {
           "file": "WS_Tokyo_07.webp",
           "width": 1246,
           "height": 1600
+        },
+        {
+          "file": "WS_Tokyo_08.webp",
+          "width": 1063,
+          "height": 1536
+        },
+        {
+          "file": "WS_Tokyo_09.webp",
+          "width": 1059,
+          "height": 1536
+        },
+        {
+          "file": "WS_Tokyo_10.webp",
+          "width": 1033,
+          "height": 1536
         }
       ],
-      "representative": "WS_Tokyo_05.jpg",
+      "representative": "WS_Tokyo_05.webp",
       "location": {
         "latitude": 35.6762,
         "longitude": 139.6503
@@ -425,41 +440,6 @@ window.ATLAS_DATA = {
           "file": "Tokyo_24.jpg",
           "width": 1440,
           "height": 1920
-        },
-        {
-          "file": "Tokyo_25.webp",
-          "width": 1006,
-          "height": 1536
-        },
-        {
-          "file": "Tokyo_26.webp",
-          "width": 1091,
-          "height": 1536
-        },
-        {
-          "file": "Tokyo_27.webp",
-          "width": 1063,
-          "height": 1536
-        },
-        {
-          "file": "Tokyo_28.webp",
-          "width": 1024,
-          "height": 1536
-        },
-        {
-          "file": "Tokyo_29.webp",
-          "width": 1059,
-          "height": 1536
-        },
-        {
-          "file": "Tokyo_30.webp",
-          "width": 1033,
-          "height": 1536
-        },
-        {
-          "file": "Tokyo_31.webp",
-          "width": 1062,
-          "height": 1536
         }
       ],
       "representative": "Tokyo_01.jpg",
