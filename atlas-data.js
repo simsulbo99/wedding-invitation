@@ -425,6 +425,41 @@ window.ATLAS_DATA = {
           "file": "Tokyo_24.jpg",
           "width": 1440,
           "height": 1920
+        },
+        {
+          "file": "Tokyo_25.webp",
+          "width": 1006,
+          "height": 1536
+        },
+        {
+          "file": "Tokyo_26.webp",
+          "width": 1091,
+          "height": 1536
+        },
+        {
+          "file": "Tokyo_27.webp",
+          "width": 1063,
+          "height": 1536
+        },
+        {
+          "file": "Tokyo_28.webp",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "file": "Tokyo_29.webp",
+          "width": 1059,
+          "height": 1536
+        },
+        {
+          "file": "Tokyo_30.webp",
+          "width": 1033,
+          "height": 1536
+        },
+        {
+          "file": "Tokyo_31.webp",
+          "width": 1062,
+          "height": 1536
         }
       ],
       "representative": "Tokyo_01.jpg",
