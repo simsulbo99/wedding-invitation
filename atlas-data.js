@@ -303,16 +303,11 @@ window.ATLAS_DATA = {
         },
         {
           "file": "WS_Tokyo_08.jpg",
-          "width": 1280,
-          "height": 1920
-        },
-        {
-          "file": "WS_Tokyo_09.jpg",
           "width": 1440,
           "height": 1920
         },
         {
-          "file": "WS_Tokyo_10.webp",
+          "file": "WS_Tokyo_09.webp",
           "width": 1246,
           "height": 1600
         }
