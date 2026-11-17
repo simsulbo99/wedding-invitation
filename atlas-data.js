@@ -272,52 +272,52 @@ window.ATLAS_DATA = {
           "height": 1536
         },
         {
-          "file": "WS_Tokyo_02.jpg",
-          "width": 1280,
-          "height": 1920
-        },
-        {
-          "file": "WS_Tokyo_03.jpg",
-          "width": 1440,
-          "height": 1920
-        },
-        {
-          "file": "WS_Tokyo_04.webp",
+          "file": "WS_Tokyo_02.webp",
           "width": 1091,
           "height": 1536
         },
         {
-          "file": "WS_Tokyo_05.webp",
+          "file": "WS_Tokyo_03.webp",
           "width": 1024,
           "height": 1536
         },
         {
-          "file": "WS_Tokyo_06.webp",
+          "file": "WS_Tokyo_04.webp",
           "width": 1062,
           "height": 1536
         },
         {
-          "file": "WS_Tokyo_07.webp",
-          "width": 1246,
-          "height": 1600
-        },
-        {
-          "file": "WS_Tokyo_08.webp",
+          "file": "WS_Tokyo_05.webp",
           "width": 1063,
           "height": 1536
         },
         {
-          "file": "WS_Tokyo_09.webp",
+          "file": "WS_Tokyo_06.webp",
           "width": 1059,
           "height": 1536
         },
         {
-          "file": "WS_Tokyo_10.webp",
+          "file": "WS_Tokyo_07.webp",
           "width": 1033,
           "height": 1536
+        },
+        {
+          "file": "WS_Tokyo_08.jpg",
+          "width": 1280,
+          "height": 1920
+        },
+        {
+          "file": "WS_Tokyo_09.jpg",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "file": "WS_Tokyo_10.webp",
+          "width": 1246,
+          "height": 1600
         }
       ],
-      "representative": "WS_Tokyo_05.webp",
+      "representative": "WS_Tokyo_03.webp",
       "location": {
         "latitude": 35.6762,
         "longitude": 139.6503
