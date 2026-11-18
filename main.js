@@ -19,15 +19,19 @@
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
   function showFrame(i) { frames.forEach((frame, j) => frame.classList.toggle('active', i === j)); }
   // Fade the next frame in over the current one, so the ivory backdrop never shows mid-dissolve.
+  // The previous frame leaves 750 (400ms real) later: shorter than the 600ms gap between
+  // frames, so each crossfade finishes before the next one starts.
   function stackFrame(i) {
     frames[i].classList.add('active');
-    wait(() => frames[i - 1].classList.remove('active'), 1100);
+    wait(() => frames[i - 1].classList.remove('active'), 750);
   }
   // Swap the closed-lid frame for its two halves, then hinge them open onto the rings.
   function openDoors() {
     inside.classList.add('on');
     doors.forEach(door => door.classList.add('on'));
-    frames[3].classList.remove('active');
+    // The seam frame hands over to its two door halves. Clear every remaining frame
+    // (the last one plus any still dissolving) so only the rings show through the opening.
+    frames.forEach(frame => frame.classList.remove('active'));
     requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('doors-open')));
   }
   function complete() {
@@ -58,9 +62,12 @@
     document.body.classList.add('opening');
     window.scrollTo(0, 0);
     wait(() => signature.classList.add('active'), 180);
-    wait(() => stackFrame(1), 900);
-    wait(() => stackFrame(2), 1900);
-    wait(() => stackFrame(3), 3000);
+    wait(() => stackFrame(1), 600);
+    wait(() => stackFrame(2), 1200);
+    wait(() => stackFrame(3), 1800);
+    wait(() => stackFrame(4), 2400);
+    wait(() => stackFrame(5), 3050);
+    wait(() => stackFrame(6), 3700);
     wait(openDoors, 4400);
     wait(() => overlay.classList.add('ivory-mode'), 5600);
     wait(fadeToLiveCover, 7300);
