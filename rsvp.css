@@ -166,3 +166,47 @@
 .invitation-page .rsvp-form-shell .rsvp-edit-hint:not([hidden]) + .rsvp-field {
   margin-top: 24px;
 }
+
+/* Children headcount (2026-11-25): adults and children are entered separately,
+   with a running total under the GUESTS group. */
+.invitation-page .rsvp-form-shell .rsvp-sublegend {
+  display: block;
+  margin: 0 0 6px;
+  font: 400 12px/1.7 var(--kr,serif);
+  color: #4a706a;
+}
+.invitation-page .rsvp-form-shell .rsvp-children-field { margin-top: 22px; }
+.invitation-page .rsvp-form-shell .rsvp-children-field .rsvp-more-label { margin-bottom: 8px; }
+.invitation-page .rsvp-form-shell .rsvp-children-select {
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  min-height: 46px;
+  margin: 0;
+  padding: 9px 38px 9px 12px;
+  border: 0;
+  border-radius: 0;
+  background-color: rgba(219,236,232,.47);
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23536d68' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 8px;
+  color: #152b2d;
+  font: 400 16px/1.6 var(--kr,serif);
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.invitation-page .rsvp-form-shell .rsvp-children-select:focus-visible { outline: 2px solid #287e75; outline-offset: 2px; }
+.invitation-page .rsvp-form-shell .rsvp-children-select:disabled { opacity: .55; cursor: default; }
+.invitation-page .rsvp-form-shell .rsvp-summary {
+  margin: 16px 0 0;
+  font: 400 13px/1.7 var(--kr,serif);
+  color: #23665f;
+  word-break: keep-all;
+}
+.invitation-page .rsvp-form-shell .rsvp-summary.is-error { color: #a63e36; }
+@media (max-width: 700px) {
+  .invitation-page .rsvp-form-shell .rsvp-children-field { margin-top: 20px; }
+  .invitation-page .rsvp-form-shell .rsvp-summary { margin-top: 14px; }
+}
