@@ -50,7 +50,14 @@
   function childCount() {
     return Math.min(MAX_CHILDREN, Math.max(0, Number(childrenSelect.value) || 0));
   }
+  function clearError() {
+    if (!status.classList.contains('is-error')) return;
+    status.textContent = '';
+    status.classList.remove('is-error');
+    status.setAttribute('role', 'status');
+  }
   function updateCount() {
+    clearError();
     const going = form.elements.attendance.value === 'yes';
     count.hidden = !going;
     const overTwo = selectedChoice() === '3plus';
