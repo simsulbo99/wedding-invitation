@@ -8,11 +8,6 @@
   const status = document.getElementById('rsvp-status');
   const count = document.getElementById('rsvp-count-wrap');
   const editHint = document.getElementById('rsvp-edit-hint');
-  const childrenSelect = document.getElementById('rsvp-children');
-  const summary = document.getElementById('rsvp-summary');
-  const MAX_ADULTS = 10;
-  const MAX_CHILDREN = 5;
-  const MAX_TOTAL = 10;
   const tokenRegex = /^[a-f0-9]{64}$/i;
   // Only the same browser profile can identify an existing response.
   // The server-side token still acts as the private edit key.
@@ -25,9 +20,7 @@
     attendance.checked = true;
     const side = form.querySelector(`[name="side"][value="${data.side === 'bride' ? 'bride' : 'groom'}"]`);
     side.checked = true;
-    // Responses saved before the children field existed have no breakdown: treat guests as adults.
-    childrenSelect.value = String(Math.min(MAX_CHILDREN, Math.max(0, Number(data.children) || 0)));
-    const n = Math.min(MAX_ADULTS, Math.max(1, Number(data.adults || data.guests) || 1));
+    const n = Math.min(10, Math.max(1, Number(data.guests) || 1));
     setCountChoice(n >= 3 ? '3plus' : String(n));
     form.elements.guests.value = String(n >= 3 ? n : 3);
     updateCount();
@@ -41,38 +34,13 @@
     choices.forEach(el => { el.checked = el.value === value; });
     updateCount();
   }
-  function adultCount() {
-    const choice = selectedChoice();
-    if (!choice) return 0;
-    if (choice !== '3plus') return Number(choice);
-    return Math.min(MAX_ADULTS, Math.max(3, Number(form.elements.guests.value) || 3));
-  }
-  function childCount() {
-    return Math.min(MAX_CHILDREN, Math.max(0, Number(childrenSelect.value) || 0));
-  }
-  function clearError() {
-    if (!status.classList.contains('is-error')) return;
-    status.textContent = '';
-    status.classList.remove('is-error');
-    status.setAttribute('role', 'status');
-  }
   function updateCount() {
-    clearError();
     const going = form.elements.attendance.value === 'yes';
     count.hidden = !going;
     const overTwo = selectedChoice() === '3plus';
     more.hidden = !going || !overTwo;
     form.elements.guests.disabled = !going || !overTwo;
     form.elements.guests.required = going && overTwo;
-    childrenSelect.disabled = !going;
-    if (!going) { summary.textContent = ''; summary.classList.remove('is-error'); return; }
-    const adults = adultCount();
-    const children = childCount();
-    const total = adults + children;
-    const detail = children > 0 ? `총 ${total}명 · 성인 ${adults}명, 어린이 ${children}명` : `총 ${total}명`;
-    const tooMany = total > MAX_TOTAL;
-    summary.textContent = tooMany ? `${detail} — 최대 ${MAX_TOTAL}명까지 전달할 수 있습니다.` : detail;
-    summary.classList.toggle('is-error', tooMany);
   }
   // Checkboxes are presented as requested but behave as a single-choice group.
   choices.forEach(el => el.addEventListener('change', () => {
@@ -80,8 +48,6 @@
     else if (!selectedChoice()) setCountChoice(el.value);
   }));
   form.querySelectorAll('[name="attendance"]').forEach(el => el.addEventListener('change', updateCount));
-  form.elements.guests.addEventListener('input', updateCount);
-  childrenSelect.addEventListener('change', updateCount);
   updateCount();
   if (token && local.data) {
     fill(local.data);
@@ -145,50 +111,28 @@
   form.addEventListener('submit', async ev => {
     ev.preventDefault();
     if (busy || !form.reportValidity()) return;
-    const going = form.elements.attendance.value === 'yes';
     const guestChoice = selectedChoice();
-    if (going && !guestChoice) {
+    if (form.elements.attendance.value === 'yes' && !guestChoice) {
       message('참석 인원을 선택해주세요.', true); return;
     }
-    const adults = going ? (guestChoice === '3plus' ? Number(form.elements.guests.value) : Number(guestChoice)) : 0;
-    const children = going ? childCount() : 0;
-    const guestTotal = adults + children;
-    const baseName = form.elements.guestName.value.trim();
-    // The RSVP sheet keeps a fixed set of columns, so the child count is kept readable
-    // in the name cell as well as being sent as its own field.
-    const childrenTag = children > 0 ? ` (어린이 ${children}명)` : '';
-    const sheetName = baseName.slice(0, Math.max(1, 40 - childrenTag.length)) + childrenTag;
+    const guestTotal = guestChoice === '3plus' ? Number(form.elements.guests.value) : Number(guestChoice);
     const data = {
-      guestName: baseName,
+      guestName: form.elements.guestName.value.trim(),
       attendance: form.elements.attendance.value,
       side: form.elements.side.value,
-      guests: going ? guestTotal : 0,
-      adults,
-      children
+      guests: form.elements.attendance.value === 'yes' ? guestTotal : 0
     };
-    if (!baseName || baseName.length > 40 || !['yes','no'].includes(data.attendance) ||
-        !['groom','bride'].includes(data.side) ||
-        (going && (!Number.isInteger(adults) || adults < 1 || adults > MAX_ADULTS ||
-                   !Number.isInteger(children) || children < 0 || children > MAX_CHILDREN ||
-                   guestTotal < 1 || guestTotal > MAX_TOTAL)) ||
-        (going && guestChoice === '3plus' && adults < 3) ||
-        (!going && data.guests !== 0)) {
-      message(guestTotal > MAX_TOTAL ? `총 인원은 ${MAX_TOTAL}명까지 전달할 수 있습니다.` : '입력 내용을 확인해주세요.', true); return;
+    if (!data.guestName || data.guestName.length > 40 || !['yes','no'].includes(data.attendance) ||
+        !['groom','bride'].includes(data.side) || !Number.isInteger(data.guests) || data.guests < 0 || data.guests > 10 ||
+        (data.attendance === 'yes' && (data.guests === 0 || (guestChoice === '3plus' && data.guests < 3)))) {
+      message('입력 내용을 확인해주세요.', true); return;
     }
     busy = true; submit.disabled = true;
     const id = token || randomHex(32);
     const requestId = randomHex(16);
     message('응답을 전달하고 저장 여부를 확인하는 중입니다…');
     try {
-      postHidden({
-        action: 'save', token: id, requestId,
-        guestName: sheetName,
-        attendance: data.attendance,
-        side: data.side,
-        guests: data.guests,
-        adults: data.adults,
-        children: data.children
-      });
+      postHidden({ action: 'save', token: id, requestId, ...data });
       let verified = false;
       for (let i = 0; i < 12; i++) {
         await sleep(i === 0 ? 1400 : 1050);

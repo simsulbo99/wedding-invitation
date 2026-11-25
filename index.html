@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="./opening.css?v=4-intro125">
   <link rel="stylesheet" href="./refine.css?v=8.2-album-size">
   <link rel="stylesheet" href="./accounts.css?v=5">
-  <link rel="stylesheet" href="./rsvp.css?v=8-children">
+  <link rel="stylesheet" href="./rsvp.css?v=7-spacing">
   <link rel="stylesheet" href="./guestbook.css?v=5-lightbox">
   <link rel="stylesheet" href="./bgm.css?v=9-transparent-korean">
   <link rel="stylesheet" href="./bridge.css?v=3-15s">
@@ -255,31 +255,16 @@ letter-spacing: -.035em;
               </div>
             </fieldset>
             <fieldset class="rsvp-field rsvp-field--choice" id="rsvp-count-wrap">
-              <legend class="rsvp-legend">GUESTS / 참석 인원 (본인 포함)</legend>
-              <div class="rsvp-adults-field">
-                <span class="rsvp-sublegend" id="rsvp-adults-label">성인 (본인 포함)</span>
-                <div class="rsvp-choices rsvp-count-choices" role="group" aria-labelledby="rsvp-adults-label">
-                  <label class="rsvp-choice"><input type="checkbox" name="guestCountChoice" value="1" checked> 1명</label>
-                  <label class="rsvp-choice"><input type="checkbox" name="guestCountChoice" value="2"> 2명</label>
-                  <label class="rsvp-choice"><input type="checkbox" name="guestCountChoice" value="3plus"> 3명 이상</label>
-                </div>
-                <div class="rsvp-more-guests" id="rsvp-more-guests" hidden>
-                  <label for="rsvp-guests" class="rsvp-more-label">성인 몇 분이 참석하시나요?</label>
-                  <input class="rsvp-guests" id="rsvp-guests" name="guests" type="number" inputmode="numeric" min="3" max="10" step="1" value="3" disabled>
-                </div>
+              <legend class="rsvp-legend">GUESTS / 총 참석 인원 (본인 포함)</legend>
+              <div class="rsvp-choices rsvp-count-choices" aria-label="참석 인원 선택 (하나만 선택)">
+                <label class="rsvp-choice"><input type="checkbox" name="guestCountChoice" value="1" checked> 1명</label>
+                <label class="rsvp-choice"><input type="checkbox" name="guestCountChoice" value="2"> 2명</label>
+                <label class="rsvp-choice"><input type="checkbox" name="guestCountChoice" value="3plus"> 3명 이상</label>
               </div>
-              <div class="rsvp-children-field" id="rsvp-children-field">
-                <label for="rsvp-children" class="rsvp-more-label">어린이 (만 13세 이하)</label>
-                <select class="rsvp-children-select" id="rsvp-children" name="children">
-                  <option value="0" selected>없음</option>
-                  <option value="1">1명</option>
-                  <option value="2">2명</option>
-                  <option value="3">3명</option>
-                  <option value="4">4명</option>
-                  <option value="5">5명</option>
-                </select>
+              <div class="rsvp-more-guests" id="rsvp-more-guests" hidden>
+                <label for="rsvp-guests" class="rsvp-more-label">총 몇 분이 참석하시나요?</label>
+                <input class="rsvp-guests" id="rsvp-guests" name="guests" type="number" inputmode="numeric" min="3" max="10" step="1" value="3" disabled>
               </div>
-              <p class="rsvp-summary" id="rsvp-summary" aria-live="polite"></p>
             </fieldset>
             <button class="rsvp-action" type="submit" id="rsvp-submit">참석 여부 전달하기 <span aria-hidden="true">↗</span></button>
             <p class="rsvp-status" id="rsvp-status" role="status" aria-live="polite"></p>
@@ -348,7 +333,7 @@ letter-spacing: -.035em;
   <script src="./bgm.js?v=6" defer></script>
   <script src="./main.js?v=12-fullscreen-tap" defer></script>
   
-  <script src="./rsvp.js?v=5-children" defer></script>
+  <script src="./rsvp.js?v=3" defer></script>
   <script src="./guestbook.js?v=3-lightbox" defer></script>
   <script src="./accounts.js?v=5" defer></script>
   <script src="./bridge.js?v=3-15s" defer></script>
